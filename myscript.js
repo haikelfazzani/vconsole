@@ -73,16 +73,13 @@ $(function(){
     //console.log(rcLeft + " " + ycLeft + " "+rcTop);
 
 
-      if ((rcLeft > ycLeft && rcLeft < (ycLeft+80) 
-        && rcTop > ycTop && rcTop < (ycTop+250) && ok == true) 
-      || (ycLeft > rcLeft && ycLeft < (rcLeft+80) 
-        && rcTop > ycTop && rcTop < (ycTop+250) && ok == true)){
+      if ((rcLeft > ycLeft && rcLeft < (ycLeft+80) && rcTop > ycTop && rcTop < (ycTop+250) && ok == true)){
                   
           $('#son')[0].play();
           scoreField.text(score-=10);
           //console.log(scoreField.text());
       }
-      else if((rcTop > ycTop+150) && (rcLeft > ycLeft+10) && (ok == true)){
+      else if((rcTop > ycTop+70) && (rcLeft > ycLeft+50) && (ok == true)){
 
           $("#pass-score").text(passScore+=1);
 
