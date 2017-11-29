@@ -78,8 +78,20 @@ $(function(){
 		crashCar();
 	}
 	// The game
+	var game_over = true;
 	$("#start-game").click(function(){
 		moveBack = setInterval(function(){ startGame(); } ,20);
+		game_over = true;
+	});
+
+	$("#stop-game").click(function(){
+		if(game_over === true){
+			clearInterval(moveBack);
+			game_over = false;
+			$("#vr").stop(true).animate();
+			$("#vj").stop(true).animate();
+			$(".fond").stop(true).animate();
+		}
 	});
 
 	$("#restart").click(function(){
