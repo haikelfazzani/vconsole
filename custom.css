@@ -36,12 +36,12 @@
   font-family: verdana;
   color: white;
   line-height: 22px;
+  border: none;
 }
 
 .btn-game {
   background-color: #00BCD4;
   outline: none;
-  border: none;
   cursor: pointer;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
 }
