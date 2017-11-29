@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="my-script.js"></script>
+	<link rel="stylesheet" type="text/css" href="custom.css">
+</head>
+<body>
+
+	<button class="btn-game" id="start-game">Start Game</button>
+	<button class="btn-game" id="stop-game">Stop Game</button>
+	<button class="btn-game" id="restart">Restart</button>
+
+
+	<div id="score">Score : <span id="info">100</span></div>
+	<div id="pass">Pass : <span id="pass-score">0</span></div>
+	
+
+	<div id="jeu">
+		<img id="fond1" class="fond" src="src/route.png">
+		<img id="fond2" class="fond" src="src/route.png">
+		<img id="vj" src="src/vj.png"> 
+		<img id="vr" src="src/vr.png"> 
+	</div>
+
+	<audio preload="auto" id="son">
+		<source src="src/beep.mp3" type="audio/mp3">
+		<source src="src/beep.ogg" type="audio/ogg">
+	</audio>
+
+</body>
+</html>
