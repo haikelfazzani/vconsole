@@ -17,7 +17,7 @@ $(function(){
 	
 	// Functions
 	function deplaceRedCar(){
-		var newLeft = parseInt(Math.random()*180+redCarLeft);
+		var newLeft = parseInt(Math.random()*180+redCar_initial_left);
 		redCar.animate({top:'-150px'},4000,'linear',
 		function(){
 			redCar.css("top",redCar_initial_top);
@@ -50,20 +50,21 @@ $(function(){
 
 	function crashCar(){
 
-		vjX = parseInt($('#vj').css('left'));
-  		vrX = parseInt($('#vr').css('left'));
-  		vjY = parseInt($('#vj').css('top'));
-  		vrY = parseInt($('#vr').css('top'));
-  		if (((vjX > vrX) 
-  			&& (vjX < (vrX+48)) 
-  			&& (vrY > vjY) 
-  			&& (vrY < (vjY+155)) 
+		ycLeft = parseInt($('#vj').css('left'));
+  		rcLeft = parseInt($('#vr').css('left'));
+  		ycTop = parseInt($('#vj').css('top'));
+  		rcTop = parseInt($('#vr').css('top'));
+  		if (((ycLeft > rcLeft) 
+  			&& (ycLeft < (rcLeft+48)) 
+  			&& (rcTop > ycTop) 
+  			&& (rcTop < (ycTop+155)) 
   			&& (ok === true))){
 
 			$("#score").text("Score : " + (score-=10));
+			$('#son')[0].play();
 			ok = false;
 
-		}else if(((vjX < vrX+155) && vjX < (vrX+48) && (ok === true))){
+		}else if(((ycLeft < rcLeft+155) && ycLeft < (rcLeft+48) && (ok === true))){
 
 			$("#pass").text(pass++);
 		}
