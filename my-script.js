@@ -17,9 +17,11 @@ $(function(){
 	
 	// Functions
 	function deplaceRedCar(){
+		var newLeft = parseInt(Math.random()*180+redCarLeft);
 		redCar.animate({top:'-150px'},4000,'linear',
 		function(){
 			redCar.css("top",redCar_initial_top);
+			redCar.css("left",redCar_initial_left+newLeft);
 			ok = true;
 			deplaceRedCar();
 		});
