@@ -4,7 +4,7 @@ body,
   color: #ffffff;
   height: 100vh;
   width: 100vw;
-  font-family: 'Inconsolata', monospace;
+  font-family: 'Noto Sans', sans-serif;
   overflow: hidden;
 }
 
@@ -39,4 +39,9 @@ main>div {
   border-color: rgb(48, 48, 48) !important;
 }
 
-.navbar-brand {font-family: 'Sriracha';}
+.nav-item {cursor: pointer;}
+
+
+::-webkit-scrollbar { width: 5px;}
+::-webkit-scrollbar-thumb { background: #555; }
+::-webkit-scrollbar-thumb:hover { background: #363636; }
