@@ -1,11 +1,12 @@
 ### React playground
 
-- [ ] download code
-- [ ] share code
+- [x] Multi Tabs
+- [x] Download code
+- [ ] Share code
 
 ### Capture
 
-![](https://i.ibb.co/h98qyG2/react-play.png)
+![](https://i.ibb.co/bdCwmkF/reacto.png)
 
 ### License
 MIT

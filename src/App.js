@@ -1,9 +1,8 @@
 import React, { useState } from "react";
+import Editor from './components/Editor';
 import { LiveProvider, LiveError, LivePreview } from 'react-live'
 import SplitPane from './components/SplitPane';
 import Navbar from "./components/Navbar";
-
-import Editor from './components/Editor'
 
 import './styles/App.css';
 import LocalData from "./util/LocalData";
@@ -96,8 +95,8 @@ export default function App () {
     <Navbar />
 
     <div className="tabs">
-      {tabs.map((t, idx) => <div className={"tab mr-2 " + (currTabIndex === idx ? "active-tab" : "")} 
-      key={'tab'+idx}>
+      {tabs.map((t, idx) => <div className={"tab mr-2 " + (currTabIndex === idx ? "active-tab" : "")}
+        key={'tab' + idx}>
         <span
           className="mr-1 w-75"
           onClick={() => { onChangeTab(idx) }}>
@@ -116,12 +115,10 @@ export default function App () {
         <Editor onChange={onEditorChange} value={editorValue} />
         <LiveProvider code={codeResult} noInline={true}>
           <div className="code-result">
-            <LivePreview />
-            <LiveError />
+            <LivePreview /><LiveError />
           </div>
         </LiveProvider>
       </SplitPane>
-
     </main>
   </>;
 } 
