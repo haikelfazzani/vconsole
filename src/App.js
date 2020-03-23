@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { LiveProvider, LiveError, LivePreview } from 'react-live'
 import SplitPane from './components/SplitPane';
 import Navbar from "./components/Navbar";
-import { UnControlled as CodeMirror } from 'react-codemirror2';
 
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/mdn-like.css';
-import 'codemirror/mode/jsx/jsx';
+import Editor from './components/Editor'
 
 import './styles/App.css';
 import LocalData from "./util/LocalData";
@@ -37,7 +34,7 @@ export default function App () {
   const [tab, setTab] = useState({ name: 'Main.js', code: codeJsx });
   const [tabs, setTabs] = useState(LocalData.getTabs());
 
-  const onChange = (editor, value, data) => {
+  const onEditorChange = (editor, value, data) => {
     setEditorValue(data);
     setTab({ ...tab, code: data });
 
@@ -116,12 +113,7 @@ export default function App () {
 
     <main>
       <SplitPane>
-        <CodeMirror
-          autoCursor={false}
-          options={{ mode: 'jsx', theme: 'mdn-like', lineNumbers: true }}
-          onChange={onChange}
-          value={editorValue}
-        />
+        <Editor onChange={onEditorChange} value={editorValue} />
         <LiveProvider code={codeResult} noInline={true}>
           <div className="code-result">
             <LivePreview />
