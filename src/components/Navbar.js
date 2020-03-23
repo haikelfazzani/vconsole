@@ -20,8 +20,16 @@ export default function Navbar () {
 
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mr-auto"></ul>
+      
 
       <ul className="navbar-nav">
+
+      <li className="nav-item">
+        <a className="nav-link">
+          <span className="badge badge-primary">{new Date().toString().slice(0, 15)}</span>
+        </a>
+      </li>
+
         <li className="nav-item">
           <a className="nav-link"
             href={code}
