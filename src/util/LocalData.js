@@ -17,20 +17,16 @@ render(<App />, document.getElementById('root'))`;
 export default class LocalData {
 
   static getTabs () {
-    let tab = { name: 'Main.js', code: codeJsx, index: 0 };
+    let tab = { name: 'Main.js', code: codeJsx };
     let local = localStorage.getItem('tabs');
     return local ? JSON.parse(localStorage.getItem('tabs')) : [tab];
   }
 
-  static getLastTabIndex() {
-    let local = this.getTabs();  
-    return local ? local.pop().index : 0;
+  static getLastTabIndex () {
+    return this.getTabs().length - 1;
   }
 
-
-  static getFirstTabData() {
-    let local = this.getTabs();  
-    return local[0];
+  static getLastTabName() {
+    return this.getTabs().pop().name.replace(/\D/g,'');
   }
-
 }

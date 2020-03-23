@@ -26,7 +26,7 @@ export default function Navbar () {
 
       <li className="nav-item">
         <a className="nav-link">
-          <span className="badge badge-primary">{new Date().toString().slice(0, 15)}</span>
+          <span className="badge badge-secondary"><i className="fas fa-clock"></i> {new Date().toString().slice(0, 15)}</span>
         </a>
       </li>
 

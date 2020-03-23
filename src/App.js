@@ -34,7 +34,7 @@ export default function App () {
 
   const [currTabIndex, setCurrTabIndex] = useState(0);
 
-  const [tab, setTab] = useState({ name: 'Main.js', code: codeJsx, index: 0 });
+  const [tab, setTab] = useState({ name: 'Main.js', code: codeJsx });
   const [tabs, setTabs] = useState(LocalData.getTabs());
 
   const onChange = (editor, value, data) => {
@@ -56,13 +56,13 @@ export default function App () {
   }
 
   const addTab = () => {
+    let tabName = +LocalData.getLastTabName();
     let tabIndx = LocalData.getLastTabIndex();
     setEditorValue('');
 
     let newTab = {
-      name: `Component${tabIndx + 1}.js`,
-      code: '',
-      index: tabIndx + 1
+      name: `Component${tabName + 1}.js`,
+      code: ''
     };
 
     setTab(newTab);
@@ -80,7 +80,7 @@ export default function App () {
     if (tabIndex !== 0) {
       let localTabs = LocalData.getTabs();
 
-      let newTbs = localTabs.filter(t => t.index !== tabIndex);
+      let newTbs = localTabs.filter((t, index) => index !== tabIndex);
 
       setTabs(newTbs);
       localStorage.setItem('tabs', JSON.stringify(newTbs));
@@ -99,14 +99,15 @@ export default function App () {
     <Navbar />
 
     <div className="tabs">
-      {tabs.map(t => <div className={"tab mr-2 " + (currTabIndex === t.index ? "active-tab" : "")} key={t.index}>
+      {tabs.map((t, idx) => <div className={"tab mr-2 " + (currTabIndex === idx ? "active-tab" : "")} 
+      key={'tab'+idx}>
         <span
           className="mr-1 w-75"
-          onClick={() => { onChangeTab(t.index) }}>
+          onClick={() => { onChangeTab(idx) }}>
           {t.name}
         </span>
 
-        <span className="w-25 btn-close-tab" onClick={() => { onRemoveTab(t.index) }}>
+        <span className="w-25 btn-close-tab" onClick={() => { onRemoveTab(idx) }}>
           <i className="fas fa-times-circle"></i>
         </span>
       </div>)}
