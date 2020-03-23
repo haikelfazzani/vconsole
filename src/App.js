@@ -3,9 +3,10 @@ import Editor from './components/Editor';
 import { LiveProvider, LiveError, LivePreview } from 'react-live'
 import SplitPane from './components/SplitPane';
 import Navbar from "./components/Navbar";
+import LocalData from "./util/LocalData";
 
 import './styles/App.css';
-import LocalData from "./util/LocalData";
+import './styles/Tabs.css';
 
 const codeJsx = `function Button({ onClick }) {
   return <button onClick={onClick}>click</button>

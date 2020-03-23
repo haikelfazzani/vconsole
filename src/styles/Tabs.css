@@ -1,0 +1,16 @@
+.tabs {
+  font-size: 12px;
+  width: 100%;
+  display: flex;
+  color: #ff9900;
+  background-color: #424249 !important;
+  padding-left: 40px;
+}
+
+.tab {line-height: 3.5; padding-left: 5px; padding-right: 5px;}
+.active-tab {background-color: #fff; color: #000000;}
+.btn-close-tab {padding-right: 5px; padding-left: 5px;}
+.btn-close-tab:hover {color: #ff1313;}
+
+.btn-plus-tab {border: 0; background-color: inherit; color: #ff9900; outline: none !important;}
+.btn-plus-tab:hover {color: #fff;}
