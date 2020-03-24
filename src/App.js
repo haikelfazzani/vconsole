@@ -7,7 +7,6 @@ import LocalData from "./util/LocalData";
 
 import './styles/App.css';
 import './styles/Tabs.css';
-import SelectThemes from "./containers/SelectThemes";
 
 const codeJsx = `function Button({ onClick }) {
   return <button onClick={onClick}>click</button>
@@ -92,36 +91,45 @@ export default function App () {
     setEditorValue(tabs[0].code);
   }
 
-  return <>
-    <Navbar />
+  return <main>
+    <SplitPane>
+      <div className="tabs">
 
-    <div className="tabs d-flex justify-content-between">
-      <div className="w-90 d-flex">
-        {tabs.map((t, idx) => <div className={"tab mr-2 " + (currTabIndex === idx ? "active-tab" : "")}
-          key={'tab' + idx}>
-          <span className="mr-1 w-75" onClick={() => { onChangeTab(idx) }}>
-            {t.name}
-          </span>
+        <div className="w-100">
+          <div className="w-100 d-flex justify-content-between align-items-center bg-blue-sky py-2 pl-2">
+            <h6 className="m-0"><i className="fas fa-folder mr-2"></i><span>Files</span></h6>
+            <button className="btn-plus-tab" onClick={addTab}>
+              <i className="fas fa-plus"></i>
+            </button>
+          </div>
 
-          <span className="w-25 btn-close-tab" onClick={() => { onRemoveTab(idx) }}>
-            <i className="fas fa-times-circle"></i>
-          </span>
-        </div>)}
-        <button className="btn-plus-tab" onClick={addTab}><i className="fas fa-plus"></i></button>
+          <div className="w-100">
+
+            {tabs.map((t, idx) => <div className={"tab " + (currTabIndex === idx ? "active-tab" : "")}
+              key={'tab' + idx}>
+              <span className="mr-1" onClick={() => { onChangeTab(idx) }}>
+                <i className="fas fa-file-code mr-2"></i><span>{t.name}</span>
+              </span>
+
+              <span className="btn-close-tab" onClick={() => { onRemoveTab(idx) }}>
+                <i className="fas fa-times-circle"></i>
+              </span>
+            </div>)}
+
+
+
+          </div>
+        </div>
+
+        <Navbar />
       </div>
 
-      <SelectThemes />
-    </div>
-
-    <main>
-      <SplitPane>
-        <Editor onChange={onEditorChange} value={editorValue} />
-        <LiveProvider code={codeResult} noInline={true}>
-          <div className="code-result">
-            <LivePreview /><LiveError />
-          </div>
-        </LiveProvider>
-      </SplitPane>
-    </main>
-  </>;
+      <Editor onChange={onEditorChange} value={editorValue} />
+      <LiveProvider code={codeResult} noInline={true}>
+        <div className="code-result">
+          <LivePreview /><LiveError />
+        </div>
+      </LiveProvider>
+    </SplitPane>
+  </main>;
 } 

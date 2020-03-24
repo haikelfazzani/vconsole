@@ -5,7 +5,7 @@ export default function SplitPane ({ children, name, direction = "horizontal" })
 
   const [sizes] = useState(() => {
     let localSizes = localStorage.getItem(name);
-    return localSizes ? JSON.parse(localSizes) : [50, 50];
+    return localSizes ? JSON.parse(localSizes) : [15, 50, 35];
   });
 
   const onDragEnd = v => {

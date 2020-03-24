@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/mdn-like.css';
 import 'codemirror/theme/monokai.css';
-import 'codemirror/theme/material.css';
 import 'codemirror/mode/jsx/jsx';
 
 import 'codemirror/addon/hint/show-hint';
@@ -22,11 +20,7 @@ import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import 'codemirror/addon/fold/xml-fold';
 
-import GlobalContext from '../providers/GlobalContext';
-
 export default class Editor extends PureComponent {
-
-  static contextType = GlobalContext;
 
   constructor () {
     super();
@@ -41,7 +35,7 @@ export default class Editor extends PureComponent {
   render () {    
     const options = {
       mode: 'jsx',
-      theme: this.context.state.theme,
+      theme: 'monokai',
       lineNumbers: true,
       matchBrackets: true,
       autoCloseBrackets: true,
