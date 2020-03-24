@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import logo from '../img/logo192.png';
+import GlobalContext from '../providers/GlobalContext';
 
 export default function Navbar () {
 
+  const { state, setState } = useContext(GlobalContext)
   const [code, setCode] = useState();
 
   const downloadCode = () => {
@@ -11,6 +13,10 @@ export default function Navbar () {
     let codeResult = localStorage.getItem('code-result');
     codeResult = codeResult.replace('\n', '');
     setCode(dType + encodeURIComponent(codeResult));
+  }
+
+  const onThemeChange = (e) => {
+    setState({ ...state, theme: e.target.value })
   }
 
   return <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,6 +33,15 @@ export default function Navbar () {
       <ul className="navbar-nav mr-auto"></ul>
 
       <ul className="navbar-nav">
+
+        <li className="nav-item">
+          <select className="nav-link" onChange={onThemeChange}>
+            <option value="material">material</option>
+            <option value="monokai">monokai</option>
+            <option value="mdn-like">mdn-like</option>
+          </select>
+        </li>
+
         <li className="nav-item">
           <div className="nav-link">
             <span className="badge badge-secondary">

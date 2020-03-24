@@ -98,9 +98,7 @@ export default function App () {
     <div className="tabs">
       {tabs.map((t, idx) => <div className={"tab mr-2 " + (currTabIndex === idx ? "active-tab" : "")}
         key={'tab' + idx}>
-        <span
-          className="mr-1 w-75"
-          onClick={() => { onChangeTab(idx) }}>
+        <span className="mr-1 w-75" onClick={() => { onChangeTab(idx) }}>
           {t.name}
         </span>
 
