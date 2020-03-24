@@ -4,8 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: #fd9720;
-  border-top: 4px solid #1a1b18;
+  color: #afafaf;
 }
 
 .tab {
@@ -17,11 +16,11 @@
   cursor: pointer;
 }
 
-.tab:hover { background-color: #252523; }
+.tab:hover { background-color: #252523; color: #ffffff; }
 
 .active-tab {
   background-color: #1a1b18;
-  color: #fff;
+  color: #72a24d;
 }
 
 .btn-close-tab:hover {
@@ -30,7 +29,7 @@
 
 .btn-plus-tab {
   background-color: inherit !important;
-  color: #f0f0f0;
+  color: #f1f1f1;
   border: 0;
   padding-right: 10px;
   border-radius: 0;
@@ -39,9 +38,13 @@
 }
 
 .btn-plus-tab:hover {
-  color: rgb(0, 0, 0);
+  color: #fff;
 }
 
+.bg-blue-sky {
+  background-color: #72a24d!important;
+  color: #fff;
+}
 
 .w-90 {
   width: 90%;

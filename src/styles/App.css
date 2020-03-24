@@ -1,6 +1,6 @@
 body,
 #root {
-  background-color: #272822;
+  background-color: #242424;
   color: #000000;
   height: 100vh;
   width: 100vw;
@@ -8,10 +8,12 @@ body,
   overflow: hidden;
 }
 
+.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: #242424 !important; }
+
 main {
   height: 100% !important;  
-  border-top: 2px solid #1a1b18;
-  border-bottom: 2px solid #1a1b18;
+  border-top: 2px solid #2d2d2d;
+  border-bottom: 2px solid #2d2d2d;
 }
 
 .CodeMirror,
@@ -38,7 +40,7 @@ main>div {
 }
 
 .gutter {
-  border-left: 1px solid #1a1b18;
+  border-left: 1px solid #2d2d2d;
   cursor: col-resize;
 }
 
@@ -52,28 +54,25 @@ select {
   outline: none;
 }
 
-.bg-blue-sky {
-  background-color: #fd9720!important;
-  color: #fff;
-}
-
 nav{
   font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #fff;
-  background-color: #1a1b18 !important;
+  background-color: #2d2d2d !important;
 }
 
 nav a {color: #fff !important;}
+
+
 
 ::-webkit-scrollbar {
   width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a1b18;
+  background: #2d2d2d;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -1,4 +1,5 @@
-### React playground
+### React playground  
+React playground / Javascript console
 
 - [x] Modern UI
 - [x] Auto Complete / Auto Close Tags
@@ -16,6 +17,8 @@
 - Codemirror/React-codemirror2
 - React-split
 - React-live
+- Bootstrap/FontAwesome/Google Fonts
+- JsHINT
 
 ### License
 MIT
