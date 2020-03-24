@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Editor from './components/Editor';
 import { LiveProvider, LiveError, LivePreview } from 'react-live'
-import SplitPane from './components/SplitPane';
+import SplitPane from './containers/SplitPane';
 import Navbar from "./components/Navbar";
 import LocalData from "./util/LocalData";
 
 import './styles/App.css';
 import './styles/Tabs.css';
+import SelectThemes from "./containers/SelectThemes";
 
 const codeJsx = `function Button({ onClick }) {
   return <button onClick={onClick}>click</button>
@@ -92,21 +93,24 @@ export default function App () {
   }
 
   return <>
-
     <Navbar />
 
-    <div className="tabs">
-      {tabs.map((t, idx) => <div className={"tab mr-2 " + (currTabIndex === idx ? "active-tab" : "")}
-        key={'tab' + idx}>
-        <span className="mr-1 w-75" onClick={() => { onChangeTab(idx) }}>
-          {t.name}
-        </span>
+    <div className="tabs d-flex justify-content-between">
+      <div className="w-90 d-flex">
+        {tabs.map((t, idx) => <div className={"tab mr-2 " + (currTabIndex === idx ? "active-tab" : "")}
+          key={'tab' + idx}>
+          <span className="mr-1 w-75" onClick={() => { onChangeTab(idx) }}>
+            {t.name}
+          </span>
 
-        <span className="w-25 btn-close-tab" onClick={() => { onRemoveTab(idx) }}>
-          <i className="fas fa-times-circle"></i>
-        </span>
-      </div>)}
-      <button className="btn-plus-tab" onClick={addTab}><i className="fas fa-plus"></i></button>
+          <span className="w-25 btn-close-tab" onClick={() => { onRemoveTab(idx) }}>
+            <i className="fas fa-times-circle"></i>
+          </span>
+        </div>)}
+        <button className="btn-plus-tab" onClick={addTab}><i className="fas fa-plus"></i></button>
+      </div>
+
+      <SelectThemes />
     </div>
 
     <main>

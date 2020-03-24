@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import logo from '../img/logo192.png';
-import GlobalContext from '../providers/GlobalContext';
 
 export default function Navbar () {
 
-  const { state, setState } = useContext(GlobalContext)
   const [code, setCode] = useState();
 
   const downloadCode = () => {
@@ -15,14 +13,11 @@ export default function Navbar () {
     setCode(dType + encodeURIComponent(codeResult));
   }
 
-  const onThemeChange = (e) => {
-    setState({ ...state, theme: e.target.value })
-  }
-
   return <nav className="navbar navbar-expand-lg navbar-light bg-light">
 
-    <div className="navbar-brand">
-      <img src={logo} alt=".." width="30" height="30" className="d-inline-block align-top" /> Reacto
+    <div className="navbar-brand d-flex align-items-center">
+      <img src={logo} alt=".." width="40" height="40" className="d-inline-block align-top mr-2" />
+      <h3 className="m-0 p-0">Reacto</h3>
     </div>
 
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,14 +28,6 @@ export default function Navbar () {
       <ul className="navbar-nav mr-auto"></ul>
 
       <ul className="navbar-nav">
-
-        <li className="nav-item">
-          <select className="nav-link" onChange={onThemeChange}>
-            <option value="material">material</option>
-            <option value="monokai">monokai</option>
-            <option value="mdn-like">mdn-like</option>
-          </select>
-        </li>
 
         <li className="nav-item">
           <div className="nav-link">

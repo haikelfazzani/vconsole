@@ -1,7 +1,7 @@
 ### React playground
 
 - [x] Modern UI
-- [x] Autocomplete (Only Javascript)
+- [x] Auto Complete / Auto Close Tags
 - [x] Multi Tabs
 - [x] Download code
 - [x] AutoSave

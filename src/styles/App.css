@@ -9,7 +9,7 @@ body,
 }
 
 main {
-  height: 85% !important;
+  height: 83% !important;
   border-bottom: 7px solid #424249 !important;
 }
 
@@ -41,22 +41,23 @@ main>div {
 }
 
 .navbar {
-  /* background-color: #424249 !important; */
-  box-shadow: rgba(0, 0, 0, 0.568) 0px 1px 2px 0px;
-  z-index: 99;
+  box-shadow: rgba(0, 0, 0, 0.74) 0px 1px 2px 0px;
   border-radius: 0 !important;
-  /* border-bottom: 2px solid #ff9900; */
+  z-index: 99;  
 }
 
 .navbar-brand {font-family: 'Changa', sans-serif !important; font-weight: 600;}
+.navbar-brand img {border-radius: 50%; border: 2px solid #363636; }
+
+.nav-item {
+  cursor: pointer;
+}
 
 .cm-s-mdn-like .CodeMirror-gutters {
   border-left-color: #fff !important;
 }
 
-.nav-item {
-  cursor: pointer;
-}
+select {border: 0; text-transform: uppercase; outline: none;}
 
 ::-webkit-scrollbar {
   width: 5px;
