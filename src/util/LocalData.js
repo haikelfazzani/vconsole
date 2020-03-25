@@ -26,7 +26,11 @@ export default class LocalData {
     return this.getTabs().length - 1;
   }
 
-  static getLastTabName() {
-    return this.getTabs().pop().name.replace(/\D/g,'');
+  static getLastTabName () {
+    return this.getTabs().pop().name.replace(/\D/g, '');
+  }
+
+  static getFirstTabData () {
+    return this.getTabs()[0] ? this.getTabs()[0].code : codeJsx;
   }
 }

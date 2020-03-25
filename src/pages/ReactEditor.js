@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Editor from '../components/Editor';
 import { LiveProvider, LiveError, LivePreview } from 'react-live'
 import SplitPane from '../containers/SplitPane';
@@ -7,30 +7,16 @@ import LocalData from "../util/LocalData";
 
 import '../styles/Tabs.css';
 
-const codeJsx = `function Button({ onClick }) {
-  return <button onClick={onClick}>click</button>
-}
+let initCode = LocalData.getFirstTabData();
 
-function App() {
-  const [count, setCount] = React.useState(0);
-  
-  const onCount = () => setCount(count + 1);
-  
-  return <div>
-    {count} <Button onClick={onCount} />
-  </div>
-}
+export default function App (props) {
 
-render(<App />, document.getElementById('root'))`;
-
-export default function App () {
-
-  const [editorValue, setEditorValue] = useState(codeJsx);
-  const [codeResult, setCodeResult] = useState(codeJsx);
+  const [editorValue, setEditorValue] = useState(initCode);
+  const [codeResult, setCodeResult] = useState(initCode);
 
   const [currTabIndex, setCurrTabIndex] = useState(0);
 
-  const [tab, setTab] = useState({ name: 'Main.js', code: codeJsx });
+  const [tab, setTab] = useState({ name: 'Main.js', code: initCode });
   const [tabs, setTabs] = useState(LocalData.getTabs());
 
   const onEditorChange = (editor, value, data) => {
@@ -51,7 +37,7 @@ export default function App () {
     }
   }
 
-  const addTab = () => {
+  const onAddTab = () => {
     let tabName = +LocalData.getLastTabName();
     let tabIndx = LocalData.getLastTabIndex();
     setEditorValue('');
@@ -90,6 +76,14 @@ export default function App () {
     setEditorValue(tabs[0].code);
   }
 
+  useEffect(() => {
+    if (Object.keys(props.match.params).length > 0) {
+      const decodedData = window.atob(props.match.params.url);
+      const jsonTabs = JSON.parse(decodedData);
+      setTabs(jsonTabs);
+    }
+  }, [props.match.params]);
+
   return <main>
     <SplitPane>
       <div className="tabs">
@@ -97,7 +91,7 @@ export default function App () {
         <div className="w-100">
           <div className="w-100 d-flex justify-content-between align-items-center bg-blue-sky py-2 pl-2">
             <h6 className="m-0"><i className="fas fa-folder mr-2"></i><span>Files</span></h6>
-            <button className="btn-plus-tab" onClick={addTab}>
+            <button className="btn-plus-tab" onClick={onAddTab}>
               <i className="fas fa-plus"></i>
             </button>
           </div>
@@ -115,8 +109,6 @@ export default function App () {
               </span>
             </div>)}
 
-
-
           </div>
         </div>
 
@@ -125,9 +117,7 @@ export default function App () {
 
       <Editor onChange={onEditorChange} value={editorValue} />
       <LiveProvider code={codeResult} noInline={true}>
-        <div className="code-result">
-          <LivePreview /><LiveError />
-        </div>
+        <div className="code-result"> <LivePreview /><LiveError />   </div>
       </LiveProvider>
     </SplitPane>
   </main>;

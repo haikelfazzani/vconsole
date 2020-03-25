@@ -65,7 +65,7 @@ nav{
 
 nav a {color: #fff !important;}
 
-
+.active-copy {color: rgb(32, 255, 32);}
 
 ::-webkit-scrollbar {
   width: 5px;

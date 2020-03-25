@@ -15,7 +15,7 @@ export default function App () {
   return <BrowserRouter>
     <Switch>
       <Route exact path="/" component={ReactEditor} />
-      {/* <Route path="/react-playground" component={ReactEditor} /> */}
+      <Route path="/r/:url" component={ReactEditor} />
       <Route path="/js-console" component={JsConsole} />
       <Redirect path="*" to="/" />
     </Switch>

@@ -6,7 +6,7 @@ React playground / Javascript console
 - [x] Multi Tabs
 - [x] Download code
 - [x] AutoSave
-- [ ] Share code
+- [x] Share code
 
 ### Capture
 
