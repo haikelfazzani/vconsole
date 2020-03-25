@@ -2,15 +2,19 @@
 React playground / Javascript console
 
 - [x] Modern UI
-- [x] Auto Complete / Auto Close Tags
+- [x] Auto Complete (Ctrl+Space) / Auto Close Tags
 - [x] Multi Tabs
 - [x] Download code
 - [x] AutoSave
-- [x] Share code
+- [x] Share code (link)
+- [ ] Format code
+- [ ] Realtime share code
 
-### Capture
+### Captures
 
-![](https://i.ibb.co/bdCwmkF/reacto.png)
+![](https://i.ibb.co/FXRBZfr/reacto-example.gif)
+
+![](https://i.ibb.co/DzdkMMz/reacto.png)
 
 ### Techs
 - React
