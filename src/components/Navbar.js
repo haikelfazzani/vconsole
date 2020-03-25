@@ -19,7 +19,7 @@ export default function Navbar () {
     const encodedData = window.btoa(JSON.stringify(codeResult));
 
     const el = document.createElement('textarea');
-    el.value = 'http://localhost:3000/r/' + encodedData;
+    el.value = window.location.origin + '/r/' + encodedData;
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
