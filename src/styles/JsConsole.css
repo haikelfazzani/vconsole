@@ -1,9 +1,24 @@
 .cs-container {
-  display: flex;
-  position: relative;
+  height: 100%;
+  display: flex;  
   border: 2px solid #444444;
-  border-radius: 5px;
 }
+
+.cs-header {
+  background-color: #2d2d2d;
+    color: #ffffff;
+    height: 100%;
+    width: 32px !important;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444444;
+}
+
+.cs-header a {color: #dddddd !important;}
+.cs-header a:hover,.btn-format:hover {color: orange !important; cursor: pointer;}
 
 .cs-container .gutter {
   border: 0;

@@ -33,4 +33,9 @@ export default class LocalData {
   static getFirstTabData () {
     return this.getTabs()[0] ? this.getTabs()[0].code : codeJsx;
   }
+
+  static getCurrTabData() {
+    let local = localStorage.getItem('reacto-curr-tab-value');
+    return local ? JSON.parse(local) : this.getFirstTabData();
+  }
 }

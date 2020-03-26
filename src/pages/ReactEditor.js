@@ -5,21 +5,24 @@ import SplitPane from '../containers/SplitPane';
 import Navbar from "../components/Navbar";
 import LocalData from "../util/LocalData";
 
-import '../styles/Tabs.css';
+import Tab from "../components/Tab";
+import '../styles/Sidebar.css';
+import jsBeauty from "../util/jsBeauty";
 
-let initCode = LocalData.getFirstTabData();
+let codeExample = LocalData.getFirstTabData();
 
 export default function App (props) {
 
-  const [editorValue, setEditorValue] = useState(initCode);
-  const [codeResult, setCodeResult] = useState(initCode);
+  const [editorValue, setEditorValue] = useState(codeExample);
+  const [codeResult, setCodeResult] = useState(codeExample);
 
   const [currTabIndex, setCurrTabIndex] = useState(0);
 
-  const [tab, setTab] = useState({ name: 'Main.js', code: initCode });
+  const [tab, setTab] = useState({ name: 'Main.js', code: codeExample });
   const [tabs, setTabs] = useState(LocalData.getTabs());
 
   const onEditorChange = (editor, value, data) => {
+
     setEditorValue(data);
     setTab({ ...tab, code: data });
 
@@ -34,7 +37,9 @@ export default function App (props) {
       let result = localTabs.reduce((a, c) => c.code + '\n' + a, '');
       setCodeResult(result);
       localStorage.setItem('code-result', JSON.stringify(result));
-    }
+
+      localStorage.setItem('reacto-curr-tab-value', JSON.stringify(data));
+    }        
   }
 
   const onAddTab = () => {
@@ -84,31 +89,40 @@ export default function App (props) {
     }
   }, [props.match.params]);
 
+  useEffect(() => {
+    function beautifyCode(e) {
+      if (e.ctrlKey && e.altKey && e.keyCode === 70) {
+        let localVal = LocalData.getCurrTabData();
+        let bn = jsBeauty(localVal);
+        setEditorValue(bn);
+      }
+    }
+
+    document.addEventListener('keydown', beautifyCode, false);    
+    return () => document.removeEventListener('keydown', beautifyCode)
+  }, []);
+
   return <main>
     <SplitPane>
-      <div className="tabs">
+      <div className="sidebar">
 
         <div className="w-100">
           <div className="w-100 d-flex justify-content-between align-items-center bg-blue-sky py-2 pl-2">
-            <h6 className="m-0"><i className="fas fa-folder mr-2"></i><span>Files</span></h6>
+            <h6 className="m-0"><i className="fas fa-folder mr-1"></i><span>Explorer</span></h6>
             <button className="btn-plus-tab" onClick={onAddTab}>
               <i className="fas fa-plus"></i>
             </button>
           </div>
 
           <div className="w-100">
-
-            {tabs.map((t, idx) => <div className={"tab " + (currTabIndex === idx ? "active-tab" : "")}
-              key={'tab' + idx}>
-              <span className="mr-1" onClick={() => { onChangeTab(idx) }}>
-                <i className="fas fa-file-code mr-2"></i><span>{t.name}</span>
-              </span>
-
-              <span className="btn-close-tab" onClick={() => { onRemoveTab(idx) }}>
-                <i className="fas fa-times-circle"></i>
-              </span>
-            </div>)}
-
+            {tabs.map((t, idx) => <Tab
+              tabName={t.name}
+              tabIdx={idx}
+              currTabIndex={currTabIndex}
+              onChangeTab={onChangeTab}
+              onRemoveTab={onRemoveTab}
+              key={'tab' + idx}
+            />)}
           </div>
         </div>
 

@@ -2,27 +2,28 @@
 React playground / Javascript console
 
 - [x] Modern UI
-- [x] Auto Complete (Ctrl+Space) / Auto Close Tags
+- [x] Auto Complete (Ctrl + Space) / Auto Close Tags
 - [x] Multi Tabs
 - [x] Download code
 - [x] AutoSave
 - [x] Share code (link)
-- [ ] Format code
+- [x] Format code (Ctrl + Alt + F)
+- [ ] Rename component (Sidebar)
 - [ ] Realtime share code
+- [ ] Embedded editor
 
 ### Captures
 
-![](https://i.ibb.co/FXRBZfr/reacto-example.gif)
-
-![](https://i.ibb.co/DzdkMMz/reacto.png)
+![](https://i.ibb.co/8gQDqZd/reacto.png)
 
 ### Techs
-- React
+- React/Context API
 - Codemirror/React-codemirror2
 - React-split
 - React-live
 - Bootstrap/FontAwesome/Google Fonts
 - JsHINT
+- [JsBeautify](https://github.com/beautify-web/js-beautify)
 
 ### License
 MIT

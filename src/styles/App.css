@@ -1,6 +1,6 @@
 body,
 #root {
-  background-color: #242424;
+  background-color: #181717;
   color: #000000;
   height: 100vh;
   width: 100vw;
@@ -8,12 +8,12 @@ body,
   overflow: hidden;
 }
 
-.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: #242424 !important; }
+.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: #181717 !important; }
 
 main {
   height: 100% !important;  
-  border-top: 2px solid #2d2d2d;
-  border-bottom: 2px solid #2d2d2d;
+  border-top: 4px solid #2d2d2d;
+  border-bottom: 4px solid #2d2d2d;
 }
 
 .CodeMirror,
@@ -78,3 +78,7 @@ nav a {color: #fff !important;}
 ::-webkit-scrollbar-thumb:hover {
   background: #363636;
 }
+
+a {text-decoration: none !important;}
+
+.fs-14 {font-size: 14px !important;}

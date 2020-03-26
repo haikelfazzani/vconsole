@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import LocalData from '../util/LocalData';
 
+// it's a Navbar bottom (sidefiles) for React playground
 export default function Navbar () {
 
   const [code, setCode] = useState();
