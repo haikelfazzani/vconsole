@@ -17,7 +17,7 @@ render(<App />, document.getElementById('root'))`;
 export default class LocalData {
 
   static getTabs () {
-    let tab = { name: 'Main.js', code: codeJsx };
+    let tab = { name: 'App.js', code: codeJsx };
     let local = localStorage.getItem('tabs');
     return local ? JSON.parse(localStorage.getItem('tabs')) : [tab];
   }

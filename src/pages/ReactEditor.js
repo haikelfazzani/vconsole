@@ -18,7 +18,7 @@ export default function App (props) {
 
   const [currTabIndex, setCurrTabIndex] = useState(0);
 
-  const [tab, setTab] = useState({ name: 'Main.js', code: codeExample });
+  const [tab, setTab] = useState({ name: 'App.js', code: codeExample });
   const [tabs, setTabs] = useState(LocalData.getTabs());
 
   const onEditorChange = (editor, value, data) => {

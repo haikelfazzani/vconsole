@@ -8,6 +8,7 @@ React playground / Javascript console
 - [x] AutoSave
 - [x] Share code (link)
 - [x] Format code (Ctrl + Alt + F)
+- [x] Transpile code (Babel)
 - [ ] Rename component (Sidebar)
 - [ ] Realtime share code
 - [ ] Embedded editor
@@ -22,8 +23,9 @@ React playground / Javascript console
 - React-split
 - React-live
 - Bootstrap/FontAwesome/Google Fonts
-- JsHINT
+- [JsHINT](https://jshint.com/docs/)
 - [JsBeautify](https://github.com/beautify-web/js-beautify)
+- [Babel](https://babeljs.io/docs/en/babel-standalone)
 
 ### License
 MIT

@@ -5,6 +5,7 @@ import Split from 'react-split';
 import '../styles/JsConsole.css';
 import { Link } from 'react-router-dom';
 import jsBeauty from '../util/jsBeauty';
+import Transpiler from '../containers/Transpiler';
 
 const mydata = (editorValue) => `
 <style>
@@ -58,6 +59,10 @@ export default function JsConsole (props) {
   const [jsHintErrors, setJsHintErrors] = useState([]);
   const [isLinkCopied, setIsLintCopied] = useState(false);
 
+  const [state, setState] = useState({
+    isTranspiled: false
+  });
+
   const onEditorChange = (editor, value, data) => {
     setEditorValue(data);
 
@@ -90,6 +95,8 @@ export default function JsConsole (props) {
     setIsLintCopied(true)
   }, []);
 
+  const transpileCode = () => { setState({ ...state, isTranspiled: !state.isTranspiled }) }
+
   useEffect(() => {
     if (Object.keys(props.match.params).length > 0) {
       const decodedData = window.atob(props.match.params.url);
@@ -113,15 +120,20 @@ export default function JsConsole (props) {
           <i className="fas fa-align-right" data-toggle="tooltip" data-placement="top" title="Beautify Code"></i>
         </span>
 
-        <span className="btn-format" onClick={onGenerateUrl} title={isLinkCopied ? "Copied" : "Copy Link"}>
-          <i className={isLinkCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}></i>
+        <span className="btn-format mb-3" onClick={transpileCode}>
+          <i className="fas fa-exchange-alt" data-toggle="tooltip" data-placement="top" title="Transpile Code"></i>
         </span>
       </div>
 
-      <a className="nav-link fs-14" href="https://github.com/haikelfazzani/react-playground"
-        target="_blank" rel="noopener noreferrer">
-        <i className="fab fa-github"></i>
-      </a>
+      <div className="w-100 d-flex flex-column align-items-center">
+        <span className="btn-format mb-3" onClick={onGenerateUrl} title={isLinkCopied ? "Copied" : "Copy Link"}>
+          <i className={isLinkCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}></i>
+        </span>
+        <a className="nav-link fs-14" href="https://github.com/haikelfazzani/react-playground"
+          target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-github" data-toggle="tooltip" data-placement="top" title="Repository"></i>
+        </a>
+      </div>
     </header>
 
     <Split sizes={[50, 50]}
@@ -133,20 +145,24 @@ export default function JsConsole (props) {
       <Editor onChange={onEditorChange} value={editorValue} />
 
       <div className="d-flex cs-output">
-        <Split sizes={[50, 50]}
-          minSize={0}
-          gutterSize={5}
-          gutterAlign="center"
-          direction="vertical"
-        >
-          <iframe title="js-console" srcDoc={mydata(jsHintErrors.length > 0 ? '' : editorValue)}> </iframe>
-          <ul className="linter">
-            <li className="header"><i className="fas fa-bug"></i> Linter</li>
-            {jsHintErrors.map((l, i) => <li key={'linter' + i}>
-              <i className="fas fa-angle-right"></i> {'Line ' + l.line + ':'} {l.reason}
-            </li>)}
-          </ul>
-        </Split>
+        {!state.isTranspiled
+          ? <Split sizes={[50, 50]}
+            minSize={0}
+            gutterSize={5}
+            gutterAlign="center"
+            direction="vertical"
+          >
+            <iframe title="js-console" srcDoc={mydata(jsHintErrors.length > 0 ? '' : editorValue)}></iframe>
+
+            <ul className="linter">
+              <li className="header"><i className="fas fa-bug"></i> Linter</li>
+              {jsHintErrors.map((l, i) => <li key={'linter' + i}>
+                <i className="fas fa-angle-right"></i> {'Line ' + l.line + ':'} {l.reason}
+              </li>)}
+            </ul>
+          </Split>
+
+          : <Transpiler input={state.isTranspiled ? editorValue : ''} codeType='javascript' />}
       </div>
 
     </Split>
