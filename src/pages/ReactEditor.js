@@ -39,7 +39,7 @@ export default function App (props) {
       localStorage.setItem('code-result', JSON.stringify(result));
 
       localStorage.setItem('reacto-curr-tab-value', JSON.stringify(data));
-    }        
+    }
   }
 
   const onAddTab = () => {
@@ -81,6 +81,12 @@ export default function App (props) {
     setEditorValue(tabs[0].code);
   }
 
+  const beautifyCode = () => {
+    let localVal = LocalData.getCurrTabData();
+    let bn = jsBeauty(localVal);
+    setEditorValue(bn);
+  }
+
   useEffect(() => {
     if (Object.keys(props.match.params).length > 0) {
       const decodedData = window.atob(props.match.params.url);
@@ -89,24 +95,12 @@ export default function App (props) {
     }
   }, [props.match.params]);
 
-  useEffect(() => {
-    function beautifyCode(e) {
-      if (e.ctrlKey && e.altKey && e.keyCode === 70) {
-        let localVal = LocalData.getCurrTabData();
-        let bn = jsBeauty(localVal);
-        setEditorValue(bn);
-      }
-    }
-
-    document.addEventListener('keydown', beautifyCode, false);    
-    return () => document.removeEventListener('keydown', beautifyCode)
-  }, []);
-
   return <main>
+    <Navbar beautifyCode={beautifyCode} />
     <SplitPane>
-      <div className="sidebar">
-
+      <div className="sidebar overflow-auto">
         <div className="w-100">
+
           <div className="w-100 d-flex justify-content-between align-items-center bg-blue-sky py-2 pl-2">
             <h6 className="m-0"><i className="fas fa-folder mr-1"></i><span>Explorer</span></h6>
             <button className="btn-plus-tab" onClick={onAddTab}>
@@ -124,9 +118,8 @@ export default function App (props) {
               key={'tab' + idx}
             />)}
           </div>
-        </div>
 
-        <Navbar />
+        </div>
       </div>
 
       <Editor onChange={onEditorChange} value={editorValue} />
@@ -134,5 +127,6 @@ export default function App (props) {
         <div className="code-result"> <LivePreview /><LiveError />   </div>
       </LiveProvider>
     </SplitPane>
+
   </main>;
 } 

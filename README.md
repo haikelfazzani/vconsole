@@ -7,7 +7,7 @@ React playground / Javascript console
 - [x] Download code
 - [x] AutoSave
 - [x] Share code (link)
-- [x] Format code (Ctrl + Alt + F)
+- [x] Format code
 - [x] Transpile code (Babel)
 - [ ] Rename component (Sidebar)
 - [ ] Realtime share code

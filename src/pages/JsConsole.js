@@ -6,6 +6,7 @@ import '../styles/JsConsole.css';
 import { Link } from 'react-router-dom';
 import jsBeauty from '../util/jsBeauty';
 import Transpiler from '../containers/Transpiler';
+import UrlShortnerService from '../services/UrlShortnerService';
 
 const mydata = (editorValue) => `
 <style>
@@ -81,13 +82,16 @@ export default function JsConsole (props) {
     setEditorValue(bn);
   }, []);
 
-  const onGenerateUrl = useCallback(() => {
+  const onGenerateUrl = useCallback( async () => {
     let codeResult = localStorage.getItem('reacto-console');
 
     const encodedData = window.btoa(codeResult);
 
+    let url = window.location.origin + '/cs/' + encodedData;
+    let shortUrl = await UrlShortnerService.getShortLink(url);
+
     const el = document.createElement('textarea');
-    el.value = window.location.origin + '/cs/' + encodedData;
+    el.value = shortUrl;
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');

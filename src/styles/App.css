@@ -14,6 +14,7 @@ main {
   height: 100% !important;  
   border-top: 4px solid #2d2d2d;
   border-bottom: 4px solid #2d2d2d;
+  display: flex;
 }
 
 .CodeMirror,
@@ -23,7 +24,7 @@ main {
 }
 
 main>div {
-  width: 100%;
+  width: 98.2%;
   height: 100%;
   display: flex;
 }
@@ -53,17 +54,6 @@ select {
   text-transform: uppercase;
   outline: none;
 }
-
-nav{
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  background-color: #2d2d2d !important;
-}
-
-nav a {color: #fff !important;}
 
 .active-copy {color: rgb(32, 255, 32);}
 
