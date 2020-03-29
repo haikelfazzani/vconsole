@@ -97,16 +97,16 @@ export default function Snippets () {
   return (<div className="snippets">
     <header>
 
-    <Link to="/">
-      <i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i>
-    </Link>
+      <Link to="/">
+        <i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i>
+      </Link>
 
       <select onChange={onSwitchSection}>
-        {folders.map(folder => <option value={folder} key={folder}>{folder}</option>)}
+        {folders.length > 0 && folders.map(folder => <option value={folder} key={folder}>{folder}</option>)}
       </select>
 
       <ul>
-        {files.map((file, idx) => <li className={activeFile === idx ? "active-file" : ""}
+        {files.length > 0 && files.map((file, idx) => <li className={activeFile === idx ? "active-file" : ""}
           key={file} onClick={() => { onFileClick(file, idx) }}>
           {SnippetsUtil.formatFileName(file)}
         </li>)}
