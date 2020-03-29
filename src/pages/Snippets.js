@@ -68,7 +68,11 @@ export default function Snippets () {
   const [activeFile, setActiveFile] = useState(0);
 
   useEffect(() => {
-    SnippetsUtil.getFolders().then(r => { setFolders(r); });
+    SnippetsUtil.getFolders().then(r => {
+      setFolders(r);
+      console.log(r);
+    });
+
   }, []);
 
   const onSwitchSection = (e) => {
@@ -89,9 +93,10 @@ export default function Snippets () {
 
   const onFileClick = (file, fileIdx) => {
     SnippetsUtil.getFileContent(selectFolder + '/' + file)
-      .then(r => { setFileContent(r); });
-
-    setActiveFile(fileIdx)
+      .then(r => {
+        setActiveFile(fileIdx);
+        setFileContent(r);
+      });
   }
 
   return (<div className="snippets">
