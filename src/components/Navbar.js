@@ -61,10 +61,6 @@ export default function Navbar ({ beautifyCode }) {
       <i className="fas fa-terminal" data-toggle="tooltip" data-placement="top" title="Javascript console"></i>
     </Link>
 
-    <Link to="/snippets" className="nav-link">
-      <i className="fas fa-file" data-toggle="tooltip" data-placement="top" title="Snippets"></i>
-    </Link>
-
     <a className="nav-link" href="https://github.com/haikelfazzani/react-playground"
       target="_blank" rel="noopener noreferrer">
       <i className="fab fa-github"></i>
