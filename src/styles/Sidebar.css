@@ -25,6 +25,11 @@
 
 .sidebar h6 { font-size: 14px; color: #ffab0e; letter-spacing: 2px; font-weight: 600;}
 
+select {
+  background-color: inherit;
+    color: inherit;
+}
+
 .btn-close-tab:hover {
   color: #ff1313;
 }

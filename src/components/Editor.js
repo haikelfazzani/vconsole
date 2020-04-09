@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
+import GlobalContext from '../providers/GlobalContext';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
@@ -20,20 +21,22 @@ import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import 'codemirror/addon/fold/xml-fold';
 
-export default class Editor extends PureComponent {
+export default function Editor (props) {
 
-  constructor () {
-    super();
-    this.codeMirror = null;
-  }
+  const { state } = useContext(GlobalContext);
+  const [options, setOptions] = useState({});
 
-  autoComplete = cm => {
-    const hintOptions = { disableKeywords: false, completeSingle: true, completeOnSingleClick: false };
-    this.codeMirror.showHint(hintOptions);
-  };
+  useEffect(() => {
+    document.querySelector('.CodeMirror').style.fontSize = state.fontSize;
+  }, [state.fontSize]);
 
-  render () {    
-    const options = {
+  const onEditorDidMount = (codeMirror) => {
+    const autoComplete = cm => {
+      const hintOptions = { disableKeywords: false, completeSingle: true, completeOnSingleClick: false };
+      codeMirror.showHint(hintOptions);
+    };
+
+    setOptions({
       mode: 'jsx',
       theme: 'monokai',
       lineNumbers: true,
@@ -43,18 +46,18 @@ export default class Editor extends PureComponent {
       matchTags: true,
       foldGutter: true,
       gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-      extraKeys: { 'Ctrl-Space': this.autoComplete }
-    };
-
-    return (
-      <CodeMirror
-        editorDidMount={editor => { this.codeMirror = editor }}
-        autoCursor={false}
-        onChange={this.props.onChange}
-        value={this.props.value}
-        ref="CodeMirror"
-        options={options}
-      />
-    );
+      extraKeys: { 'Ctrl-Space': autoComplete }
+    });
   }
+
+  return (
+    <CodeMirror
+      editorDidMount={editor => { onEditorDidMount(editor) }}
+      autoCursor={false}
+      onChange={props.onChange}
+      value={props.value}
+      options={options}
+    />
+  );
+
 }

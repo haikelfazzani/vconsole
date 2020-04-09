@@ -17,6 +17,10 @@ React playground / Javascript console
 
 ![](https://i.ibb.co/8gQDqZd/reacto.png)
 
+### Logo
+
+![](public/logo192.png)
+
 ### Techs
 - React/Context API
 - Codemirror/React-codemirror2
