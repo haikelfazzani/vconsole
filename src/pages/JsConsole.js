@@ -33,7 +33,6 @@ export default function JsConsole () {
     setEditorValue(data);
 
     localStorage.setItem('reacto-console', JSON.stringify(data))
-
     window.JSHINT(data, { asi: true, lastsemic: false, esnext: true });
 
     setJsHintErrors(window.JSHINT.errors.map(e => {

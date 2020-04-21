@@ -12,6 +12,7 @@ React playground / Javascript console
 - [ ] Rename component (Sidebar)
 - [ ] Realtime share code
 - [ ] Embedded editor
+- [ ] Client Http request (Fetch API)
 
 ### Captures
 

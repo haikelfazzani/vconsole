@@ -35,16 +35,16 @@ export default function Tabs ({ editorState, setEditorState, setResult }) {
 
   const onAddTab = () => {
     let cnt = tabsState.nbTabs + 1;
-    let tab = { name: 'Comp' + cnt, code: '// Happy hacking', index: cnt };
+    let tab = { name: 'Comp' + cnt, code: '', index: cnt };
 
     setTabsState({
       ...tabsState,
       currTabIndex: cnt,
       nbTabs: cnt,
       tabs: [...tabsState.tabs, tab],
-      code: '// Happy hacking'
+      code: ''
     });
-    setEditorState('// Happy hacking');
+    setEditorState('');
   }
 
   const onClickTab = (tabIdx) => {

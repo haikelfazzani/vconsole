@@ -25,4 +25,8 @@ export default class LocalData {
   static getFirstTabCode () {
     return this.getTabs()[0].code || codeJsx;
   }
+
+  static getResult () {
+    return this.getTabs().reduce((a, c) => c.code + '\n' + a, '');
+  }
 }

@@ -10,11 +10,12 @@ import jsBeauty from "../util/jsBeauty";
 import LocalData from "../util/LocalData";
 
 let tab = LocalData.getFirstTabCode();
+let codeResult = LocalData.getResult();
 
 export default function Playground () {
 
   const [editorState, setEditorState] = useState(tab);
-  const [result, setResult] = useState(tab);
+  const [result, setResult] = useState(codeResult);
 
   const onEditorChange = (editor, value, data) => {
     setEditorState(data);
@@ -29,7 +30,7 @@ export default function Playground () {
     <SidebarPlayground beautify={beautify} />
     <main>
 
-      <Tabs editorState={editorState} setEditorState={setEditorState} setResult={setResult} />
+      <Tabs editorState={editorState} setEditorState={setEditorState} setResult={setResult} />     
 
       <Split gutterSize={7} sizes={[50, 50]}>
         <Editor onChange={onEditorChange} value={editorState} />
