@@ -4,7 +4,7 @@ import Split from 'react-split';
 
 import Transpiler from '../containers/Transpiler';
 import CsIframe from '../util/CsIframe';
-import CsSidebar from '../containers/CsSidebar';
+import SidebarConsole from '../containers/SidebarConsole';
 
 import '../styles/JsConsole.css';
 
@@ -16,16 +16,16 @@ export default function JsConsole () {
   });
 
   const [jsHintErrors, setJsHintErrors] = useState([]);
-
   const [state, setState] = useState({ isTranspiled: false, isCopied: false });
 
   useEffect(() => {
-    let data = window.location.search.split('=')[1];
+    let data = window.location.search.split('?cs=')[1];
 
-    if (data) {
+    try {
       const decodedData = window.atob(data);
-      const jsonVal = JSON.parse(decodedData);
-      setEditorValue(jsonVal);
+      setEditorValue(decodedData);
+    } catch (error) {
+
     }
   }, []);
 
@@ -43,7 +43,12 @@ export default function JsConsole () {
 
   return <div className="w-100 h-100 cs-container">
 
-    <CsSidebar state={state} setState={setState} editorValue={editorValue} setEditorValue={setEditorValue} />
+    <SidebarConsole
+      state={state}
+      setState={setState}
+      editorValue={editorValue}
+      setEditorValue={setEditorValue}
+    />
 
     <Split sizes={[50, 50]}
       minSize={0}

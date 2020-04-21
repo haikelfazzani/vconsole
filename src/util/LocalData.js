@@ -17,8 +17,12 @@ render(<App />, document.getElementById('root'))`;
 export default class LocalData {
 
   static getTabs () {
-    let tab = { name: 'App.js', codeJsx };
+    let tab = { name: 'App.js', code: codeJsx, index: 0 };
     let local = localStorage.getItem('reacto-tabs');
     return local ? JSON.parse(local) : [tab];
+  }
+
+  static getFirstTabCode () {
+    return this.getTabs()[0].code || codeJsx;
   }
 }

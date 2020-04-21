@@ -10,8 +10,7 @@ import NavLink from '../components/NavLink';
 
 import '../styles/Sidebar.css';
 
-// it's a Sidebar left (sidefiles) for React playground
-export default function Sidebar ({ beautify }) {
+export default function SidebarPlayground ({ beautify }) {
 
   const [editorState, dispatch] = useEffectReducer(editorReducer, editorInitState);
 
@@ -26,7 +25,6 @@ export default function Sidebar ({ beautify }) {
         icon="fas fa-align-right"
         toolTip="Beautify Code"
       />
-
 
       <NavLink
         onClick={() => {

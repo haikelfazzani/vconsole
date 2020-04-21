@@ -1,25 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Tabs.css';
+import LocalData from '../util/LocalData';
 
-const example = `function Button({ onClick }) {
-  return <button onClick={onClick}>click</button>
-}
-
-function App() {
-  const [count, setCount] = React.useState(0);
-  
-  const onCount = () => setCount(count + 1);
-  
-  return <div>
-    hello
-    {count} <Button onClick={onCount} />
-  </div>
-}
-
-render(<App />, document.getElementById('root'))`;
-
-let localTabs = localStorage.getItem('reacto-tabs');
-let tabs = localTabs ? JSON.parse(localTabs) : [{ name: 'App.js', code: example, index: 0 }];
+let tabs = LocalData.getTabs();
 
 export default function Tabs ({ editorState, setEditorState, setResult }) {
 

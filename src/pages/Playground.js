@@ -2,34 +2,19 @@ import React, { useState } from "react";
 import Editor from '../components/Editor';
 import { LiveProvider, LiveError, LivePreview } from 'react-live'
 import Split from 'react-split';
-import Sidebar from "../containers/Sidebar";
 
-import Tabs from "./Tabs";
+import SidebarPlayground from "../containers/SidebarPlayground";
+import Tabs from "../containers/Tabs";
+
 import jsBeauty from "../util/jsBeauty";
+import LocalData from "../util/LocalData";
 
-const example = `function Button({ onClick }) {
-  return <button onClick={onClick}>click</button>
-}
+let tab = LocalData.getFirstTabCode();
 
-function App() {
-  const [count, setCount] = React.useState(0);
-  
-  const onCount = () => setCount(count + 1);
-  
-  return <div>
-    hello
-    {count} <Button onClick={onCount} />
-  </div>
-}
+export default function Playground () {
 
-render(<App />, document.getElementById('root'))`;
-let localTabs = localStorage.getItem('reacto-tabs');
-let tabs = localTabs ? JSON.parse(localTabs) : [{ name: 'App.js', code: example, index: 0 }];
-
-export default function App () {
-
-  const [editorState, setEditorState] = useState(tabs[0].code);
-  const [result, setResult] = useState(example);
+  const [editorState, setEditorState] = useState(tab);
+  const [result, setResult] = useState(tab);
 
   const onEditorChange = (editor, value, data) => {
     setEditorState(data);
@@ -41,7 +26,7 @@ export default function App () {
   }
 
   return <>
-    <Sidebar beautify={beautify} />
+    <SidebarPlayground beautify={beautify} />
     <main>
 
       <Tabs editorState={editorState} setEditorState={setEditorState} setResult={setResult} />

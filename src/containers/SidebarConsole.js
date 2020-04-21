@@ -6,20 +6,19 @@ import UrlShortnerService from '../services/UrlShortnerService';
 import '../styles/Sidebar.css';
 import SelectFont from './SelectFont';
 
-export default function CsSidebar ({ state, setState, editorValue, setEditorValue }) {
+export default function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
 
   const beautifyCode = useCallback(() => {
     let bn = jsBeauty(editorValue);
     setEditorValue(bn);
   }, []);
 
-  const onGenerateUrl = useCallback(async () => {
-    state({ ...state, isCopied: true });
-    let codeResult = localStorage.getItem('reacto-console');
+  const onCopyLink = useCallback(async () => {
+    setState({ ...state, isCopied: true });
 
-    const encodedData = window.btoa(codeResult);
+    const encodedData = window.btoa(editorValue);
 
-    let url = window.location.origin + '/cs?=data' + encodedData;
+    let url = window.location.origin + '/js-console?cs=' + encodedData;
     let shortUrl = await UrlShortnerService.getShortLink(url);
 
     const el = document.createElement('textarea');
@@ -29,7 +28,7 @@ export default function CsSidebar ({ state, setState, editorValue, setEditorValu
     document.execCommand('copy');
     document.body.removeChild(el);
 
-    setTimeout(() => { state({ ...state, isCopied: false }); }, 1000);
+    setTimeout(() => { setState({ ...state, isCopied: false }); }, 1000);
   }, []);
 
 
@@ -38,14 +37,14 @@ export default function CsSidebar ({ state, setState, editorValue, setEditorValu
 
   return (<nav className="cs-header">
     <div className="w-100 d-flex flex-column align-items-center">
-      <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>      
+      <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>
 
       <div className="nav-link" onClick={beautifyCode}>
         <i className="fas fa-align-right" data-toggle="tooltip"
           data-placement="top" title="Beautify Code"></i>
       </div>
 
-      <div className="nav-link" onClick={onGenerateUrl}
+      <div className="nav-link" onClick={onCopyLink}
         title={state.isCopied ? "Copied" : "Copy Link"}>
         <i className={state.isCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}></i>
       </div>
@@ -57,8 +56,8 @@ export default function CsSidebar ({ state, setState, editorValue, setEditorValu
     </div>
 
     <div className="w-100 d-flex flex-column align-items-center">
-      
-      <SelectFont />      
+
+      <SelectFont />
 
       <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
 
