@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import jsBeauty from '../util/jsBeauty';
 import UrlShortnerService from '../services/UrlShortnerService';
@@ -8,12 +8,12 @@ import SelectFont from './SelectFont';
 
 export default function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
 
-  const beautifyCode = useCallback(() => {
+  const beautifyCode = () => {
     let bn = jsBeauty(editorValue);
     setEditorValue(bn);
-  }, []);
+  }
 
-  const onCopyLink = useCallback(async () => {
+  const onCopyLink = async () => {
     setState({ ...state, isCopied: true });
 
     const encodedData = window.btoa(editorValue);
@@ -29,7 +29,7 @@ export default function SidebarConsole ({ state, setState, editorValue, setEdito
     document.body.removeChild(el);
 
     setTimeout(() => { setState({ ...state, isCopied: false }); }, 1000);
-  }, []);
+  }
 
 
   const transpileCode = () => { setState({ ...state, isTranspiled: !state.isTranspiled }) }

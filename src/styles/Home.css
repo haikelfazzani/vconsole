@@ -1,0 +1,16 @@
+.jumbotron {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(135deg, #092a49e5 0%, #001528e5 100%), url(../img/bg.jpg);
+  color: #ffffff;
+}
+
+.jumbotron h1 {
+  font-family: 'Changa';
+  text-transform: uppercase;
+}

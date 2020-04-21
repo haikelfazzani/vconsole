@@ -16,24 +16,8 @@ body,
 #root {display: flex; justify-content: center; align-items: center; border: 4px solid var(--bg-main-light); }
 
 
-.jumbotron {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: linear-gradient(135deg, #092a49e5 0%, #001528e5 100%),url(../img/bg.jpg);
-  color: #ffffff;}
-
-  .jumbotron h1 { font-family: 'Changa'; text-transform: uppercase;}
-
-
   .btn {border-radius: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 2px;}
 
-
-.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: var(--bg-main) !important; }
 
 main {
   width: 95.7%;
@@ -47,6 +31,8 @@ main {
   height: 100% !important;
   font-size: 16px;  
 }
+
+.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: var(--bg-main) !important; }
 
 main>div {
   width: 100%;
@@ -66,7 +52,7 @@ main>div {
 }
 
 .gutter {
-  border-left: 1px solid var(--bg-main-light);
+  background-color: var(--bg-main-light);
   cursor: col-resize;
 }
 

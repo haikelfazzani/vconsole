@@ -17,9 +17,16 @@ render(<App />, document.getElementById('root'))`;
 export default class LocalData {
 
   static getTabs () {
+    let tabsEncoded = window.location.search.split('=')[1];
+    let decodedTabs = null;
+    if (tabsEncoded) { 
+      decodedTabs = window.atob(tabsEncoded); 
+      decodedTabs = JSON.parse(decodedTabs)
+    }
+
     let tab = { name: 'App.js', code: codeJsx, index: 0 };
     let local = localStorage.getItem('reacto-tabs');
-    return local ? JSON.parse(local) : [tab];
+    return decodedTabs || (local ? JSON.parse(local) : [tab]);
   }
 
   static getFirstTabCode () {

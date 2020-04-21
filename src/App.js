@@ -14,6 +14,8 @@ export default function App () {
 
       <Route exact path="/" component={Home} />
       <Route exact path="/react-playground" component={Playground} />
+      <Route path="/react-playground/:hook" component={Playground} />
+
       <Route path="/js-console" component={JsConsole} />
 
       <Redirect path="*" to="/" />

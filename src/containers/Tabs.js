@@ -14,16 +14,6 @@ export default function Tabs ({ editorState, setEditorState, setResult }) {
   });
 
   useEffect(() => {
-    let tabsEncoded = window.location.search.split('=')[1];
-
-    if (tabsEncoded) {
-      const decodedData = window.atob(tabsEncoded);
-      const jsonTabs = JSON.parse(decodedData);
-      setTabsState({ ...tabsState, tabs: jsonTabs });
-    }
-  }, []);
-
-  useEffect(() => {
     tabsState.tabs.find(t => t.index === tabsState.currTabIndex).code = editorState;
     setTabsState({ ...tabsState, tabs: tabsState.tabs });
 
@@ -75,7 +65,7 @@ export default function Tabs ({ editorState, setEditorState, setResult }) {
         {tabsState.tabs.map((tab, i) => {
           return <li key={'tab' + i} className={'tab ' + (tabsState.currTabIndex === i ? 'active-tab' : '')}>
             <span onClick={() => { onClickTab(tab.index) }} className="mr-2">{tab.name}</span>
-            <span onClick={() => { onRemoveTab(tab.index) }}>x</span>
+            <span onClick={() => { onRemoveTab(tab.index) }} className="btn-rm">x</span>
           </li>
         })}
       </ul>
