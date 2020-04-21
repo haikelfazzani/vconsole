@@ -17,25 +17,8 @@ render(<App />, document.getElementById('root'))`;
 export default class LocalData {
 
   static getTabs () {
-    let tab = { name: 'App.js', code: codeJsx };
-    let local = localStorage.getItem('tabs');
-    return local ? JSON.parse(localStorage.getItem('tabs')) : [tab];
-  }
-
-  static getLastTabIndex () {
-    return this.getTabs().length - 1;
-  }
-
-  static getLastTabName () {
-    return this.getTabs().pop().name.replace(/\D/g, '');
-  }
-
-  static getFirstTabData () {
-    return this.getTabs()[0] ? this.getTabs()[0].code : codeJsx;
-  }
-
-  static getCurrTabData() {
-    let local = localStorage.getItem('reacto-curr-tab-value');
-    return local ? JSON.parse(local) : this.getFirstTabData();
+    let tab = { name: 'App.js', codeJsx };
+    let local = localStorage.getItem('reacto-tabs');
+    return local ? JSON.parse(local) : [tab];
   }
 }

@@ -1,0 +1,34 @@
+.tabs {
+  font-size: 12px;
+  width: 100%;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  color: #afafaf;
+  background-color: var(--bg-main);
+  border-bottom: 1px solid var(--bg-main-light);
+}
+
+.tabs ul {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.tab {
+  background-color: var(--bg-main);
+  height: 100%;
+  padding: 0 12px !important;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.726);
+}
+
+.btn-plus {background-color: inherit; color:  #afafaf; border: 0; }
+
+.active-tab { background-color: var(--bg-main-light); color: #ffffff;}

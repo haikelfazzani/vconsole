@@ -1,43 +1,18 @@
 .cs-container {
   height: 100%;
   display: flex;  
-  border: 2px solid #444444;
-}
-
-.cs-header {
-  background-color: #2d2d2d;
-    color: #ffffff;
-    height: 100%;
-    width: 32px !important;
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #444444;
-}
-
-.cs-header a {color: #dddddd !important;}
-.cs-header a:hover,.btn-format:hover {color: orange !important; cursor: pointer;}
-
-.cs-container .gutter {
-  border: 0;
-  background-color: transparent;
 }
 
 .gutter-vertical {
+  border: 0 !important;
   cursor: row-resize;
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .cs-container>div {
   display: flex;
   height: 100%;
   width: 100%;
-}
-
-.cs-output {
-  border-left: 2px solid #444444;
 }
 
 .cs-output>div {
@@ -59,9 +34,7 @@ iframe {
   padding: 0;
   list-style: none;
   color: #f58771;
-  background-color: #2d2d2d;
-  border: 1px solid #444444;
-  border-left: 0;
+  background-color: var(--bg-main-light);
   border-radius: 5px;
   overflow: auto;
 }
@@ -69,7 +42,6 @@ iframe {
 .linter .header {
   font-weight: 600;
   letter-spacing: 2px;
-  border: 0;
   color: #ffffff;
 }
 

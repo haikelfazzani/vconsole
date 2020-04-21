@@ -1,20 +1,45 @@
+:root {
+  --bg-main :#001528 ;
+  --bg-main-light:#15314b;
+}
+
 body,
 #root {
-  background-color: #181717;
-  color: #000000;
+  background-color: var(--bg-main);
+  color: #ffffff;
   height: 100vh;
   width: 100vw;
   font-family: 'Noto Sans', sans-serif;
   overflow: hidden;
 }
 
-.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: #181717 !important; }
+#root {display: flex; justify-content: center; align-items: center; border: 4px solid var(--bg-main-light); }
+
+
+.jumbotron {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(135deg, #092a49e5 0%, #001528e5 100%),url(../img/bg.jpg);
+  color: #ffffff;}
+
+  .jumbotron h1 { font-family: 'Changa'; text-transform: uppercase;}
+
+
+  .btn {border-radius: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 2px;}
+
+
+.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: var(--bg-main) !important; }
 
 main {
-  height: 100% !important;  
-  border-top: 4px solid #2d2d2d;
-  border-bottom: 4px solid #2d2d2d;
+  width: 95.7%;
+  height: 100% !important;    
   display: flex;
+  flex-direction: column;
 }
 
 .CodeMirror,
@@ -24,8 +49,8 @@ main {
 }
 
 main>div {
-  width: 98.2%;
-  height: 100%;
+  width: 100%;
+  height: 95.4%;
   display: flex;
 }
 
@@ -41,7 +66,7 @@ main>div {
 }
 
 .gutter {
-  border-left: 1px solid #2d2d2d;
+  border-left: 1px solid var(--bg-main-light);
   cursor: col-resize;
 }
 
@@ -51,10 +76,14 @@ main>div {
 
 select {
   border: 0;
-  text-transform: uppercase;
   outline: none;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .active-copy {color: rgb(32, 255, 32);}
 
 ::-webkit-scrollbar {
@@ -62,11 +91,11 @@ select {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d2d2d;
+  background: var(--bg-main-light);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #363636;
+  background: #fff;
 }
 
 a {text-decoration: none !important;}
