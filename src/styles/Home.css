@@ -14,3 +14,23 @@
   font-family: 'Changa';
   text-transform: uppercase;
 }
+
+.btn-modal {
+  position: fixed;
+  top: 12px;
+  right: 15px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.menu-snippets {
+  width: 220px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: var(--bg-main);
+  overflow-y: auto;
+}
+
+.menu-snippets li {background-color: inherit; text-align: left; font-size: 14px;    border: 1px solid rgb(16, 39, 59);}

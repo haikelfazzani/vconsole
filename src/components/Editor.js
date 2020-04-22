@@ -21,6 +21,8 @@ import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import 'codemirror/addon/fold/xml-fold';
 
+const hintOptions = { disableKeywords: false, completeSingle: false, completeOnSingleClick: false };
+
 export default function Editor (props) {
 
   const { state } = useContext(GlobalContext);
@@ -30,12 +32,13 @@ export default function Editor (props) {
     document.querySelector('.CodeMirror').style.fontSize = state.fontSize;
   }, [state.fontSize]);
 
-  const onEditorDidMount = (codeMirror) => {
-    const autoComplete = cm => {
-      const hintOptions = { disableKeywords: false, completeSingle: true, completeOnSingleClick: false };
-      codeMirror.showHint(hintOptions);
-    };
+  const onKeyPress = (editor, event) => {
+    if (event.keyCode > 64 && event.keyCode < 123) {
+      setTimeout(() => { editor.showHint(hintOptions); }, 200);
+    }
+  }
 
+  const onEditorDidMount = (codeMirror) => {
     setOptions({
       mode: 'jsx',
       theme: 'monokai',
@@ -45,8 +48,7 @@ export default function Editor (props) {
       autoCloseTags: true,
       matchTags: true,
       foldGutter: true,
-      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-      extraKeys: { 'Ctrl-Space': autoComplete }
+      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     });
   }
 
@@ -57,6 +59,7 @@ export default function Editor (props) {
       onChange={props.onChange}
       value={props.value}
       options={options}
+      onKeyPress={onKeyPress}
     />
   );
 

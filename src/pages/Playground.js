@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import Editor from '../components/Editor';
 import { LiveProvider, LiveError, LivePreview } from 'react-live'
 import Split from 'react-split';
-
+import SnippetService from "../services/SnippetService";
 import SidebarPlayground from "../containers/SidebarPlayground";
 import Tabs from "../containers/Tabs";
 
 import jsBeauty from "../util/jsBeauty";
 import LocalData from "../util/LocalData";
-import axios from 'axios';
-import SnippetService from "../services/SnippetService";
 
 let tab = LocalData.getFirstTabCode();
 let codeResult = LocalData.getResult();

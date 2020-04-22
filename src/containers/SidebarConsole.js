@@ -6,7 +6,7 @@ import UrlShortnerService from '../services/UrlShortnerService';
 import '../styles/Sidebar.css';
 import SelectFont from './SelectFont';
 
-export default function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
+function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
 
   const beautifyCode = () => {
     let bn = jsBeauty(editorValue);
@@ -31,9 +31,7 @@ export default function SidebarConsole ({ state, setState, editorValue, setEdito
     setTimeout(() => { setState({ ...state, isCopied: false }); }, 1000);
   }
 
-
   const transpileCode = () => { setState({ ...state, isTranspiled: !state.isTranspiled }) }
-
 
   return (<nav className="cs-header">
     <div className="w-100 d-flex flex-column align-items-center">
@@ -68,3 +66,5 @@ export default function SidebarConsole ({ state, setState, editorValue, setEdito
     </div>
   </nav>);
 }
+
+export default React.memo(SidebarConsole);

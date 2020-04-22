@@ -2,7 +2,7 @@
 React playground / Javascript console
 
 - [x] Modern UI
-- [x] Auto Complete (Ctrl + Space) / Auto Close Tags
+- [x] Auto Complete / Auto Close Tags
 - [x] Multi Tabs
 - [x] Download code
 - [x] AutoSave
