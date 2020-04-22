@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import '../styles/Tabs.css';
 import LocalData from '../util/LocalData';
 
-let tabs = LocalData.getTabs();
-
 export default function Tabs ({ editorState, setEditorState, setResult }) {
 
   const [tabsState, setTabsState] = useState({
     code: '',
-    tabs,
+    tabs: LocalData.getTabs(),
     currTabIndex: 0,
-    nbTabs: tabs.length - 1
+    nbTabs: LocalData.getTabs().length - 1
   });
 
   useEffect(() => {

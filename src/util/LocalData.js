@@ -21,7 +21,7 @@ export default class LocalData {
     let decodedTabs = null;
     if (tabsEncoded) { 
       decodedTabs = window.atob(tabsEncoded); 
-      decodedTabs = JSON.parse(decodedTabs)
+      if(decodedTabs) decodedTabs = JSON.parse(decodedTabs)
     }
 
     let tab = { name: 'App.js', code: codeJsx, index: 0 };

@@ -9,13 +9,10 @@ import Tabs from "../containers/Tabs";
 import jsBeauty from "../util/jsBeauty";
 import LocalData from "../util/LocalData";
 
-let tab = LocalData.getFirstTabCode();
-let codeResult = LocalData.getResult();
-
 export default function Playground (props) {
 
-  const [editorState, setEditorState] = useState(tab);
-  const [result, setResult] = useState(codeResult);
+  const [editorState, setEditorState] = useState(LocalData.getFirstTabCode());
+  const [result, setResult] = useState(LocalData.getResult());
 
   useEffect(() => {
     SnippetService.getSnippet(props.match.params.hook)
