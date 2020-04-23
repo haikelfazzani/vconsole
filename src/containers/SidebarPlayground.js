@@ -35,6 +35,15 @@ export default function SidebarPlayground ({ beautify }) {
         icon={editorState.isCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}
       />
 
+      <NavLink
+        onClick={() => {
+          dispatch('COPY_EMBED_CODE');
+          setTimeout(() => { dispatch('IS_EMBED_COPIED'); }, 1500);
+        }}
+        toolTip={editorState.isEmbedCopied ? "Copied" : "Embed Iframe"}
+        icon={editorState.isEmbedCopied ? "fas fa-code active-copy" : "fas fa-file-code"}
+      />
+
       <a
         className="nav-link"
         href={editorState.code}

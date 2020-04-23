@@ -1,6 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Tabs.css';
 import LocalData from '../util/LocalData';
+import ContentEditable from "react-contenteditable";
+
+const Tab = ({ tab, onClickTab, onRemoveTab, onRenameTab, active }) => {
+
+  const [disabled, setdisabled] = useState(true);
+
+  return (
+    <li className={'tab ' + (active ? 'active-tab' : '')}>
+      <div onClick={() => { onClickTab(tab.index); }}
+        onDoubleClick={() => { setdisabled(false) }}
+        className="mr-2">
+        <ContentEditable
+          html={tab.name}
+          disabled={disabled}
+          onChange={(e) => { onRenameTab(e, tab.index) }}
+          onBlur={() => { setdisabled(true) }}
+        />
+      </div>
+      <span onClick={() => { onRemoveTab(tab.index) }} className="btn-rm">x</span>
+    </li>
+  )
+}
 
 export default function Tabs ({ editorState, setEditorState, setResult }) {
 
@@ -23,7 +45,7 @@ export default function Tabs ({ editorState, setEditorState, setResult }) {
 
   const onAddTab = () => {
     let cnt = tabsState.nbTabs + 1;
-    let tab = { name: 'Comp' + cnt, code: '', index: cnt };
+    let tab = { name: 'Comp' + cnt + '.js', code: '', index: cnt };
 
     setTabsState({
       ...tabsState,
@@ -57,19 +79,30 @@ export default function Tabs ({ editorState, setEditorState, setResult }) {
     }
   }
 
+  const onRenameTab = (evt, tabIdx) => {
+    let val = evt.target.value;
+    if (val && val.length > 0) {
+      tabsState.tabs.find(t => t.index === tabIdx).name = val;
+      setTabsState({ ...tabsState, tabs: tabsState.tabs, currTabIndex: tabIdx });
+      localStorage.setItem('reacto-tabs', JSON.stringify(tabsState.tabs));
+    }
+  }
+
   return (
     <header className="tabs overflow-auto">
       <ul>
         {tabsState.tabs.map((tab, i) => {
-          return <li key={'tab' + i} className={'tab ' + (tabsState.currTabIndex === i ? 'active-tab' : '')}>
-            <span onClick={() => { onClickTab(tab.index) }} className="mr-2">{tab.name}</span>
-            <span onClick={() => { onRemoveTab(tab.index) }} className="btn-rm">x</span>
-          </li>
+          return <Tab
+            tab={tab}
+            onClickTab={onClickTab}
+            onRemoveTab={onRemoveTab}
+            onRenameTab={onRenameTab}
+            active={tabsState.currTabIndex === i}
+            key={'tab' + i} />
         })}
       </ul>
-      <button className="btn-plus" onClick={() => { onAddTab() }}>
-        <i className="fa fa-plus"></i>
-      </button>
+
+      <button className="btn-plus" onClick={() => { onAddTab() }}><i className="fa fa-plus"></i></button>
     </header>
   );
 }

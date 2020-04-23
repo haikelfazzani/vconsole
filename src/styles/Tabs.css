@@ -29,8 +29,18 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.726);
 }
 
-.btn-plus {background-color: inherit; color:  #afafaf; border: 0; }
+.btn-plus {
+  background-color: inherit;
+  color: #afafaf;
+  border: 0;
+}
 
-.btn-rm:hover {color: #ff3d3d; cursor: pointer; }
+.btn-rm:hover {
+  color: #ff3d3d;
+  cursor: pointer;
+}
 
-.active-tab { background-color: var(--bg-main-light); color: #ffffff;}
+.active-tab {
+  background-color: var(--bg-main-light);
+  color: #ffffff;
+}

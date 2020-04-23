@@ -9,10 +9,9 @@ React playground / Javascript console
 - [x] Share code (link)
 - [x] Format code
 - [x] Transpile code (Babel)
-- [ ] Rename component (Sidebar)
-- [ ] Realtime share code
-- [ ] Embedded editor
-- [ ] Client Http request (Fetch API)
+- [x] Rename component (Sidebar)
+- [x] Embedded editor
+- [ ] Realtime share code (webrtc)
 
 ### Captures
 
