@@ -20,6 +20,15 @@ export default function SidebarPlayground ({ beautify }) {
         <i className="fas fa-home" data-toggle="tooltip" data-placement="top" title="Back to home"></i>
       </Link>
 
+      <Link to="/web-editor" className="nav-link"><i className="fab fa-html5" data-toggle="tooltip" data-placement="top" title="Web editor"></i></Link>
+
+      <Link to="/js-console" className="nav-link" data-toggle="tooltip" data-placement="top" title="Javascript console">
+        <i className="fas fa-terminal"></i>
+      </Link>
+    </div>
+
+    <div className="w-100 d-flex flex-column align-items-center">
+
       <NavLink
         onClick={() => { beautify(); }}
         icon="fas fa-align-right"
@@ -54,14 +63,8 @@ export default function SidebarPlayground ({ beautify }) {
         title="Download Code">
         <i className="fas fa-download"></i>
       </a>
-    </div>
 
-    <div className="w-100 d-flex flex-column align-items-center">
       <SelectFont />
-
-      <Link to="/js-console" className="nav-link" data-toggle="tooltip" data-placement="top" title="Javascript console">
-        <i className="fas fa-terminal"></i>
-      </Link>
 
       <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
     </div>

@@ -36,6 +36,11 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
   return (<nav className="cs-header">
     <div className="w-100 d-flex flex-column align-items-center">
       <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>
+      <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
+      <Link to="/web-editor" className="nav-link"><i className="fab fa-html5" data-toggle="tooltip" data-placement="top" title="Web editor"></i></Link>
+    </div>
+
+    <div className="w-100 d-flex flex-column align-items-center">
 
       <div className="nav-link" onClick={beautifyCode}>
         <i className="fas fa-align-right" data-toggle="tooltip"
@@ -51,13 +56,8 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
         <i className="fas fa-exchange-alt" data-toggle="tooltip"
           data-placement="top" title="Transpile Code"></i>
       </div>
-    </div>
-
-    <div className="w-100 d-flex flex-column align-items-center">
 
       <SelectFont />
-
-      <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
 
       <a className="nav-link fs-14" href="https://github.com/haikelfazzani/react-playground"
         target="_blank" rel="noopener noreferrer">

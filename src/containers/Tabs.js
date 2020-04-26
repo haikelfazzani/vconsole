@@ -5,18 +5,13 @@ import ContentEditable from "react-contenteditable";
 
 const Tab = ({ tab, onClickTab, onRemoveTab, onRenameTab, active }) => {
 
-  const [disabled, setdisabled] = useState(true);
-
   return (
     <li className={'tab ' + (active ? 'active-tab' : '')}>
       <div onClick={() => { onClickTab(tab.index); }}
-        onDoubleClick={() => { setdisabled(false) }}
         className="mr-2">
         <ContentEditable
           html={tab.name}
-          disabled={disabled}
           onChange={(e) => { onRenameTab(e, tab.index) }}
-          onBlur={() => { setdisabled(true) }}
         />
       </div>
       <span onClick={() => { onRemoveTab(tab.index) }} className="btn-rm">x</span>
