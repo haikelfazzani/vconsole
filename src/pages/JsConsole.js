@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Editor from '../components/Editor';
 import Split from 'react-split';
 
 import Transpiler from '../containers/Transpiler';
-import CsIframe from '../util/CsIframe';
 import SidebarConsole from '../containers/SidebarConsole';
 
 import '../styles/JsConsole.css';
+
+function removeElement (id) {
+  var elem = document.getElementById(id);
+  return elem.parentNode.removeChild(elem);
+}
 
 const PreOut = ({ data }) => {
 
@@ -27,7 +31,6 @@ const PreOut = ({ data }) => {
 
 export default function JsConsole () {
 
-  const myIframe = useRef();
   const [iframeVal, setIframeVal] = useState([]);
 
   const [editorValue, setEditorValue] = useState(() => {
@@ -61,26 +64,34 @@ export default function JsConsole () {
   }
 
   const onRunCode = useCallback(() => {
-    
-    const doc = myIframe.current.contentDocument;
+
+    const iframe = document.createElement('iframe');
+    iframe.id = 'js-console-iframe';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument;
     const script = doc.createElement('script');
 
     const blob = new Blob([editorValue], { type: 'application/javascript' });
     script.src = URL.createObjectURL(blob);
 
-    console.log('runing...........');
+    doc.body.append(script);
 
-    let a = [];
-    myIframe.current.contentWindow.console.log = function (args) {
-      console.log(Date.now(), args);
+    let logBackup = iframe.contentWindow.console.log;
+    let logMessages = [];
 
-      a.push(args);
-      setIframeVal([...a]);
-    }
-    console.log(doc.body);
-    doc.innerHTML = ''
-    doc.documentElement.appendChild(script);
-  }, [iframeVal])
+    iframe.contentWindow.onerror = (message, file, line, col, error) => {
+      
+    };
+
+    iframe.contentWindow.console.log = function () {      
+      logMessages.push.apply(logMessages, arguments);
+      logBackup.apply(console, arguments);
+      setIframeVal([...logMessages]);
+    };
+
+    setTimeout(() => { removeElement('js-console-iframe') }, 1000);
+  }, [editorValue])
 
   return <div className="w-100 h-100 cs-container">
 
@@ -108,10 +119,6 @@ export default function JsConsole () {
             direction="vertical"
           >
             <div className="output">
-              <iframe
-                ref={myIframe}
-                title="js-console" ></iframe>
-
               <PreOut data={iframeVal} />
               <button className="btn-cs-run" onClick={() => { onRunCode() }}>
                 <i className="fa fa-play"></i>
