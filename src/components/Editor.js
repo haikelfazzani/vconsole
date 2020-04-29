@@ -53,7 +53,7 @@ export default function Editor ({ onChange, value, lang = 'jsx' }) {
 
   const onKeyPress = (editor, event) => {
     if (event.keyCode > 64 && event.keyCode < 123) {
-      setTimeout(() => { editor.showHint(hintOptions); }, 200);
+      setTimeout(() => { editor.showHint(hintOptions); }, 250);
     }
   }
 

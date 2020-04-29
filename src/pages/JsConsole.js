@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Editor from '../components/Editor';
 import Split from 'react-split';
 
@@ -8,7 +8,27 @@ import SidebarConsole from '../containers/SidebarConsole';
 
 import '../styles/JsConsole.css';
 
+const PreOut = ({ data }) => {
+
+  return <pre>
+    {data.map((d, i) => {
+      console.log(d.toString())
+      if (d.toString() === '[object Set]') {
+        return <div key={'out' + i} className="text-warning mb-2">
+          <span className="text-primary">[object Set]</span> {JSON.stringify([...d], null, 2)}</div>
+      }
+      if (d.toString() === '[object Map]') {
+        return <div key={'out' + i} className="text-warning mb-2"><span className="text-primary">[object Map]</span> {JSON.stringify([...d], null, 2)}</div>
+      }
+      return <div key={'out' + i} className="text-warning mb-2">{JSON.stringify(d, null, 2)}</div>
+    })}
+  </pre>
+}
+
 export default function JsConsole () {
+
+  const myIframe = useRef();
+  const [iframeVal, setIframeVal] = useState([]);
 
   const [editorValue, setEditorValue] = useState(() => {
     let local = localStorage.getItem('reacto-console');
@@ -40,6 +60,28 @@ export default function JsConsole () {
     }));
   }
 
+  const onRunCode = useCallback(() => {
+    
+    const doc = myIframe.current.contentDocument;
+    const script = doc.createElement('script');
+
+    const blob = new Blob([editorValue], { type: 'application/javascript' });
+    script.src = URL.createObjectURL(blob);
+
+    console.log('runing...........');
+
+    let a = [];
+    myIframe.current.contentWindow.console.log = function (args) {
+      console.log(Date.now(), args);
+
+      a.push(args);
+      setIframeVal([...a]);
+    }
+    console.log(doc.body);
+    doc.innerHTML = ''
+    doc.documentElement.appendChild(script);
+  }, [iframeVal])
+
   return <div className="w-100 h-100 cs-container">
 
     <SidebarConsole
@@ -65,7 +107,16 @@ export default function JsConsole () {
             gutterAlign="center"
             direction="vertical"
           >
-            <iframe title="js-console" srcDoc={CsIframe(jsHintErrors.length > 0 ? '' : editorValue)}></iframe>
+            <div className="output">
+              <iframe
+                ref={myIframe}
+                title="js-console" ></iframe>
+
+              <PreOut data={iframeVal} />
+              <button className="btn-cs-run" onClick={() => { onRunCode() }}>
+                <i className="fa fa-play"></i>
+              </button>
+            </div>
 
             <ul className="linter">
               <li className="header"><i className="fas fa-bug"></i> Linter</li>

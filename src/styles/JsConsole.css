@@ -1,6 +1,6 @@
 .cs-container {
   height: 100%;
-  display: flex;  
+  display: flex;
 }
 
 .gutter-vertical {
@@ -20,12 +20,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-iframe {
-  background-color: inherit;
-  border: 0;
-  color: #ffffff;
 }
 
 .linter {
@@ -48,4 +42,27 @@ iframe {
 .linter li {
   font-size: 14px;
   padding: 7px 10px;
+}
+
+.output {
+  position: relative;
+}
+
+.btn-cs-run {
+  position: absolute;
+  top: 15px;
+  left: -55px;
+  border-radius: 50%;
+  background-color: var(--bg-main-light);
+  color: #ffffff;
+  padding: 7px 12px;
+  border: 0;
+  z-index: 5;
+}
+
+pre {
+  color: #ffffff;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
 }
