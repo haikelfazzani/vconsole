@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import GlobalContext from './GlobalContext';
 
 /** init values global state */
-let local = localStorage.getItem('reacto-config');
-let initState = local ? JSON.parse(local) : { fontSize: '14px' };
+let initState = { fontSize: '14px' };
+try {
+  let local = window.localStorage ? localStorage.getItem('reacto-config') : null;
+  initState = JSON.parse(local);
+} catch (error) {
+}
 
 export default function GlobalProvider ({ children }) {
   const [state, setState] = useState(initState);

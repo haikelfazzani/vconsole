@@ -22,9 +22,9 @@ React playground / Javascript console
 ![](public/logo192.png)
 
 ### Techs
-- React/Context API
-- Codemirror/React-codemirror2
-- React-split
+- React/Context API/use-effect-reducer
+- Ace/react-ace
+- React-split/react-contenteditable
 - React-live
 - Bootstrap/FontAwesome/Google Fonts
 - [JsHINT](https://jshint.com/docs/)

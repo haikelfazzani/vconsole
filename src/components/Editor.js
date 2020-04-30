@@ -1,39 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import AceEditor from "react-ace";
 import GlobalContext from '../providers/GlobalContext';
 
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/monokai.css';
-import 'codemirror/mode/jsx/jsx';
-import 'codemirror/mode/css/css';
-import 'codemirror/mode/htmlmixed/htmlmixed';
-import 'codemirror/mode/javascript/javascript';
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-jsx";
+import "ace-builds/src-noconflict/mode-html";
+import "ace-builds/src-noconflict/mode-css";
 
-import 'codemirror/addon/hint/show-hint';
-import 'codemirror/addon/hint/javascript-hint';
-import 'codemirror/addon/hint/css-hint';
-import 'codemirror/addon/hint/html-hint';
-import 'codemirror/addon/hint/show-hint.css';
-import 'codemirror/addon/fold/foldgutter.css'
+import "ace-builds/src-noconflict/ext-language_tools";
 
-import 'codemirror/addon/edit/closebrackets';
-import 'codemirror/addon/edit/matchbrackets';
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/matchtags';
-
-import 'codemirror/addon/fold/foldcode';
-import 'codemirror/addon/fold/foldgutter';
-import 'codemirror/addon/fold/brace-fold';
-import 'codemirror/addon/fold/xml-fold';
-
-const hintOptions = { disableKeywords: false, completeSingle: false, completeOnSingleClick: false };
-
-export default function Editor ({ onChange, value, lang = 'jsx',readOnly = false }) {
+export default function Editor ({
+  onChange, value, name = 'ace-reacto-editor', lang = 'jsx', showLineNumbers = true, readOnly = false
+}) {
 
   const { state } = useContext(GlobalContext);
   const [options, setOptions] = useState({
     mode: lang,
-    theme:'monokai',
+    theme: 'monokai',
     lineNumbers: true,
     matchBrackets: true,
     autoCloseBrackets: true,
@@ -45,30 +29,31 @@ export default function Editor ({ onChange, value, lang = 'jsx',readOnly = false
   });
 
   useEffect(() => {
-    let allEditors = document.querySelectorAll('.CodeMirror');
-    [...allEditors].forEach(e => {
-      e.style.fontSize = state.fontSize;
-    });
-  }, [state.fontSize]);
-
-  useEffect(() => {
     setOptions({ ...options, mode: lang });
   }, [lang]);
 
-  const onKeyPress = (editor, event) => {
-    if (event.keyCode > 64 && event.keyCode < 123) {
-      setTimeout(() => { editor.showHint(hintOptions); }, 250);
-    }
-  }
-
-  return (
-    <CodeMirror
-      autoCursor={false}
-      onChange={onChange}
-      value={value}
-      options={options}      
-      onKeyPress={onKeyPress}
-    />
-  );
+  return (<AceEditor
+    mode={lang}
+    theme="monokai"
+    onChange={onChange}
+    value={value}
+    name={name}
+    fontSize={state.fontSize}
+    readOnly={readOnly}
+    showPrintMargin={true}
+    showGutter={true}
+    highlightActiveLine={false}
+    minLines={35}
+    maxLines={35}
+    width="100%"
+    editorProps={{ $blockScrolling: true }}
+    setOptions={{
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true,
+      showLineNumbers,
+      tabSize: 2,
+      useWorker: false
+    }}
+  />);
 
 }

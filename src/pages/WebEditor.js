@@ -8,7 +8,7 @@ import '../styles/WebEditor.css';
 let local = localStorage.getItem('reacto-web-editor');
 let initTabState = local ? JSON.parse(local) : {
   tabs: [
-    { name: 'index.html', lang: 'htmlmixed', index: 0, code: '' },
+    { name: 'index.html', lang: 'html', index: 0, code: '' },
     { name: 'style.css', lang: 'css', index: 1, code: '' },
     { name: 'app.js', lang: 'javascript', index: 2, code: '' }
   ],
@@ -44,7 +44,7 @@ export default function WebEditor () {
   const [tabsState, setTabsState] = useState(initTabState);
   const [isTypin, setIsTypin] = useState(false);
 
-  const onEditorChange = (editor, value, data) => {
+  const onEditorChange = (data) => {
     setIsTypin(true);
     setEditorVal(data);
     tabsState.tabs.find(t => t.index === tabsState.activeTabIndex).code = editorVal;

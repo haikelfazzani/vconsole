@@ -4,10 +4,9 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
-    "codemirror": "^5.52.2",
     "easy-peasy": "^3.3.0",
     "react": "^16.13.0",
-    "react-codemirror2": "^7.1.0",
+    "react-ace": "^8.1.0",
     "react-contenteditable": "^3.3.4",
     "react-dom": "^16.13.0",
     "react-live": "^2.2.2",

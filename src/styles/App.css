@@ -1,6 +1,6 @@
 :root {
-  --bg-main :#001528 ;
-  --bg-main-light:#15314b;
+  --bg-main :#181717 ;
+  --bg-main-light:#2d2d2d;
 }
 
 body,
@@ -22,13 +22,8 @@ main {
   display: block;
 }
 
-.CodeMirror,
-.react-codemirror2 {
-  height: 100% !important;
-  font-size: 16px;  
-}
-
-.cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: var(--bg-main) !important; }
+#ace-reacto-editor {height: 100% !important;}
+.ace-monokai,.ace_gutter{ background-color: var(--bg-main) !important; }
 
 main>div {
   width: 100%;
@@ -52,10 +47,6 @@ main>div {
   cursor: col-resize;
 }
 
-.cm-s-mdn-like .CodeMirror-gutters {
-  border-left-color: #fff !important;
-}
-
 /**************************/
 iframe {border: 0; background-color: inherit;}
 .btn {border-radius: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 2px;}
@@ -69,8 +60,12 @@ ul { list-style: none; margin: 0; padding: 0; }
 a {text-decoration: none !important;}
 
 .fs-14 {font-size: 14px !important;}
+.fs-35 {font-size: 35px !important;}
 
 .ltsp {letter-spacing: 2px;}
+
+.w-20 {width: 20%;}
+.w-40 {width: 40%;}
 
 /**************************/
 
@@ -84,4 +79,13 @@ a {text-decoration: none !important;}
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+
+@media screen and (max-width: 600px) {
+  main {
+    width: 100%;
+  }
+  .w-20 {width: 100%;}
+  .w-40 {width: 100%;}
 }

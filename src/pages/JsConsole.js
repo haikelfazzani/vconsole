@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Editor from '../components/Editor';
 import Split from 'react-split';
 
@@ -21,7 +21,8 @@ export default function JsConsole () {
   const [state, setState] = useState({
     isTranspiled: false,
     isCopied: false,
-    isRunning: false
+    isRunning: false,
+    elapsedTime: 0
   });
 
   useEffect(() => {
@@ -32,20 +33,24 @@ export default function JsConsole () {
     } catch (error) { }
   }, []);
 
-  const onEditorChange = (editor, value, data) => {
+  const onEditorChange = (data) => {
     setEditorValue(data);
     localStorage.setItem('reacto-console', JSON.stringify(data))
   }
 
-  const onRunCode = useCallback(async () => {
+  const onRunCode = async () => {
+    let startTime = (new Date()).getTime();
+
     setState({ ...state, isRunning: true });
     await evalConsole(editorValue);
+
     function onMsg (msg) {
+      let endTime = (new Date()).getTime();
       setIframeVal(msg.data);
-      setState({ ...state, isRunning: false });
+      setState({ ...state, isRunning: false, elapsedTime: (endTime - startTime) });
     }
     window.addEventListener("message", onMsg, false);
-  }, [editorValue])
+  }
 
   return <div className="w-100 h-100 cs-container">
 
@@ -62,7 +67,7 @@ export default function JsConsole () {
       gutterAlign="center"
       direction="horizontal"
     >
-      <Editor onChange={onEditorChange} value={editorValue} />
+      <Editor onChange={onEditorChange} value={editorValue} lang="javascript" />
 
       <div className="d-flex cs-output">
         {!state.isTranspiled
@@ -73,10 +78,18 @@ export default function JsConsole () {
             direction="vertical"
           >
             <div className="output">
-              <Editor value={iframeVal} lang="javascript" readOnly={true} />
-              <button className={"btn-cs-run " + (state.isRunning ? 'bg-primary' : '')} onClick={() => { onRunCode() }}>
+              <Editor value={iframeVal} lang="javascript" showLineNumbers={false} readOnly={true} />
+
+              <button
+                className={"btn-cs-run " + (state.isRunning ? 'bg-primary' : '')}
+                onClick={() => { onRunCode() }}>
                 <i className="fa fa-play"></i>
               </button>
+
+              {state.elapsedTime > 0
+                && <span className="elapsed-time">
+                  {state.elapsedTime + ' ms'}
+                </span>}
             </div>
 
             <Linter jsValue={editorValue} />

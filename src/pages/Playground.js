@@ -20,7 +20,7 @@ export default function Playground (props) {
       .catch(e => { })
   }, [props.match.params.hook]);
 
-  const onEditorChange = (editor, value, data) => {
+  const onEditorChange = (data) => {
     setEditorState(data);
   }
 

@@ -3,22 +3,28 @@ function removeElement (id) {
   return elem ? elem.parentNode.removeChild(elem) : null;
 }
 
-export default function evalConsole (editorValue) {
+function createIframe () {
+  const iframe = document.createElement('iframe');
+  iframe.id = 'js-console-iframe';
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  return iframe;
+}
+
+function createScript (iframe, jsScript) {
+  const doc = iframe.contentDocument;
+  const script = doc.createElement('script');
+  const blob = new Blob([jsScript], { type: 'application/javascript' });
+  script.src = URL.createObjectURL(blob);
+  doc.body.append(script);
+}
+
+export default function evalConsole (jsScript) {
   let iframeErrors = false;
   return new Promise((resolve, reject) => {
 
-    const iframe = document.createElement('iframe');
-    iframe.id = 'js-console-iframe';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    const doc = iframe.contentDocument;
-    const script = doc.createElement('script');
-
-    const blob = new Blob([editorValue], { type: 'application/javascript' });
-    script.src = URL.createObjectURL(blob);
-
-    doc.body.append(script);
+    const iframe = createIframe();
+    createScript(iframe, jsScript);
 
 
     // handle errors
