@@ -4,8 +4,8 @@ export default class UrlShortnerService {
 
   static async getShortLink (longUrl) {
     try {
-      const resp = await axios.post('https://rel.ink/api/links/', { url: longUrl });
-      return 'https://rel.ink/' + resp.data.hashid;
+      const resp = await axios.get(`https://api.shrtco.de/v2/shorten?url=${longUrl}/very/long/link.html`);
+      return resp.data.result.full_short_link;
     } catch (error) {
       return longUrl;
     }

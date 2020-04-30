@@ -1,5 +1,6 @@
 import LocalData from "../util/LocalData";
 import UrlShortnerService from "../services/UrlShortnerService";
+import copyToClipboard from "../util/copyToClipboard";
 
 const editorInitState = {
   code: null,
@@ -19,12 +20,7 @@ export default function editorReducer (state, event, exec) {
 
         url = `<iframe src="${url}" title="reacto" width="500" height="500"></iframe>`;
 
-        const el = document.createElement('textarea');
-        el.value = url;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
+        copyToClipboard(url);
       });
 
       return { ...state, isEmbedCopied: true };
@@ -44,12 +40,7 @@ export default function editorReducer (state, event, exec) {
 
         let shortUrl = await UrlShortnerService.getShortLink(url);
 
-        const el = document.createElement('textarea');
-        el.value = shortUrl;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
+        copyToClipboard(shortUrl);
       });
 
       return { ...state, isCopied: true };

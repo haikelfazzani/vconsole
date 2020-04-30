@@ -29,9 +29,6 @@ main {
 }
 
 .cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: var(--bg-main) !important; }
-.cm-s-monokai span.cm-variable {
-  color: #cce7ff;
-}
 
 main>div {
   width: 100%;

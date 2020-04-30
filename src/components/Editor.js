@@ -45,7 +45,10 @@ export default function Editor ({ onChange, value, lang = 'jsx',readOnly = false
   });
 
   useEffect(() => {
-    document.querySelector('.CodeMirror').style.fontSize = state.fontSize;
+    let allEditors = document.querySelectorAll('.CodeMirror');
+    [...allEditors].forEach(e => {
+      e.style.fontSize = state.fontSize;
+    });
   }, [state.fontSize]);
 
   useEffect(() => {

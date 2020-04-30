@@ -59,10 +59,3 @@
   border: 0;
   z-index: 5;
 }
-
-pre {
-  color: #ffffff;
-  height: 100%;
-  padding: 10px;
-  white-space: pre-wrap;
-}
