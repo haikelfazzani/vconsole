@@ -16,12 +16,13 @@ render(<App />, document.getElementById('root'))`;
 
 export default class LocalData {
 
-  static getTabs () {
-    let tabsEncoded = window.location.search.split('=')[1];
+  static getTabs () {    
+    let tabsEncoded = window.location.search.split('?r=').reverse()[0];
+
     let decodedTabs = null;
-    if (tabsEncoded) { 
-      decodedTabs = window.atob(tabsEncoded); 
-      if(decodedTabs) decodedTabs = JSON.parse(decodedTabs)
+    if (tabsEncoded) {
+      decodedTabs = window.atob(tabsEncoded);
+      if (decodedTabs) decodedTabs = JSON.parse(decodedTabs)
     }
 
     let tab = { name: 'App.js', code: codeJsx, index: 0 };

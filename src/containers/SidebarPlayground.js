@@ -16,24 +16,6 @@ export default function SidebarPlayground ({ beautify }) {
 
   return <nav className="py-1">
     <div className="w-100 d-flex flex-column align-items-center">
-      <Link className="nav-link" to="/">
-        <i className="fas fa-home" data-toggle="tooltip" data-placement="top" title="Back to home"></i>
-      </Link>
-
-      <Link to="/web-editor" className="nav-link"><i className="fab fa-html5" data-toggle="tooltip" data-placement="top" title="Web editor"></i></Link>
-
-      <Link to="/js-console" className="nav-link" data-toggle="tooltip" data-placement="top" title="Javascript console">
-        <i className="fas fa-terminal"></i>
-      </Link>
-    </div>
-
-    <div className="w-100 d-flex flex-column align-items-center">
-
-      <NavLink
-        onClick={() => { beautify(); }}
-        icon="fas fa-align-right"
-        toolTip="Beautify Code"
-      />
 
       <NavLink
         onClick={() => {
@@ -42,6 +24,12 @@ export default function SidebarPlayground ({ beautify }) {
         }}
         toolTip={editorState.isCopied ? "Copied" : "Copy link"}
         icon={editorState.isCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}
+      />
+
+      <NavLink
+        onClick={() => { beautify(); }}
+        icon="fas fa-align-right"
+        toolTip="Beautify Code"
       />
 
       <NavLink
@@ -65,6 +53,19 @@ export default function SidebarPlayground ({ beautify }) {
       </a>
 
       <SelectFont />
+    </div>
+
+    <div className="w-100 d-flex flex-column align-items-center">
+
+      <Link className="nav-link" to="/">
+        <i className="fas fa-home" data-toggle="tooltip" data-placement="top" title="Back to home"></i>
+      </Link>
+
+      <Link to="/web-editor" className="nav-link"><i className="fab fa-html5" data-toggle="tooltip" data-placement="top" title="Web editor"></i></Link>
+
+      <Link to="/js-console" className="nav-link" data-toggle="tooltip" data-placement="top" title="Javascript console">
+        <i className="fas fa-terminal"></i>
+      </Link>
 
       <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
     </div>

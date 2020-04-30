@@ -7,6 +7,7 @@ import SelectFont from './SelectFont';
 import copyToClipboard from '../util/copyToClipboard';
 
 import '../styles/Sidebar.css';
+import OutLink from '../components/OutLink';
 
 function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
 
@@ -21,29 +22,23 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
     let url = window.location.origin + '/js-console?cs=' + encodedData;
     let shortUrl = await UrlShortnerService.getShortLink(url);
     copyToClipboard(shortUrl);
-    if(shortUrl) { setState({ ...state, isCopied: false }); }
+    if (shortUrl) { setState({ ...state, isCopied: false }); }
   }
 
   const transpileCode = () => { setState({ ...state, isTranspiled: !state.isTranspiled }) }
 
   return (
     <nav className="cs-header">
-      <div className="w-100 d-flex flex-column align-items-center">
-        <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>
-        <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
-        <Link to="/web-editor" className="nav-link"><i className="fab fa-html5" data-toggle="tooltip" data-placement="top" title="Web editor"></i></Link>
-      </div>
-
-      <div className="w-100 d-flex flex-column align-items-center">
-
-        <div className="nav-link" onClick={beautifyCode}>
-          <i className="fas fa-align-right" data-toggle="tooltip"
-            data-placement="top" title="Beautify Code"></i>
-        </div>
+      <div className="w-100 d-flex flex-column align-items-center">        
 
         <div className="nav-link" onClick={onCopyLink}
           title={state.isCopied ? "Copied" : "Copy Link"}>
           <i className={state.isCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}></i>
+        </div>
+
+        <div className="nav-link" onClick={beautifyCode}>
+          <i className="fas fa-align-right" data-toggle="tooltip"
+            data-placement="top" title="Beautify Code"></i>
         </div>
 
         <div className="nav-link" onClick={transpileCode}>
@@ -52,11 +47,13 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
         </div>
 
         <SelectFont />
+      </div>
 
-        <a className="nav-link fs-14" href="https://github.com/haikelfazzani/react-playground"
-          target="_blank" rel="noopener noreferrer">
-          <i className="fab fa-github" data-toggle="tooltip" data-placement="top" title="Repository"></i>
-        </a>
+      <div className="w-100 d-flex flex-column align-items-center">
+        <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>
+        <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
+        <Link to="/web-editor" className="nav-link"><i className="fab fa-html5" data-toggle="tooltip" data-placement="top" title="Web editor"></i></Link>
+        <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
       </div>
     </nav>);
 }

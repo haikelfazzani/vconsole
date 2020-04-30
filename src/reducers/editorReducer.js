@@ -34,7 +34,7 @@ export default function editorReducer (state, event, exec) {
     case 'COPY_LINK':
       exec(async () => {
         let codeResult = LocalData.getTabs();
-
+        
         const encodedData = window.btoa(JSON.stringify(codeResult));
         let url = window.location.origin + '/react-playground?r=' + encodedData;
 
