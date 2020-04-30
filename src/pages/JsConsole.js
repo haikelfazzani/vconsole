@@ -2,28 +2,27 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Editor from '../components/Editor';
 import Split from 'react-split';
 
-import Linter from '../containers/Linter';
 import Transpiler from '../containers/Transpiler';
 import SidebarConsole from '../containers/SidebarConsole';
 
+import '../styles/JsConsole.css';
+import Linter from '../containers/Linter';
 import evalConsole from '../util/evalConsole';
 
-import '../styles/JsConsole.css';
-
-function removeElement (id) {
-  let elem = document.getElementById(id);
-  return elem.parentNode.removeChild(elem);
-}
-
 export default function JsConsole () {
+
+  const [iframeVal, setIframeVal] = useState('');
 
   const [editorValue, setEditorValue] = useState(() => {
     let local = localStorage.getItem('reacto-console');
     return local ? JSON.parse(local) : 'console.log("Hello world")'
   });
-  
-  const [output, setOutput] = useState('');
-  const [state, setState] = useState({ isTranspiled: false, isCopied: false });
+
+  const [state, setState] = useState({
+    isTranspiled: false,
+    isCopied: false,
+    isRunning: false
+  });
 
   useEffect(() => {
     let data = window.location.search.split('?cs=')[1];
@@ -39,14 +38,13 @@ export default function JsConsole () {
   }
 
   const onRunCode = useCallback(async () => {
-    try {
-      let result = await evalConsole(editorValue);
-      setOutput(result);
-      removeElement('js-console-iframe');
-    } catch (e) {
-      setOutput(e);
-      removeElement('js-console-iframe');
+    setState({ ...state, isRunning: true });
+    await evalConsole(editorValue);
+    function onMsg (msg) {
+      setIframeVal(msg.data);
+      setState({ ...state, isRunning: false });
     }
+    window.addEventListener("message", onMsg, false);
   }, [editorValue])
 
   return <div className="w-100 h-100 cs-container">
@@ -75,8 +73,8 @@ export default function JsConsole () {
             direction="vertical"
           >
             <div className="output">
-              <Editor value={output} lang="javascript" readOnly={true} />
-              <button className="btn-cs-run" onClick={() => { onRunCode() }}>
+              <Editor value={iframeVal} lang="javascript" readOnly={true} />
+              <button className={"btn-cs-run " + (state.isRunning ? 'bg-primary' : '')} onClick={() => { onRunCode() }}>
                 <i className="fa fa-play"></i>
               </button>
             </div>

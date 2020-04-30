@@ -21,7 +21,7 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
     let url = window.location.origin + '/js-console?cs=' + encodedData;
     let shortUrl = await UrlShortnerService.getShortLink(url);
     copyToClipboard(shortUrl);
-    setTimeout(() => { setState({ ...state, isCopied: false }); }, 1000);
+    if(shortUrl) { setState({ ...state, isCopied: false }); }
   }
 
   const transpileCode = () => { setState({ ...state, isTranspiled: !state.isTranspiled }) }

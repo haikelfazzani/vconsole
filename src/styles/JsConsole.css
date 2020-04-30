@@ -54,8 +54,12 @@
   left: -55px;
   border-radius: 50%;
   background-color: var(--bg-main-light);
-  color: #ffffff;
+  color: #dddddd;
+  border: 0;  
   padding: 7px 12px;
-  border: 0;
   z-index: 5;
+}
+
+.btn-cs-run:hover {
+  color: #ffffff;
 }

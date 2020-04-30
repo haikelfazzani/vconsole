@@ -9,10 +9,11 @@ export default function Transpiler ({ input, codeType }) {
     let output = '';
     try {
       output = window.Babel.transform(input, {
-        envName:'production',presets: codeType === 'react' ? ['react', 'es2015'] : ['es2015']
-      }).code;
-      
-      setTranspiledCode(output);      
+        envName: 'production', presets: codeType === 'react' ? ['react', 'es2015'] : ['es2015']
+      })
+      .code;
+
+      setTranspiledCode(output);
     } catch (error) {
       setTranspiledCode(error.message);
     }
