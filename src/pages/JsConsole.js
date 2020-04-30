@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Editor from '../components/Editor';
 import Split from 'react-split';
 
+import Linter from '../containers/Linter';
 import Transpiler from '../containers/Transpiler';
 import SidebarConsole from '../containers/SidebarConsole';
 
@@ -12,55 +13,27 @@ function removeElement (id) {
   return elem.parentNode.removeChild(elem);
 }
 
-const PreOut = ({ data }) => {
-
-  return <pre>
-    {data.map((d, i) => {
-      console.log(d.toString())
-      if (d.toString() === '[object Set]') {
-        return <div key={'out' + i} className="text-warning mb-2">
-          <span className="text-primary">[object Set]</span> {JSON.stringify([...d], null, 2)}</div>
-      }
-      if (d.toString() === '[object Map]') {
-        return <div key={'out' + i} className="text-warning mb-2"><span className="text-primary">[object Map]</span> {JSON.stringify([...d], null, 2)}</div>
-      }
-      return <div key={'out' + i} className="text-warning mb-2">{JSON.stringify(d, null, 2)}</div>
-    })}
-  </pre>
-}
-
 export default function JsConsole () {
 
-  const [iframeVal, setIframeVal] = useState([]);
-
+  const [iframeVal, setIframeVal] = useState('');
   const [editorValue, setEditorValue] = useState(() => {
     let local = localStorage.getItem('reacto-console');
     return local ? JSON.parse(local) : 'console.log("Hello world")'
   });
 
-  const [jsHintErrors, setJsHintErrors] = useState([]);
   const [state, setState] = useState({ isTranspiled: false, isCopied: false });
 
   useEffect(() => {
     let data = window.location.search.split('?cs=')[1];
-
     try {
       const decodedData = window.atob(data);
       setEditorValue(decodedData);
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }, []);
 
   const onEditorChange = (editor, value, data) => {
     setEditorValue(data);
-
     localStorage.setItem('reacto-console', JSON.stringify(data))
-    window.JSHINT(data, { asi: true, lastsemic: false, esnext: true });
-
-    setJsHintErrors(window.JSHINT.errors.map(e => {
-      return { reason: e.reason, line: e.line }
-    }));
   }
 
   const onRunCode = useCallback(() => {
@@ -81,13 +54,28 @@ export default function JsConsole () {
     let logMessages = [];
 
     iframe.contentWindow.onerror = (message, file, line, col, error) => {
-      
+      setIframeVal(`(${line}:${col}) -> ${error}`);
     };
 
-    iframe.contentWindow.console.log = function () {      
+    iframe.contentWindow.console.log = function () {
       logMessages.push.apply(logMessages, arguments);
       logBackup.apply(console, arguments);
-      setIframeVal([...logMessages]);
+
+      let b = logMessages.map(v => {
+        if (v.toString() === '[object Map]' || v.toString() === '[object Set]') {
+          let arr = [...v];
+          v = v.toString() + ` (${arr.length}) ` + JSON.stringify(arr, null, 2)
+        }
+        if (v.toString() === '[object Object]') {
+          v = v.toString() + ' ' + JSON.stringify(v, null, 2)
+        }
+        if (Array.isArray(v)) {
+          v = `Array (${v.length}) ` + JSON.stringify(v, null, 2)
+        }
+        return v
+      })
+
+      setIframeVal(b.join('\n\n'));
     };
 
     setTimeout(() => { removeElement('js-console-iframe') }, 1000);
@@ -119,18 +107,13 @@ export default function JsConsole () {
             direction="vertical"
           >
             <div className="output">
-              <PreOut data={iframeVal} />
+              <Editor value={iframeVal} lang="javascript" readOnly={true} />
               <button className="btn-cs-run" onClick={() => { onRunCode() }}>
                 <i className="fa fa-play"></i>
               </button>
             </div>
 
-            <ul className="linter">
-              <li className="header"><i className="fas fa-bug"></i> Linter</li>
-              {jsHintErrors.map((l, i) => <li key={'linter' + i}>
-                <i className="fas fa-angle-right"></i> {'Line ' + l.line + ':'} {l.reason}
-              </li>)}
-            </ul>
+            <Linter jsValue={editorValue} />
           </Split>
 
           : <Transpiler input={state.isTranspiled ? editorValue : ''} codeType='javascript' />}

@@ -29,6 +29,9 @@ main {
 }
 
 .cm-s-monokai.CodeMirror, .cm-s-monokai .CodeMirror-gutters{ background-color: var(--bg-main) !important; }
+.cm-s-monokai span.cm-variable {
+  color: #cce7ff;
+}
 
 main>div {
   width: 100%;
@@ -57,6 +60,7 @@ main>div {
 }
 
 /**************************/
+iframe {border: 0; background-color: inherit;}
 .btn {border-radius: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 2px;}
 
 select { border: 0; outline: none; }

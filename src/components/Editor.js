@@ -28,18 +28,19 @@ import 'codemirror/addon/fold/xml-fold';
 
 const hintOptions = { disableKeywords: false, completeSingle: false, completeOnSingleClick: false };
 
-export default function Editor ({ onChange, value, lang = 'jsx' }) {
+export default function Editor ({ onChange, value, lang = 'jsx',readOnly = false }) {
 
   const { state } = useContext(GlobalContext);
   const [options, setOptions] = useState({
     mode: lang,
-    theme: 'monokai',
+    theme:'monokai',
     lineNumbers: true,
     matchBrackets: true,
     autoCloseBrackets: true,
     autoCloseTags: true,
     matchTags: true,
     foldGutter: true,
+    readOnly,
     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
   });
 
@@ -48,7 +49,7 @@ export default function Editor ({ onChange, value, lang = 'jsx' }) {
   }, [state.fontSize]);
 
   useEffect(() => {
-    setOptions({ ...options, mode: lang });    
+    setOptions({ ...options, mode: lang });
   }, [lang]);
 
   const onKeyPress = (editor, event) => {
@@ -62,7 +63,7 @@ export default function Editor ({ onChange, value, lang = 'jsx' }) {
       autoCursor={false}
       onChange={onChange}
       value={value}
-      options={options}
+      options={options}      
       onKeyPress={onKeyPress}
     />
   );
