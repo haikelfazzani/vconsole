@@ -52,6 +52,18 @@ export default function JsConsole () {
     window.addEventListener("message", onMsg, false);
   }
 
+  useEffect(() => {
+    const keydownHandler = async (e) => {
+      if (e.keyCode === 13 && e.ctrlKey) {
+        await onRunCode();
+      }
+    }
+
+    document.addEventListener('keydown', keydownHandler, false);
+
+    return () => { document.removeEventListener('keydown', keydownHandler); }
+  }, [state.isRunning]);
+
   return <div className="w-100 h-100 cs-container">
 
     <SidebarConsole

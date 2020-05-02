@@ -4,6 +4,7 @@ function removeElement (id) {
 }
 
 function createIframe () {
+  removeElement('js-console-iframe');
   const iframe = document.createElement('iframe');
   iframe.id = 'js-console-iframe';
   iframe.style.display = 'none';
@@ -20,19 +21,19 @@ function createScript (iframe, jsScript) {
 }
 
 export default function evalConsole (jsScript) {
+  
   let iframeErrors = false;
+
   return new Promise((resolve, reject) => {
 
     const iframe = createIframe();
     createScript(iframe, jsScript);
-
 
     // handle errors
     iframe.contentWindow.onerror = (message, file, line, col, error) => {
       iframeErrors = true;
       iframe.contentWindow.parent.postMessage(`(${line}:${col}) -> ${error}`);
       reject(iframeErrors);
-      setTimeout(() => { removeElement('js-console-iframe'); }, 1000 * 30);
     };
 
     // get console outputs as string
@@ -40,7 +41,6 @@ export default function evalConsole (jsScript) {
       iframeErrors = false;
       iframe.contentWindow.parent.postMessage(result);
       resolve(iframeErrors);
-      setTimeout(() => { removeElement('js-console-iframe'); }, 1000 * 30);
     });
   });
 }

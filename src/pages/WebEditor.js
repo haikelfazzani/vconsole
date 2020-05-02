@@ -5,6 +5,21 @@ import Editor from '../components/Editor';
 import Split from 'react-split';
 import '../styles/WebEditor.css';
 
+const Sidebar = () => {
+  return <nav className="cs-header">
+    <div className="w-100 d-flex flex-column align-items-center">
+      <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip"
+        data-placement="top" title="Back Home"></i></Link>
+
+      <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
+
+      <Link to="/js-console" className="nav-link" data-toggle="tooltip" data-placement="top" title="Javascript console">
+        <i className="fas fa-terminal"></i>
+      </Link>
+    </div>
+  </nav>
+}
+
 let local = localStorage.getItem('reacto-web-editor');
 let initTabState = local ? JSON.parse(local) : {
   tabs: [
@@ -42,19 +57,17 @@ export default function WebEditor () {
   const iframe = useRef();
   const [editorVal, setEditorVal] = useState(initEditorVal);
   const [tabsState, setTabsState] = useState(initTabState);
-  const [isTypin, setIsTypin] = useState(false);
+
 
   const onEditorChange = (data) => {
-    setIsTypin(true);
-    setEditorVal(data);
-    tabsState.tabs.find(t => t.index === tabsState.activeTabIndex).code = editorVal;
 
-    if (isTypin) {
-      let iframeDoc = iframe.current.contentWindow.document;
-      let content = writeContent(tabsState.tabs[0].code, tabsState.tabs[1].code, tabsState.tabs[2].code);
-      iframeDoc.open().write(content);
-      iframeDoc.close();
-    }
+    setEditorVal(data);
+    tabsState.tabs.find(t => t.index === tabsState.activeTabIndex).code = data;
+
+    let iframeDoc = iframe.current.contentWindow.document;
+    let content = writeContent(tabsState.tabs[0].code, tabsState.tabs[1].code, tabsState.tabs[2].code);
+    iframeDoc.open().write(content);
+    iframeDoc.close();
 
     localStorage.setItem('reacto-web-editor', JSON.stringify(tabsState));
   }
@@ -62,30 +75,20 @@ export default function WebEditor () {
   const onClickTab = (activeTabIndex) => {
     let tab = tabsState.tabs[activeTabIndex];
     setEditorVal(tab.code);
-    setIsTypin(false)
     setTabsState({ ...tabsState, activeTabIndex });
   }
 
   return <>
-    <nav className="cs-header">
-      <div className="w-100 d-flex flex-column align-items-center">
-        <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip"
-          data-placement="top" title="Back Home"></i></Link>
-
-        <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
-
-        <Link to="/js-console" className="nav-link" data-toggle="tooltip" data-placement="top" title="Javascript console">
-          <i className="fas fa-terminal"></i>
-        </Link>
-      </div>
-    </nav>
+    <Sidebar />
 
     <main>
 
       <header className="tabs overflow-auto">
         <ul>
           {tabsState.tabs.map(tab => (
-            <li className={'tab ' + (tabsState.activeTabIndex === tab.index ? 'active-tab' : '')} key={'wtab' + tab.index}>
+            <li
+              className={'tab ' + (tabsState.activeTabIndex === tab.index ? 'active-tab' : '')}
+              key={'wtab' + tab.index}>
               <div onClick={() => { onClickTab(tab.index); }} className="mr-2">{tab.name}</div>
             </li>
           ))}
