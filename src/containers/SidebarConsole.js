@@ -29,7 +29,13 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
 
   return (
     <nav className="cs-header">
-      <div className="w-100 d-flex flex-column align-items-center">        
+      <div className="w-100 d-flex flex-column align-items-center">
+        <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>
+        <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
+
+      </div>
+
+      <div className="w-100 d-flex flex-column align-items-center">
 
         <div className="nav-link" onClick={onCopyLink}
           title={state.isCopied ? "Copied" : "Copy Link"}>
@@ -47,12 +53,6 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
         </div>
 
         <SelectFont />
-      </div>
-
-      <div className="w-100 d-flex flex-column align-items-center">
-        <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>
-        <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
-        <Link to="/web-editor" className="nav-link"><i className="fab fa-html5" data-toggle="tooltip" data-placement="top" title="Web editor"></i></Link>
         <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
       </div>
     </nav>);

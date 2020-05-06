@@ -11,7 +11,13 @@ React playground / Javascript console
 - [x] Transpile code (Babel)
 - [x] Rename component (Sidebar)
 - [x] Embedded editor
-- [ ] Realtime share code (webrtc)
+- [ ] Realtime share code (webrtc + websockets)
+
+### Keys
+- run code: ctrl + enter
+
+### Doc
+- [shortcuts](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)
 
 ### Captures
 
