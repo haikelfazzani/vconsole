@@ -5,8 +5,7 @@
   display: flex;
   align-items: center;
   color: #afafaf;
-  background-color: var(--bg-main);
-  border-bottom: 1px solid var(--bg-main-light);
+  background-color: var(--light-bleu);
 }
 
 .tabs ul {
@@ -17,7 +16,7 @@
 }
 
 .tab {
-  background-color: var(--bg-main);
+  
   height: 100%;
   padding: 0 12px !important;
   font-size: 12px;
@@ -41,6 +40,6 @@
 }
 
 .active-tab {
-  background-color: var(--bg-main-light);
+  background-color: var(--bg-main);
   color: #ffffff;
 }

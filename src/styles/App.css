@@ -1,11 +1,12 @@
 :root {
-  --bg-main :#181717 ;
-  --bg-main-light:#2d2d2d;
+  --bg-main :#001528;
+  --bg-main-light:#02203c;
+  --light-bleu:#15314b;
 }
 
 body,
 #root {
-  background-color: var(--bg-main);
+  background-color: #02203c;
   color: #ffffff;
   height: 100vh;
   width: 100vw;
@@ -13,21 +14,25 @@ body,
   overflow: hidden;
 }
 
-#root {display: flex; justify-content: center; align-items: center; border: 4px solid var(--bg-main-light); }  
+#root {
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;   }  
 
 /**************************/
 main {
-  width: 95.7%;
-  height: 100% !important;    
+  width: 100%;
+  height: 93.5%;    
   display: block;
 }
 
-#ace-reacto-editor {height: 100% !important;}
-.ace-monokai,.ace_gutter{ background-color: var(--bg-main) !important; }
+
+.react-codemirror2 , .cm-s-monokai.CodeMirror{height: 100%;}
+.cm-s-monokai.CodeMirror, .CodeMirror-gutters {background-color: var(--bg-main) !important;}
 
 main>div {
   width: 100%;
-  height: 94.7%;
+  height: 93.5%;
   display: flex;
 }
 
@@ -35,6 +40,7 @@ main>div {
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
+  background-color: var(--bg-main);
 }
 
 .code-result pre {
@@ -49,7 +55,13 @@ main>div {
 
 /**************************/
 iframe {border: 0; background-color: inherit;}
-.btn {border-radius: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 2px;}
+
+.btn-primary {background-color: var(--light-bleu);     border-radius: 0;
+  border-color: var(--bg-main-light);
+  font-size: 14px;
+  box-shadow: 0 2px 12px -6px #042f57c9!important;
+  letter-spacing: 2px;
+}
 
 select { border: 0; outline: none; }
 
@@ -79,13 +91,4 @@ a {text-decoration: none !important;}
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
-}
-
-
-@media screen and (max-width: 600px) {
-  main {
-    width: 100%;
-  }
-  .w-20 {width: 100%;}
-  .w-40 {width: 100%;}
 }

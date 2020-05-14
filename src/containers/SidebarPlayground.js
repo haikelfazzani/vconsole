@@ -6,7 +6,7 @@ import { editorReducer, editorInitState } from '../reducers/editorReducer';
 import SelectFont from './SelectFont';
 
 import OutLink from '../components/OutLink';
-import NavLink from '../components/NavLink';
+import Button from '../components/Button';
 
 import '../styles/Sidebar.css';
 
@@ -14,21 +14,27 @@ export default function SidebarPlayground ({ beautify }) {
 
   const [editorState, dispatch] = useEffectReducer(editorReducer, editorInitState);
 
-  return <nav className="py-1">
-    <div className="w-100 d-flex flex-column align-items-center">
+  return <nav className="pr-2 pl-2 mb-2">
+    <div className="w-50 d-flex align-items-center">
 
-      <Link className="nav-link" to="/">
-        <i className="fas fa-home" data-toggle="tooltip" data-placement="top" title="Back to home"></i>
+      <Link className="btn btn-primary mr-2" to="/">
+        <i className="fas fa-home" data-toggle="tooltip" data-placement="top" title="Back to home"></i> Home
       </Link>
 
-      <Link to="/js-console" className="nav-link" data-toggle="tooltip" data-placement="top" title="Javascript console">
+      <Link to="/js-console" className="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Javascript console">
         <i className="fas fa-terminal"></i>
       </Link>
     </div>
 
-    <div className="w-100 d-flex flex-column align-items-center">
+    <div className="w-50 d-flex justify-content-end">
 
-      <NavLink
+      <Button
+        onClick={() => { beautify(); }}
+        icon="fas fa-align-right"
+        toolTip="Beautify Code"
+      />
+
+      <Button
         onClick={() => {
           dispatch('COPY_LINK');
           setTimeout(() => { dispatch('IS_COPIED'); }, 1500);
@@ -37,13 +43,7 @@ export default function SidebarPlayground ({ beautify }) {
         icon={editorState.isCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}
       />
 
-      <NavLink
-        onClick={() => { beautify(); }}
-        icon="fas fa-align-right"
-        toolTip="Beautify Code"
-      />
-
-      <NavLink
+      <Button
         onClick={() => {
           dispatch('COPY_EMBED_CODE');
           setTimeout(() => { dispatch('IS_EMBED_COPIED'); }, 1500);
@@ -53,7 +53,7 @@ export default function SidebarPlayground ({ beautify }) {
       />
 
       <a
-        className="nav-link"
+        className="btn btn-primary mr-2"
         href={editorState.code}
         onClick={() => { dispatch('DOWNLOAD_CODE'); }}
         download="reacto.js"

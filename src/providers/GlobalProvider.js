@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import GlobalContext from './GlobalContext';
+import React, { createContext, useState, useEffect } from 'react';
+
+const GlobalContext = createContext();
 
 /** init values global state */
-let initState = { fontSize: '14px' };
+let initState = { fontSize: '16px' };
 try {
   let local = window.localStorage ? localStorage.getItem('reacto-config') : null;
-  initState = local ? JSON.parse(local) : { fontSize: '14px' };;
+  initState = local ? JSON.parse(local) : { fontSize: '16px' };
+
+
 } catch (error) {
 }
 
-export default function GlobalProvider ({ children }) {
+function GlobalProvider ({ children }) {
   const [state, setState] = useState(initState);
 
   useEffect(() => {
@@ -20,3 +23,5 @@ export default function GlobalProvider ({ children }) {
     {children}
   </GlobalContext.Provider>;
 }
+
+export { GlobalContext, GlobalProvider };

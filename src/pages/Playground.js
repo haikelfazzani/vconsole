@@ -20,7 +20,7 @@ export default function Playground (props) {
       .catch(e => { })
   }, [props.match.params.hook]);
 
-  const onEditorChange = (data) => {
+  const onEditorChange = (e,v,data) => {
     setEditorState(data);
   }
 
@@ -31,14 +31,17 @@ export default function Playground (props) {
 
   return <>
     <SidebarPlayground beautify={beautify} />
-    <main>
+    <main className="py-2 pr-2 pl-2">
 
       <Tabs editorState={editorState} setEditorState={setEditorState} setResult={setResult} />
 
       <Split gutterSize={7} sizes={[50, 50]}>
         <Editor onChange={onEditorChange} value={editorState} />
         <LiveProvider code={result} noInline={true}>
-          <div className="code-result"> <LivePreview /><LiveError />   </div>
+          <div className="code-result">
+            <LivePreview />
+            <LiveError />
+          </div>
         </LiveProvider>
       </Split>
     </main>

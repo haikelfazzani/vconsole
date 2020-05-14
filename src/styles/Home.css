@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(135deg, #181717 0%, #181717ea 100%), url(../img/bg.jpg);
+  background-image: linear-gradient(135deg, #043c70d3 0%, #02203cd2 100%), url(../img/bg.jpg);
   color: #ffffff;
 }
 

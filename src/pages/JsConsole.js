@@ -33,7 +33,7 @@ export default function JsConsole () {
     } catch (error) { }
   }, []);
 
-  const onEditorChange = (data) => {
+  const onEditorChange = (e,v,data) => {
     setEditorValue(data);
     localStorage.setItem('reacto-console', JSON.stringify(data))
   }
@@ -64,7 +64,7 @@ export default function JsConsole () {
     return () => { document.removeEventListener('keydown', keydownHandler); }
   }, [state.isRunning]);
 
-  return <div className="w-100 h-100 cs-container">
+  return <div className="w-100 h-100 cs-container pr-2 pl-2">
 
     <SidebarConsole
       state={state}

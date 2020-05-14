@@ -28,26 +28,32 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
   const transpileCode = () => { setState({ ...state, isTranspiled: !state.isTranspiled }) }
 
   return (
-    <nav className="cs-header">
-      <div className="w-100 d-flex flex-column align-items-center">
-        <Link to="/"><i className="fas fa-home py-3" data-toggle="tooltip" data-placement="top" title="Back Home"></i></Link>
-        <Link to="/react-playground" className="nav-link"><i className="fab fa-react" data-toggle="tooltip" data-placement="top" title="React playground"></i></Link>
+    <nav className="mb-2">
 
+      <div className="w-50 d-flex align-items-center">
+
+        <Link className="btn btn-primary mr-2" to="/">
+          <i className="fas fa-home" data-toggle="tooltip" data-placement="top" title="Back to home"></i> Home
+        </Link>
+
+        <Link to="/react-playground" className="btn btn-primary" data-toggle="tooltip" data-placement="top" title="React Playground">
+          <i className="fab fa-react"></i>
+        </Link>
       </div>
 
-      <div className="w-100 d-flex flex-column align-items-center">
+      <div className="w-50 d-flex justify-content-end">
 
-        <div className="nav-link" onClick={onCopyLink}
+        <div className="btn btn-primary mr-2" onClick={onCopyLink}
           title={state.isCopied ? "Copied" : "Copy Link"}>
           <i className={state.isCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}></i>
         </div>
 
-        <div className="nav-link" onClick={beautifyCode}>
+        <div className="btn btn-primary mr-2" onClick={beautifyCode}>
           <i className="fas fa-align-right" data-toggle="tooltip"
             data-placement="top" title="Beautify Code"></i>
         </div>
 
-        <div className="nav-link" onClick={transpileCode}>
+        <div className="btn btn-primary mr-2" onClick={transpileCode}>
           <i className="fas fa-exchange-alt" data-toggle="tooltip"
             data-placement="top" title="Transpile Code"></i>
         </div>

@@ -97,7 +97,7 @@ export default function Tabs ({ editorState, setEditorState, setResult }) {
         })}
       </ul>
 
-      <button className="btn-plus" onClick={() => { onAddTab() }}><i className="fa fa-plus"></i></button>
+      <button className="btn-plus ml-1" onClick={() => { onAddTab() }}><i className="fa fa-plus"></i></button>
     </header>
   );
 }
