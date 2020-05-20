@@ -15,12 +15,18 @@ export default function Playground (props) {
   const [result, setResult] = useState(LocalData.getResult());
 
   useEffect(() => {
-    SnippetService.getSnippet(props.match.params.hook)
-      .then(r => { setEditorState(r) })
-      .catch(e => { })
+    let isMounted = true;
+
+    if (isMounted) {
+      SnippetService.getSnippet(props.match.params.hook)
+        .then(r => { setEditorState(r) })
+        .catch(e => { })
+    }
+
+    return () => { isMounted = false; }
   }, [props.match.params.hook]);
 
-  const onEditorChange = (e,v,data) => {
+  const onEditorChange = (e, v, data) => {
     setEditorState(data);
   }
 

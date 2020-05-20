@@ -33,7 +33,7 @@ export default function evalConsole (jsScript) {
     iframe.contentWindow.onerror = (message, file, line, col, error) => {
       iframeErrors = true;
       iframe.contentWindow.parent.postMessage(`(${line}:${col}) -> ${error}`);
-      reject(iframeErrors);
+      reject(`(${line}:${col}) -> ${error}`);
     };
 
     // get console outputs as string
@@ -52,17 +52,21 @@ function handleConsoleOutput (iframe, resolve) {
     logMessages.push.apply(logMessages, arguments);
 
     let b = logMessages.map(v => {
-      if (v.toString() === '[object Map]' || v.toString() === '[object Set]') {
+      if (v && (v.toString() === '[object Map]' || v.toString() === '[object Set]')) {
         let arr = [...v];
         v = v.toString() + ` (${arr.length}) ` + JSON.stringify(arr, null, 2);
       }
-      if (v.toString() === '[object Object]') {
+      if (v && (v.toString() === '[object Object]')) {
         v = v.toString() + ' ' + JSON.stringify(v, null, 2);
       }
-      if (Array.isArray(v)) {
+      if (v && Array.isArray(v)) {
         v = `Array (${v.length}) ` + JSON.stringify(v, null, 2);
       }
-      return v
+
+      if(v === undefined) v = 'undefined';
+      if(v === null) v = 'null';
+
+      return v;
     });
 
     resolve(b.join('\n'));

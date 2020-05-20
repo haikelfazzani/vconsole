@@ -5,11 +5,16 @@ const Linter = ({ jsValue }) => {
   const [jsHintErrors, setJsHintErrors] = useState([]);
 
   useEffect(() => {
-    window.JSHINT(jsValue, { asi: true, lastsemic: false, esnext: true });
+    let isMounted = true;
+    if (isMounted) {
+      window.JSHINT(jsValue, { asi: true, lastsemic: false, esnext: true });
 
-    setJsHintErrors(window.JSHINT.errors.map(e => {
-      return { reason: e.reason, line: e.line }
-    }));
+      setJsHintErrors(window.JSHINT.errors.map(e => {
+        return { reason: e.reason, line: e.line }
+      }));
+    }
+
+    return () => { isMounted = false; }
   }, [jsValue]);
 
   return <ul className="linter">

@@ -18,51 +18,54 @@ export default function JsConsole () {
     return local ? JSON.parse(local) : 'console.log("Hello world")'
   });
 
-  const [state, setState] = useState({
-    isTranspiled: false,
-    isCopied: false,
-    isRunning: false,
-    elapsedTime: 0
-  });
+  const [state, setState] = useState({ isTranspiled: false, isCopied: false });
 
   useEffect(() => {
-    let data = window.location.search.split('?cs=')[1];
-    try {
-      const decodedData = window.atob(data);
-      setEditorValue(decodedData);
-    } catch (error) { }
+    let isMounted = true;
+    if (isMounted) {
+      let data = window.location.search.split('?cs=')[1];
+      try {
+        const decodedData = window.atob(data);
+        setEditorValue(decodedData);
+      } catch (error) { }
+    }
+    return () => { isMounted = false; }
   }, []);
 
-  const onEditorChange = (e,v,data) => {
+  const onEditorChange = (e, v, data) => {
     setEditorValue(data);
     localStorage.setItem('reacto-console', JSON.stringify(data))
   }
 
   const onRunCode = async () => {
-    let startTime = (new Date()).getTime();
-
-    setState({ ...state, isRunning: true });
-    await evalConsole(editorValue);
+    try {
+      await evalConsole(editorValue);
+    } catch (error) { }
 
     function onMsg (msg) {
-      let endTime = (new Date()).getTime();
       setIframeVal(msg.data);
-      setState({ ...state, isRunning: false, elapsedTime: (endTime - startTime) });
     }
     window.addEventListener("message", onMsg, false);
   }
 
   useEffect(() => {
+    let isMounted = true;
+
     const keydownHandler = async (e) => {
       if (e.keyCode === 13 && e.ctrlKey) {
         await onRunCode();
       }
     }
 
-    document.addEventListener('keydown', keydownHandler, false);
+    if (isMounted) {
+      window.addEventListener('keydown', keydownHandler, false);
+    }
 
-    return () => { document.removeEventListener('keydown', keydownHandler); }
-  }, [state.isRunning]);
+    return () => {
+      document.removeEventListener('keydown', keydownHandler);
+      isMounted = false;
+    }
+  }, []);
 
   return <div className="w-100 h-100 cs-container pr-2 pl-2">
 
@@ -92,16 +95,9 @@ export default function JsConsole () {
             <div className="output">
               <Editor value={iframeVal} lang="javascript" showLineNumbers={false} readOnly={true} />
 
-              <button
-                className={"btn-cs-run " + (state.isRunning ? 'bg-primary' : '')}
-                onClick={() => { onRunCode() }}>
+              <button className="btn-cs-run " onClick={() => { onRunCode() }}>
                 <i className="fa fa-play"></i>
               </button>
-
-              {state.elapsedTime > 0
-                && <span className="elapsed-time">
-                  {state.elapsedTime + ' ms'}
-                </span>}
             </div>
 
             <Linter jsValue={editorValue} />
