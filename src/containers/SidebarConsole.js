@@ -1,31 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import jsBeauty from '../util/jsBeauty';
-import UrlShortnerService from '../services/UrlShortnerService';
-
+import OutLink from '../components/OutLink';
 import SelectFont from './SelectFont';
-import copyToClipboard from '../util/copyToClipboard';
 
 import '../styles/Sidebar.css';
-import OutLink from '../components/OutLink';
 
-function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
+function SidebarConsole () {
 
-  const beautifyCode = () => {
-    let bn = jsBeauty(editorValue);
-    setEditorValue(bn);
+  const onFullScreen = () => {
+
+    if (!document.fullscreenElement) {
+      document.documentElement.querySelector('.cs-container').requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
   }
-
-  const onCopyLink = async () => {
-    setState({ ...state, isCopied: true });
-    const encodedData = window.btoa(editorValue);
-    let url = window.location.origin + '/js-console?cs=' + encodedData;
-    let shortUrl = await UrlShortnerService.getShortLink(url);
-    copyToClipboard(shortUrl);
-    if (shortUrl) { setState({ ...state, isCopied: false }); }
-  }
-
-  const transpileCode = () => { setState({ ...state, isTranspiled: !state.isTranspiled }) }
 
   return (
     <nav className="mb-2">
@@ -42,21 +33,9 @@ function SidebarConsole ({ state, setState, editorValue, setEditorValue }) {
       </div>
 
       <div className="w-50 d-flex justify-content-end">
-
-        <div className="btn btn-primary mr-2" onClick={onCopyLink}
-          title={state.isCopied ? "Copied" : "Copy Link"}>
-          <i className={state.isCopied ? "fas fa-clipboard active-copy" : "fas fa-copy"}></i>
-        </div>
-
-        <div className="btn btn-primary mr-2" onClick={beautifyCode}>
-          <i className="fas fa-align-right" data-toggle="tooltip"
-            data-placement="top" title="Beautify Code"></i>
-        </div>
-
-        <div className="btn btn-primary mr-2" onClick={transpileCode}>
-          <i className="fas fa-exchange-alt" data-toggle="tooltip"
-            data-placement="top" title="Transpile Code"></i>
-        </div>
+        <button onClick={onFullScreen} className="btn btn-primary mr-2">
+          <i className="fa fa-compress"></i>
+        </button>
 
         <SelectFont />
         <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />

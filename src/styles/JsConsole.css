@@ -8,19 +8,19 @@
 .gutter-vertical {
   border: 0 !important;
   cursor: row-resize;
-  background-color: transparent !important;
+  z-index: 9999;
 }
 
 .cs-container>div {
   display: flex;
-  height: 93.5%;
+  height: 93%;
   width: 100%;
   padding: 0 0 15px;
 }
 
 .cs-output>div {
   width: 100%;
-  height: 93.5%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -54,7 +54,7 @@
 .btn-cs-run {
   position: absolute;
   top: 10px;
-  left: -55px;
+  left: -65px;
   border-radius: 50%;
   background-color: var(--bg-main-light);
   color: #dddddd;
@@ -65,4 +65,11 @@
 
 .btn-cs-run:hover {
   color: #ffffff;
+}
+
+.monaco-editor,
+.monaco-editor-background,
+.monaco-editor .inputarea.ime-input,
+.monaco-editor .margin {
+  background-color: var(--bg-main) !important;
 }

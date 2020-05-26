@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+
 import Editor from '../components/Editor';
 import Split from 'react-split';
 
-import Transpiler from '../containers/Transpiler';
 import SidebarConsole from '../containers/SidebarConsole';
 
 import '../styles/JsConsole.css';
 import Linter from '../containers/Linter';
-import evalConsole from '../util/evalConsole';
+import { evalConsole, formatOutput } from '../util/evalConsole';
+import Monaco from '../components/Monaco';
+import SplitPane from '../components/SplitPane';
 
 export default function JsConsole () {
 
@@ -17,8 +19,6 @@ export default function JsConsole () {
     let local = localStorage.getItem('reacto-console');
     return local ? JSON.parse(local) : 'console.log("Hello world")'
   });
-
-  const [state, setState] = useState({ isTranspiled: false, isCopied: false });
 
   useEffect(() => {
     let isMounted = true;
@@ -32,27 +32,25 @@ export default function JsConsole () {
     return () => { isMounted = false; }
   }, []);
 
-  const onEditorChange = (e, v, data) => {
+  const onEditorChange = (e, data) => {
     setEditorValue(data);
     localStorage.setItem('reacto-console', JSON.stringify(data))
   }
 
-  const onRunCode = async () => {
+  const onRunCode = useCallback(async () => {
     try {
-      await evalConsole(editorValue);
-    } catch (error) { }
-
-    function onMsg (msg) {
-      setIframeVal(msg.data);
+      let result = await evalConsole(editorValue);
+      setIframeVal(formatOutput(result));
+    } catch (error) {
+      setIframeVal(error);
     }
-    window.addEventListener("message", onMsg, false);
-  }
+  }, [editorValue]);
 
   useEffect(() => {
     let isMounted = true;
 
     const keydownHandler = async (e) => {
-      if (e.keyCode === 13 && e.ctrlKey) {
+      if (e.keyCode === 13 && e.altKey) {
         await onRunCode();
       }
     }
@@ -65,47 +63,36 @@ export default function JsConsole () {
       document.removeEventListener('keydown', keydownHandler);
       isMounted = false;
     }
-  }, []);
+  }, [onRunCode]);
 
   return <div className="w-100 h-100 cs-container pr-2 pl-2">
 
-    <SidebarConsole
-      state={state}
-      setState={setState}
-      editorValue={editorValue}
-      setEditorValue={setEditorValue}
-    />
+    <SidebarConsole />
 
-    <Split sizes={[50, 50]}
-      minSize={0}
-      gutterSize={7}
-      gutterAlign="center"
-      direction="horizontal"
-    >
-      <Editor onChange={onEditorChange} value={editorValue} lang="javascript" />
+    <SplitPane>
+      <Monaco onEditorChange={onEditorChange} editorVal={editorValue} />
 
       <div className="d-flex cs-output">
-        {!state.isTranspiled
-          ? <Split sizes={[50, 50]}
-            minSize={0}
-            gutterSize={5}
-            gutterAlign="center"
-            direction="vertical"
-          >
-            <div className="output">
-              <Editor value={iframeVal} lang="javascript" showLineNumbers={false} readOnly={true} />
 
-              <button className="btn-cs-run " onClick={() => { onRunCode() }}>
-                <i className="fa fa-play"></i>
-              </button>
-            </div>
+        <Split sizes={[50, 50]}
+          minSize={0}
+          gutterSize={5}
+          gutterAlign="center"
+          direction="vertical"
+        >
+          <div className="output">
+            <Editor value={iframeVal} lang="javascript" showLineNumbers={false} readOnly={true} />
 
-            <Linter jsValue={editorValue} />
-          </Split>
+            <button className="btn-cs-run " onClick={() => { onRunCode() }}>
+              <i className="fa fa-play"></i>
+            </button>
+          </div>
 
-          : <Transpiler input={state.isTranspiled ? editorValue : ''} codeType='javascript' />}
+          <Linter jsValue={editorValue} />
+        </Split>
+
       </div>
+    </SplitPane>
 
-    </Split>
   </div>;
 }

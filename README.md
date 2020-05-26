@@ -8,13 +8,12 @@ React playground / Javascript console
 - [x] AutoSave
 - [x] Share code (link)
 - [x] Format code
-- [x] Transpile code (Babel)
 - [x] Rename component (Sidebar)
 - [x] Embedded editor
 - [ ] Realtime share code (webrtc + websockets)
 
 ### Keys
-- run code: ctrl + enter
+- run code: alt + enter
 
 ### Doc
 - [shortcuts](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)

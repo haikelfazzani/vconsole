@@ -5,15 +5,15 @@ const fontSizes = ['10px', '12px', '14px', '16px', '18px', '20px', '22px', '24px
 
 function SelectFont () {
 
-  const { state, setState } = useContext(GlobalContext);
+  const { globalState, setGlobalState } = useContext(GlobalContext);
 
   const onFont = (e) => {
-    setState({ ...state, fontSize: e.target.value });
+    setGlobalState({ ...globalState, fontSize: e.target.value });
   }
 
   useEffect(() => {
-    document.querySelector('.CodeMirror').style.fontSize = state.fontSize;
-  }, [state.fontSize]);
+    document.querySelector('.CodeMirror').style.fontSize = globalState.fontSize;
+  }, [globalState.fontSize]);
 
   return (
     <select
@@ -21,7 +21,7 @@ function SelectFont () {
       name="font-sizes"
 
       onChange={onFont}
-      value={state.fontSize}
+      value={globalState.fontSize}
 
       data-toggle="tooltip"
       data-placement="top"

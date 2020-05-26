@@ -13,13 +13,13 @@ try {
 }
 
 function GlobalProvider ({ children }) {
-  const [state, setState] = useState(initState);
+  const [globalState, setGlobalState] = useState(initState);
 
   useEffect(() => {
-    localStorage.setItem('reacto-config', JSON.stringify(state));
-  }, [state, setState]);
+    localStorage.setItem('reacto-config', JSON.stringify(globalState));
+  }, [globalState, setGlobalState]);
 
-  return <GlobalContext.Provider value={{ state, setState }}>
+  return <GlobalContext.Provider value={{ globalState, setGlobalState }}>
     {children}
   </GlobalContext.Provider>;
 }

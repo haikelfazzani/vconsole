@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-
+import loadable from '@loadable/component';
 import Home from "./pages/Home";
-import Playground from "./pages/Playground";
-import JsConsole from "./pages/JsConsole";
 
 import './styles/App.css';
+
+const Playground = loadable(() => import('./pages/Playground'));
+const JsConsole = loadable(() => import('./pages/JsConsole'));
 
 export default function App () {
 
