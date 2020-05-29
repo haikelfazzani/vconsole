@@ -6,7 +6,7 @@ import SnippetService from "../services/SnippetService";
 import SidebarPlayground from "../containers/SidebarPlayground";
 import Tabs from "../containers/Tabs";
 
-import jsBeauty from "../util/jsBeauty";
+import prettierBeautify from '../util/prettierBeautify';
 import LocalData from "../util/LocalData";
 
 export default function Playground (props) {
@@ -31,8 +31,8 @@ export default function Playground (props) {
   }
 
   const beautify = () => {
-    let bn = jsBeauty(editorState);
-    setEditorState(bn);
+    const formattedCode = prettierBeautify(editorState)
+    setEditorState(formattedCode);
   }
 
   return <>

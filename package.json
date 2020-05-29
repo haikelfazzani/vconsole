@@ -8,6 +8,7 @@
     "axios": "^0.19.2",
     "codemirror": "^5.53.2",
     "easy-peasy": "^3.3.0",
+    "prettier": "^2.0.5",
     "react": "^16.13.0",
     "react-ace": "^8.1.0",
     "react-codemirror2": "^7.1.0",
