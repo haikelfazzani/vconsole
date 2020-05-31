@@ -53,7 +53,7 @@ export default function SidebarPlayground ({ beautify }) {
       />
 
       <a
-        className="btn btn-primary mr-2"
+        className="btn btn-primary mr-2 disp-none"
         href={editorState.code}
         onClick={() => { dispatch('DOWNLOAD_CODE'); }}
         download="reacto.js"

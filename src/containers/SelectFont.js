@@ -17,7 +17,7 @@ function SelectFont () {
 
   return (
     <select
-      className="btn btn-primary"
+      className="btn btn-primary disp-none"
       name="font-sizes"
 
       onChange={onFont}

@@ -95,5 +95,7 @@ a {text-decoration: none !important;}
 
 /***************************/
 @media screen and (max-width: 600px) {
+  .display-1 {font-size: 5em;}
   .w-50,.w-25 {width: 80% !important;}
+  .disp-none {display: none !important;}
 }
