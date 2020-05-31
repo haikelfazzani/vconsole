@@ -7,7 +7,6 @@ import { GlobalContext } from "../providers/GlobalProvider";
   
 // })
 
-
 export default function Monaco ({ onEditorChange, editorVal }) {
 
   const { globalState } = useContext(GlobalContext);
