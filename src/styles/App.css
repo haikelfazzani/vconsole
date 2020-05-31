@@ -92,3 +92,8 @@ a {text-decoration: none !important;}
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
+
+/***************************/
+@media screen and (max-width: 600px) {
+  .w-50,.w-25 {width: 80% !important;}
+}

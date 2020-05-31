@@ -7,7 +7,7 @@ import Snippets from '../containers/Snippets';
 export default function Home () {
 
   return (
-    <div className="jumbotron text-center">
+    <div className="jumbotron text-center py-3">
       <h1 className="display-1">Reacto</h1>
 
       <div className="w-50 text-center mb-4">
