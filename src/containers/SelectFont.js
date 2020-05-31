@@ -12,7 +12,10 @@ function SelectFont () {
   }
 
   useEffect(() => {
-    document.querySelector('.CodeMirror').style.fontSize = globalState.fontSize;
+    let editors = Array.from(document.querySelectorAll('.CodeMirror'));
+    editors.forEach(ed => {
+      ed.style.fontSize = globalState.fontSize;
+    });
   }, [globalState.fontSize]);
 
   return (

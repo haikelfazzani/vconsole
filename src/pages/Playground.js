@@ -19,7 +19,9 @@ export default function Playground (props) {
 
     if (isMounted) {
       SnippetService.getSnippet(props.match.params.hook)
-        .then(r => { setEditorState(r) })
+        .then(r => { 
+          if(r) { setEditorState(r) }
+         })
         .catch(e => { })
     }
 

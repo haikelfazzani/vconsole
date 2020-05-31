@@ -31,13 +31,16 @@ export default function Editor ({
 }) {
 
   const onKeyDown = (editor, event) => {
-
+    
     if (!readOnly && event.ctrlKey && (event.keyCode === 58 || event.keyCode === 191)) {
       editor.execCommand('toggleComment')
     }
 
     if (!readOnly && !event.ctrlKey && event.keyCode > 64 && event.keyCode < 123) {
-      setTimeout(() => { editor.showHint(); }, 250);
+      const hintOptions = {
+        completeSingle: false
+      };
+      setTimeout(() => { editor.showHint(hintOptions); }, 300);
     }
   }
 

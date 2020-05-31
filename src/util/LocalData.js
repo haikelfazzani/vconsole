@@ -31,7 +31,7 @@ export default class LocalData {
   }
 
   static getFirstTabCode () {
-    return this.getTabs()[0].code || codeJsx;
+    return this.getTabs() ? this.getTabs()[0].code : codeJsx;
   }
 
   static getResult () {

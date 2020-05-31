@@ -8,7 +8,6 @@ import SidebarConsole from '../containers/SidebarConsole';
 import '../styles/JsConsole.css';
 import Linter from '../containers/Linter';
 import { evalConsole, formatOutput } from '../util/evalConsole';
-import Monaco from '../components/Monaco';
 import SplitPane from '../components/SplitPane';
 
 export default function JsConsole () {
@@ -32,7 +31,7 @@ export default function JsConsole () {
     return () => { isMounted = false; }
   }, []);
 
-  const onEditorChange = (e, data) => {
+  const onEditorChange = (e,_, data) => {
     setEditorValue(data);
     localStorage.setItem('reacto-console', JSON.stringify(data))
   }
@@ -50,7 +49,7 @@ export default function JsConsole () {
     let isMounted = true;
 
     const keydownHandler = async (e) => {
-      if (e.keyCode === 13 && e.altKey) {
+      if (e.keyCode === 13 && e.ctrlKey) {
         await onRunCode();
       }
     }
@@ -70,7 +69,7 @@ export default function JsConsole () {
     <SidebarConsole />
 
     <SplitPane>
-      <Monaco onEditorChange={onEditorChange} editorVal={editorValue} />
+      <Editor onChange={onEditorChange} value={editorValue} lang="javascript" />
 
       <div className="d-flex cs-output">
 

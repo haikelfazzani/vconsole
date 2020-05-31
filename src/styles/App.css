@@ -29,6 +29,14 @@ main {
 
 .react-codemirror2 , .cm-s-monokai.CodeMirror{height: 100%;}
 .cm-s-monokai.CodeMirror, .CodeMirror-gutters {background-color: var(--bg-main) !important;}
+.CodeMirror-hints {
+  display: block !important;
+  background-color: var(--bg-main) !important;
+  width: 25%;
+  border: 2px solid var(--light-bleu) !important;
+}
+
+.CodeMirror-hints li {color: #dddddd !important; font-size: 16px; }
 
 main>div {
   width: 100%;
