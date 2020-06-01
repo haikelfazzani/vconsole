@@ -33,31 +33,38 @@ export function evalConsole (jsScript) {
 
     // get console outputs as string
     let logMessages = [];
-
-    iframe.contentWindow.console.log = function () {
-      logMessages.push.apply(logMessages, arguments);
+    iframe.contentWindow.console.log = (...args) => {
+      logMessages.push.apply(logMessages, [args]);
       resolve(logMessages);
     };
   });
 }
 
+// [ [], [] ]
 export function formatOutput (logMessages) {
+  return logMessages.map(msg => concatArgs(msg)).join('\n');
+}
+
+function concatArgs (logMessages) {
+  let splitArgs = false;
   return logMessages.map(msg => {
 
     if (msg) {
       if (msg.toString() === '[object Map]' || msg.toString() === '[object Set]') {
         let arr = [...msg];
         msg = msg.toString() + ` (${arr.length}) ` + JSON.stringify(arr, null, 2);
+        splitArgs = true;
       }
       if (msg.toString() === '[object Object]') {
         msg = msg.toString() + ' ' + JSON.stringify(msg, null, 2);
       }
       if (Array.isArray(msg)) {
         msg = `Array (${msg.length}) ` + JSON.stringify(msg, null, 2);
+        splitArgs = true;
       }
     }
 
     return (msg === undefined) ? 'undefined' : msg;
   })
-    .join('\n');
+    .join(splitArgs ? '\n' : ' ');
 }
