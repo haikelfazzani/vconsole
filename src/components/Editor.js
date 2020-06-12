@@ -5,7 +5,6 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 
 import 'codemirror/mode/jsx/jsx';
-import 'codemirror/mode/javascript/javascript';
 
 import 'codemirror/addon/hint/show-hint';
 import 'codemirror/addon/hint/javascript-hint';

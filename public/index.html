@@ -6,7 +6,7 @@
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="keywords" content="react,javascript,playground,editor,code,reactjs,console">
+  <meta name="keywords" content="react,javascript,typescript,playground,editor,code,reactjs,console">
   <meta name="author" content="Haikel Fazzani">
   <meta name="description" content="Online React playground that auto-evaluates as you type - Free and open source." />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -28,9 +28,11 @@
 
 <body spellcheck="false">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.11.0/jshint.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.9.4/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.9.4/babel.min.js" async></script>
 
   <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/3.9.5/typescript.min.js" async></script>
   <div id="root"></div>
 </body>
 </html>

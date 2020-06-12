@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../providers/GlobalProvider';
+import Select from '../components/Select';
 
-const fontSizes = ['10px', '12px', '14px', '16px', '18px', '20px', '22px', '24px'];
+const fontSizes = [10, 12, 14, 16, 18, 20, 22, 24];
 
 function SelectFont () {
 
@@ -14,25 +15,16 @@ function SelectFont () {
   useEffect(() => {
     let editors = Array.from(document.querySelectorAll('.CodeMirror'));
     editors.forEach(ed => {
-      ed.style.fontSize = globalState.fontSize;
+      ed.style.fontSize = globalState.fontSize + 'px';
     });
   }, [globalState.fontSize]);
 
-  return (
-    <select
-      className="btn btn-primary disp-none"
-      name="font-sizes"
-
-      onChange={onFont}
-      value={globalState.fontSize}
-
-      data-toggle="tooltip"
-      data-placement="top"
-      title="Font Size">
-
-      {fontSizes.map(f => <option value={f} key={f}>{f}</option>)}
-    </select>
-  );
+  return (<Select
+    onChange={onFont}
+    value={globalState.fontSize}
+    toolTip="tooltip"
+    data={fontSizes}
+  />);
 }
 
 export default React.memo(SelectFont);

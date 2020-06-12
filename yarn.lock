@@ -1101,6 +1101,11 @@
     "@babel/runtime" "^7.7.7"
     hoist-non-react-statics "^3.3.1"
 
+"@monaco-editor/react@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@monaco-editor/react/-/react-3.3.1.tgz#abc2a587f7413b60b250c170a9cfa3454875ac6a"
+  integrity sha512-0Slv0d7aX6yS3/Rbk2AWKGSsD4zc7J7BSMCygzXlNJUlzxk1fXb7iITkCYrqLWtQzlGCTCXHrn9kW8PYVpmxQA==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1543,7 +1548,7 @@ accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
-ace-builds@^1.4.6:
+ace-builds@^1.4.11, ace-builds@^1.4.6:
   version "1.4.11"
   resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.4.11.tgz#b1f19a891afcef1d26522473082baf80067e855f"
   integrity sha512-keACH1d7MvAh72fE/us36WQzOFQPJbHphNpj33pXwVZOM84pTWcdFzIAvngxOGIGLTm7gtUP2eJ4Ku6VaPo8bw==
@@ -8371,10 +8376,10 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-ace@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-8.1.0.tgz#6680accb7306a1850e6ef4370a00f0007eadc8b4"
-  integrity sha512-n3rm9gRNZjLGlXJQ587RASOQCPn6WlcV2gjRYwvG3gyVpBf4pY6lh/uI9tDkx2zYdEKJUfnGbTmzEGL5yyDWuw==
+react-ace@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-9.0.0.tgz#9529e2343b520de288753cbfcfdca3bf71a204d8"
+  integrity sha512-wcVlnffzKif2ejHCvTpawYS5jglTCsIUmLENo4hiwPU0vViKl/xuKp9afjKEQHzjLua9NfzbH8gA79GzGpmSnA==
   dependencies:
     ace-builds "^1.4.6"
     diff-match-patch "^1.0.4"

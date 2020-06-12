@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import './styles/App.css';
 
 const Playground = loadable(() => import('./pages/Playground'));
-const JsConsole = loadable(() => import('./pages/JsConsole'));
+const JsConsole = loadable(() => import('./pages/console/JsConsole'));
 
 export default function App () {
 
