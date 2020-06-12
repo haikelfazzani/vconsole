@@ -12,15 +12,9 @@
 - [ ] Share code (link)
 - [ ] Realtime share code (webrtc + websockets)
 
-### Keys
-- run code: alt + enter
-
-### Doc
-- [shortcuts](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts)
-
 ### Captures
 
-![](https://i.ibb.co/8gQDqZd/reacto.png)
+![](https://i.ibb.co/S3Kwy6v/reacto.png)
 
 ### Logo
 
