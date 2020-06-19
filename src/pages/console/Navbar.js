@@ -8,6 +8,9 @@ import Select from '../../components/Select';
 import downloadCode from '../../util/downloadCode';
 import { savePaste } from '../../services/PasteService';
 import Toast from '../../components/Toast';
+import DomUtils from '../../util/DomUtils';
+
+const TYPESCRIPT_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/3.9.5/typescript.min.js';
 
 function Navbar ({ editorValue, setEditorValue, setLangauge, language }) {
 
@@ -25,15 +28,24 @@ function Navbar ({ editorValue, setEditorValue, setLangauge, language }) {
 
   const onClearEditor = () => { setEditorValue(''); }
 
-  const onSelectLang = (e) => { setLangauge(e.target.value); }
+  const onSelectLang = (e) => { 
+    let language = e.target.value;
+    if(language === 'typescript') {
+      DomUtils.createScript(TYPESCRIPT_CDN)
+    }
+    else {
+      DomUtils.removeElement();
+    }
+    setLangauge(language); 
+  }
 
   const onDownload = () => {
     downloadCode(editorValue, 'reacto.' + (language.startsWith('type') ? 'ts' : 'js'));
   }
 
   const onSavePaste = async () => {
-    let res = await savePaste({ code: editorValue });
-    setPasteUrl(res);
+    // let res = await savePaste({ code: editorValue });
+    // setPasteUrl(res);
   }
 
   return (

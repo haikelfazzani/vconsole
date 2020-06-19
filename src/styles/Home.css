@@ -1,13 +1,13 @@
 .jumbotron {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
-  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(135deg, #043c70d3 0%, #02203cd2 100%), url(../img/bg.jpg);
   color: #ffffff;
+  overflow-y: auto;
 }
 
 .jumbotron h1 {

@@ -7,8 +7,8 @@ import Snippets from '../containers/Snippets';
 export default function Home () {
 
   return (
-    <div className="jumbotron text-center py-3">
-      <h1 className="display-1">Reacto</h1>
+    <div className="jumbotron text-center">
+      <h1 className="display-1 py-3">Reacto</h1>
 
       <div className="w-50 text-center mb-4">
         <p className="lead m-0">Online React playground that auto-evaluates as you type.</p>
