@@ -65,7 +65,7 @@ export default function JsConsole () {
     }
   };
 
-  return <div className="w-100 h-100 cs-container pr-2 pl-2">
+  return <div className="w-100 h-100 cs-container pr-2 pl-2 overflow-hidden">
 
     <Navbar editorValue={editorValue} setEditorValue={setEditorValue} setLangauge={setLangauge} language={language} />
 

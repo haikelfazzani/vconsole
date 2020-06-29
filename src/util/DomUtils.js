@@ -5,10 +5,11 @@ export default class DomUtils {
     return elem ? elem.parentNode.removeChild(elem) : null;
   }
 
-  static createScript (url) {
+  static createScript (url, id = 'typescript-link') {
     const script = document.createElement('script');
-    script.id = 'typescript-link';
+    script.id = id;
     script.src = url;
+    
     document.body.append(script);
   }
 }

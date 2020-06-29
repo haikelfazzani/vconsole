@@ -44,8 +44,8 @@ function Navbar ({ editorValue, setEditorValue, setLangauge, language }) {
   }
 
   const onSavePaste = async () => {
-    // let res = await savePaste({ code: editorValue });
-    // setPasteUrl(res);
+    let res = await savePaste({ code: editorValue });
+    setPasteUrl(res);
   }
 
   return (
