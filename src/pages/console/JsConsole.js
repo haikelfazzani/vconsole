@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
 import Split from 'react-split';
 
 import Navbar from './Navbar';
-
-import './JsConsole.css';
 import Linter from './Linter';
 import { evalConsole, formatOutput } from '../../util/evalConsole';
 import SplitPane from '../../components/SplitPane';
 import { ControlledEditor } from '@monaco-editor/react'
 import Editor from '../../components/Editor';
 import { GlobalContext } from '../../providers/GlobalProvider';
+
+import './JsConsole.css';
+
+const Sidebar = React.lazy(() => import('./Sidebar'));
 
 export default function JsConsole () {
 
@@ -102,5 +104,9 @@ export default function JsConsole () {
       </div>
     </SplitPane>
 
+
+    <Suspense fallback={<div>loading...</div>}>
+      <Sidebar />
+    </Suspense>
   </div>;
 }

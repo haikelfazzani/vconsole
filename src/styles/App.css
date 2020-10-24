@@ -142,6 +142,9 @@ a {
   width: 40%;
 }
 
+hr {width: 100%; border-color: rgb(255, 255, 255) !important;}
+
+.btn {text-transform: uppercase; letter-spacing: 1px;}
 /**************************/
 
 ::-webkit-scrollbar {

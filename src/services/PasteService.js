@@ -8,7 +8,7 @@ export async function savePaste ({ code, filename, expire_date, format }) {
       body: JSON.stringify({
         code: code || "print('hello')",
         filename: (filename || "reacto.js"),
-        expire_date: expire_date || "1Y",
+        expire_date: expire_date || "1D",
         format: format || "javascript"
       })
     });

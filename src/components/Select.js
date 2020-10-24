@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Select ({ data, onChange, value, toolTip, clx = "btn btn-primary disp-none mr-2" }) {
+export default function Select ({ data, onChange, value, toolTip, clx = "btn btn-primary mr-2" }) {
   return (<select
     className={clx}
     onChange={onChange}

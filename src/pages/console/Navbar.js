@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import OutLink from '../../components/OutLink';
 import SelectFont from '../../containers/SelectFont';
 
-import '../../styles/Sidebar.css';
 import Select from '../../components/Select';
 import downloadCode from '../../util/downloadCode';
-import { savePaste } from '../../services/PasteService';
-import Toast from '../../components/Toast';
 import DomUtils from '../../util/DomUtils';
+import '../../styles/Sidebar.css';
 
 const TYPESCRIPT_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/3.9.5/typescript.min.js';
 
 function Navbar ({ editorValue, setEditorValue, setLangauge, language }) {
-
-  const [pasteUrl, setPasteUrl] = useState(null);
 
   const onFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -28,24 +24,19 @@ function Navbar ({ editorValue, setEditorValue, setLangauge, language }) {
 
   const onClearEditor = () => { setEditorValue(''); }
 
-  const onSelectLang = (e) => { 
+  const onSelectLang = (e) => {
     let language = e.target.value;
-    if(language === 'typescript') {
+    if (language === 'typescript') {
       DomUtils.createScript(TYPESCRIPT_CDN)
     }
     else {
       DomUtils.removeElement();
     }
-    setLangauge(language); 
+    setLangauge(language);
   }
 
   const onDownload = () => {
     downloadCode(editorValue, 'reacto.' + (language.startsWith('type') ? 'ts' : 'js'));
-  }
-
-  const onSavePaste = async () => {
-    let res = await savePaste({ code: editorValue });
-    setPasteUrl(res);
   }
 
   return (
@@ -70,10 +61,6 @@ function Navbar ({ editorValue, setEditorValue, setLangauge, language }) {
 
         <SelectFont />
 
-        <button onClick={onSavePaste} className="btn btn-primary mr-2">
-          <i className="fa fa-save"></i>
-        </button>
-
         <button onClick={onDownload} className="btn btn-primary mr-2">
           <i className="fa fa-download"></i>
         </button>
@@ -83,8 +70,7 @@ function Navbar ({ editorValue, setEditorValue, setLangauge, language }) {
         </button>
         <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
       </div>
-
-      <Toast text={pasteUrl} show={pasteUrl} setshowToast={setPasteUrl} />
+      
     </nav>);
 }
 
