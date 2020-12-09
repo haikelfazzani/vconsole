@@ -1,0 +1,34 @@
+:root {
+  --dark-bg-main: #171718;
+    --light-bg: #292c2e;
+}
+
+.react-live >div{
+  width: 100%;
+  display: flex;
+}
+
+.react-live header {
+  height: 40px;
+  background-color: var(--light-bg);
+  border-bottom: 1px solid var(--gray);
+  box-shadow: 0 4px 5px 0 rgb(0 0 0/22%), 0 2px 0 0 rgb(0 0 0/0);
+}
+
+.react-live >div {
+  height: calc(100% - 40px);
+}
+
+pre,#preview {
+  width: 100%;
+  height: 50%;
+}
+
+.gutter {background-color: var(--light-bg);}
+.ace-monokai,.ace_gutter {background-color: var(--dark-bg-main) !important;}
+
+pre {
+  padding: 10px;
+  margin: 0;
+  background-color: var(--dark-bg-main);
+  color: #ffffff;}

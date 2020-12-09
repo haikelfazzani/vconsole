@@ -98,7 +98,7 @@ export default function JsConsole () {
             </button>
           </div>
 
-          <Linter jsValue={editorValue} language={language} />
+          <Linter jsValue={editorValue} />
         </Split>
 
       </div>
