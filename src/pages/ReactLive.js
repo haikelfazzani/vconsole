@@ -23,7 +23,12 @@ class ErrorBoundary extends React.Component {
 
   render () {
     const { hasError, error, info } = this.state;
-    return hasError ? <h1>Something went wrong</h1> : <div></div>;
+    return hasError
+      ? <div>
+        <p className="text-danger">{error.message}</p>
+        <p className="text-danger">{info.componentStack}</p>
+      </div>
+      : <div>{this.props.children}</div>;
   }
 }
 
@@ -45,7 +50,7 @@ function App() {
   );
 }
 
-render(<App />, document.getElementById('preview'));
+render(<ErrorBoundary><App /></ErrorBoundary>, document.getElementById('preview'));
 `;
 
 export default function ReactLive () {
@@ -63,9 +68,8 @@ export default function ReactLive () {
     if (previewRef && previewRef.current) {
       try {
         let result = window.Babel.transform(editorValue, babelOptions);
-        console.log(result);
-        let Func = new Function('React','render', 'ErrorBoundary', result.code)
-        let Hoc = () => Func(React,ReactDOM.render, ErrorBoundary);
+        let Func = new Function('React', 'render', 'ErrorBoundary', result.code)
+        let Hoc = () => Func(React, ReactDOM.render, ErrorBoundary);
         setLivePreview(Hoc);
         setErrors('');
       } catch (err) {
@@ -84,9 +88,8 @@ export default function ReactLive () {
       <EditorAce onChange={onValueChange} value={editorValue} />
 
       <Split direction="vertical" cursor="col-resize" gutterSize={7} sizes={[50, 50]}>
-
         <div id="preview" ref={previewRef}>
-          {LivePreview && <ErrorBoundary><LivePreview /></ErrorBoundary>}
+          {LivePreview && <LivePreview />}
         </div>
 
         <pre>{'' + errors}</pre>
