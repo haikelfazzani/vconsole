@@ -53,7 +53,7 @@ export default function ReactLive () {
   const previewRef = useRef();
   const [editorValue, setEditorValue] = useState(defVal);
   const [errors, setErrors] = useState('');
-  const [LivePreview, setLivePreview] = useState();
+  const [LivePreview, setLivePreview] = useState(null);
 
   const onValueChange = (data) => {
     setEditorValue(data);
@@ -65,7 +65,7 @@ export default function ReactLive () {
         let result = window.Babel.transform(editorValue, babelOptions);
         console.log(result);
         let Func = new Function('React','render', 'ErrorBoundary', result.code)
-        let Hoc = () => <div>{Func(React,ReactDOM.render, ErrorBoundary)}</div>;
+        let Hoc = () => Func(React,ReactDOM.render, ErrorBoundary);
         setLivePreview(Hoc);
         setErrors('');
       } catch (err) {
@@ -86,7 +86,7 @@ export default function ReactLive () {
       <Split direction="vertical" cursor="col-resize" gutterSize={7} sizes={[50, 50]}>
 
         <div id="preview" ref={previewRef}>
-          <ErrorBoundary><LivePreview /></ErrorBoundary>
+          {LivePreview && <ErrorBoundary><LivePreview /></ErrorBoundary>}
         </div>
 
         <pre>{'' + errors}</pre>

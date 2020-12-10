@@ -22,8 +22,6 @@ export default function App () {
       <Route exact path="/console" component={JsConsole} />
 
       <Route exact path="/react-live" component={ReactLive} />
-
-      <Redirect path="*" to="/" />
     </Switch>
   </BrowserRouter>;
 } 
