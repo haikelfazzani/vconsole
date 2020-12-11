@@ -1,42 +1,44 @@
-.jumbotron {
-  min-height: 100vh;
+.container h1 {font-size: 35px;}
+
+.section {padding:10px 0; margin: 40px 0;}
+.section img {width: 100%; object-fit: cover;}
+
+.container {
   width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
-  background-image: linear-gradient(135deg, #043c70d3 0%, #02203cd2 100%), url(../img/bg.jpg);
+}
+
+nav {
+  height: 60px;
+  font-size: 16px;
+  box-shadow: 0 1px 14px 0 rgba(0, 0, 0, .2);
+  overflow-x: auto;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav .nav-link {  
+  color: var(--muted);
+  font-weight: 100;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+nav .nav-link:hover {
   color: #ffffff;
-  overflow-y: auto;
 }
 
-.jumbotron h1 {
-  color: var(--warning);
-  font-family: 'Changa';
-  text-transform: uppercase;
-}
+footer {
+  height: 60px;
+  box-shadow: 0 -1px 14px 0 rgba(0, 0, 0, .2);}
 
-.btn-modal {
-  position: fixed;
-  top: 12px;
-  right: 15px;
-  z-index: 9;
-  cursor: pointer;
-}
-
-.menu-snippets {
-  width: 220px;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  background-color: var(--bg-main);
-  overflow-y: auto;
-}
-
-.menu-snippets li {
-  background-color: inherit;
-  text-align: left;
-  font-size: 14px;
-  border: 1px solid rgb(43, 43, 43);
-}

@@ -17,7 +17,7 @@ const Linter = ({ jsValue }) => {
   }, [jsValue]);
 
   return <ul className="linter">
-    <li className="header"><i className="fas fa-bug"></i> Linter</li>
+    <li><i className="fas fa-bug"></i> Linter</li>
     {jsHintErrors.map((l, i) => <li key={'linter' + i}>
         <i className="fas fa-angle-right"></i> {'Line ' + l.line + ':'} {l.reason}
       </li>)}

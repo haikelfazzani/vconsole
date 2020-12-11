@@ -10353,6 +10353,11 @@ use-effect-reducer@^0.4.1:
   resolved "https://registry.yarnpkg.com/use-effect-reducer/-/use-effect-reducer-0.4.1.tgz#a4a9d1f49d3cd72e19e3f7b0f6dc99dfb3cf9315"
   integrity sha512-DtM/l3mUxTF2rtvViWbFhNEoQu7ikZjPkGykxkksedvBC2pMETsNmphRREXWPl5J/j7/Z7rWg+3+MxEnNW5hjA==
 
+use-error-boundary@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/use-error-boundary/-/use-error-boundary-2.0.4.tgz#cc62be83b9625ea886acdd6ca0cb0af896b2ab28"
+  integrity sha512-bBDGoJSrdWCAQdjGKQHT7+j5iTQwqT2v6j1LROfvu1N9PoE9X0kJFzWp5dbr+lnoDMQSeeDj8MgUO0jtbDeNcg==
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"

@@ -5,8 +5,8 @@ export default function SplitPane ({ children }) {
 
   const onDrag = (e) => {
     try {
-      let section = document.querySelector('.cs-container section');
-      let editor = document.querySelector('.cs-container section div');
+      let section = document.querySelector('.editor');
+      let editor = document.querySelector('.editor section div');
 
       let width = section.clientWidth;
 
@@ -17,8 +17,8 @@ export default function SplitPane ({ children }) {
   useEffect(() => {
     window.addEventListener('resize', (e) => {
       try {
-        let section = document.querySelector('.cs-container section');
-        let editor = document.querySelector('.cs-container section div');
+        let section = document.querySelector('.editor section');
+        let editor = document.querySelector('.editor section div');
 
         let width = section.clientWidth;
 

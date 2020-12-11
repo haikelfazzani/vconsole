@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useContext, Suspense } from 'react';
 import Split from 'react-split';
 
-import Navbar from './Navbar';
+import Header from './Header';
 import Linter from './Linter';
 import { evalConsole, formatOutput } from '../../util/evalConsole';
 import SplitPane from '../../components/SplitPane';
 import { ControlledEditor } from '@monaco-editor/react'
-import Editor from '../../components/Editor';
+import EditorAce from '../../components/EditorAce';
 import { GlobalContext } from '../../providers/GlobalProvider';
-
-import './JsConsole.css';
-
-const Sidebar = React.lazy(() => import('./Sidebar'));
 
 export default function JsConsole () {
 
@@ -67,46 +63,41 @@ export default function JsConsole () {
     }
   };
 
-  return <div className="w-100 h-100 cs-container pr-2 pl-2 overflow-hidden">
-
-    <Navbar editorValue={editorValue} setEditorValue={setEditorValue} setLangauge={setLangauge} language={language} />
+  return <main>
+    <Header
+      editorValue={editorValue}
+      setLangauge={setLangauge}
+      language={language}
+    />
 
     <SplitPane>
-      <ControlledEditor
-        height="100%"
-        width="50%"
-        onChange={onEditorChange}
-        value={editorValue}
-        language={language}
-        theme="vs-dark"
-        options={{ minimap: { enabled: false }, fontSize: globalState.fontSize }}
-      />
+      <div className="h-100 editor">
+        <ControlledEditor
+          height="100%"
+          width="100%"
+          onChange={onEditorChange}
+          value={editorValue}
+          language={language}
+          theme="vs-dark"
+          options={{ minimap: { enabled: false }, fontSize: globalState.fontSize }}
+        />
 
-      <div className="d-flex cs-output">
-
-        <Split sizes={[50, 50]}
-          minSize={0}
-          gutterSize={5}
-          gutterAlign="center"
-          direction="vertical"
-        >
-          <div className="output">
-            <Editor value={iframeVal} lang="javascript" showLineNumbers={false} readOnly={true} />
-
-            <button className="btn-cs-run " onClick={() => { onRunCode() }}>
-              <i className="fa fa-play"></i>
-            </button>
-          </div>
-
-          <Linter jsValue={editorValue} />
-        </Split>
-
+        <div className="menu horizontal-align">
+          <button className="button btn-run fs-18 mb-10" onClick={() => { onRunCode() }}>
+            <i className="fa fa-play"></i>
+          </button>
+        </div>
       </div>
+
+      <Split sizes={[50, 50]}
+        minSize={0}
+        gutterSize={5}
+        gutterAlign="center"
+        direction="vertical"
+      >
+        <EditorAce value={iframeVal} />
+        <Linter jsValue={editorValue} />
+      </Split>
     </SplitPane>
-
-
-    <Suspense fallback={<div>loading...</div>}>
-      <Sidebar />
-    </Suspense>
-  </div>;
+  </main>;
 }

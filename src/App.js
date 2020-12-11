@@ -1,27 +1,26 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import loadable from '@loadable/component';
 import Home from "./pages/Home";
 
 import './styles/App.css';
-import ReactLive from "./pages/ReactLive";
+import './styles/Queries.css';
 
-const Playground = loadable(() => import('./pages/Playground'));
-const JsConsole = loadable(() => import('./pages/console/JsConsole'));
+const ReactLive = React.lazy(() => import('./pages/ReactLive/ReactLive'));
+const JsConsole = React.lazy(() => import('./pages/console/JsConsole'));
+const About = React.lazy(() => import('./pages/About'));
+const Contact = React.lazy(() => import('./pages/Contact'));
 
 export default function App () {
 
   return <BrowserRouter>
-    <Switch>
-
-      <Route exact path="/" component={Home} />
-      <Route exact path="/react-playground" component={Playground} />
-      <Route path="/react-playground/:hook" component={Playground} />
-
-      <Route path="/js-console" component={JsConsole} />
-      <Route exact path="/console" component={JsConsole} />
-
-      <Route exact path="/react-live" component={ReactLive} />
-    </Switch>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/js-console" component={JsConsole} />
+        <Route path="/react-playground" component={ReactLive} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+      </Switch>
+    </Suspense>
   </BrowserRouter>;
 } 

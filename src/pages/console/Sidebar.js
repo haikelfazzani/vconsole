@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FormPaste from './FormPaste';
-import './Sidebar.css';
+import '../../Sidebar.css';
 
 export default function Sidebar () {
 

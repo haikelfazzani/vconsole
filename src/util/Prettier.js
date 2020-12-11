@@ -17,7 +17,7 @@ let opts = {
   semi: true
 };
 
-export default function prettierBeautify (data) {
+export default function Prettier (data) {
   return prettier.format(data, {
     parser: "babel",
     plugins: [babylon],
