@@ -108,9 +108,9 @@ export default function Playground () {
       </ul>
     </header>
 
-    <Split gutterSize={7} sizes={[50, 50]}>
+    <Split gutterSize={5} sizes={[50, 50]}>
       <div className="h-100 editor">
-        <EditorAce onChange={onValueChange} value={editorValue} />
+        <EditorAce onChange={onValueChange} value={editorValue} language="javascript" />
         <div className="menu horizontal-align">
           <button className="button btn-run fs-18 mb-10" onClick={onRunCode}>
             <i className="fa fa-play"></i>

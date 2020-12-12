@@ -1,17 +1,13 @@
-import React, { useState, useEffect, useContext, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import Split from 'react-split';
 
 import Header from './Header';
 import Linter from './Linter';
 import { evalConsole, formatOutput } from '../../util/evalConsole';
-import SplitPane from '../../components/SplitPane';
-import { ControlledEditor } from '@monaco-editor/react'
 import EditorAce from '../../components/EditorAce';
-import { GlobalContext } from '../../providers/GlobalProvider';
 
 export default function JsConsole () {
 
-  const { globalState } = useContext(GlobalContext);
   const [iframeVal, setIframeVal] = useState('');
   const [language, setLangauge] = useState('javascript');
 
@@ -32,7 +28,7 @@ export default function JsConsole () {
     return () => { isMounted = false; }
   }, []);
 
-  const onEditorChange = (e, data) => {
+  const onEditorChange = (data) => {
     setEditorValue(data);
     localStorage.setItem('reacto-console', JSON.stringify(data))
   }
@@ -64,24 +60,11 @@ export default function JsConsole () {
   };
 
   return <main>
-    <Header
-      editorValue={editorValue}
-      setLangauge={setLangauge}
-      language={language}
-    />
+    <Header editorValue={editorValue} setLangauge={setLangauge} language={language} />
 
-    <SplitPane>
+    <Split gutterSize={5}>
       <div className="h-100 editor">
-        <ControlledEditor
-          height="100%"
-          width="100%"
-          onChange={onEditorChange}
-          value={editorValue}
-          language={language}
-          theme="vs-dark"
-          options={{ minimap: { enabled: false }, fontSize: globalState.fontSize }}
-        />
-
+        <EditorAce onChange={onEditorChange} value={editorValue} language={language} />
         <div className="menu horizontal-align">
           <button className="button btn-run fs-18 mb-10" onClick={() => { onRunCode() }}>
             <i className="fa fa-play"></i>
@@ -89,15 +72,10 @@ export default function JsConsole () {
         </div>
       </div>
 
-      <Split sizes={[50, 50]}
-        minSize={0}
-        gutterSize={5}
-        gutterAlign="center"
-        direction="vertical"
-      >
-        <EditorAce value={iframeVal} />
+      <Split sizes={[50, 50]} minSize={0} gutterSize={5} gutterAlign="center" direction="vertical" >
+        <EditorAce value={iframeVal} language={language} />
         <Linter jsValue={editorValue} />
       </Split>
-    </SplitPane>
+    </Split>
   </main>;
 }

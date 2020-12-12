@@ -26,6 +26,7 @@ main {
   height: 100vh !important;
   width: 100vw !important;
   overflow: hidden;
+  border-bottom: 5px solid var(--light-bg);
 }
 
 main >div{
@@ -47,7 +48,6 @@ main>div {
 .gutter {background-color: var(--light-bg);}
 .gutter:hover {background-color: var(--gray);}
 
-.monaco-editor, .monaco-editor-background, .monaco-editor .inputarea.ime-input,
 .ace-monokai,.ace_gutter {background-color: var(--dark-bg-main) !important;}
 .ace_content,#UNIQUE_ID_OF_DIV {width: 100% !important;}
 
