@@ -2,13 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import OutLink from '../../components/OutLink';
 
-import downloadCode from '../../util/downloadCode';
 import DomUtils from '../../util/DomUtils';
 import '../../styles/Sidebar.css';
 
 const TYPESCRIPT_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/3.9.5/typescript.min.js';
 
-function Header ({ editorValue, setLangauge, language }) {
+function Header ({ setLangauge, language }) {
 
   const onFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -31,38 +30,37 @@ function Header ({ editorValue, setLangauge, language }) {
     setLangauge(language);
   }
 
-  const onDownload = () => {
-    downloadCode(editorValue, 'reacto.' + (language.startsWith('type') ? 'ts' : 'js'));
-  }
-
   return (
     <header className="w-100 vertical-align justify-between">
       <ul className="vertical-align inline-list">
-        <li className="border-right">
-          <Link className="link" to="/"><i className="fas fa-home" title="Back to home"></i></Link>
-        </li>
+
+        <li className="border-right color-white"><i className="fab fa-js"></i></li>
 
         <li className="border-right">
-          <Link to="/react-playground" className="link" title="React Playground">
-            <i className="fab fa-react"></i>
-          </Link>
-        </li>
-      </ul>
-
-      <ul className="vertical-align inline-list">        
-        <li className="border-left">
           <select name="languages" onChange={onSelectLang} value={language}>
             <option value="javascript">javascript</option>
             <option value="typescript">typescript</option>
           </select>
         </li>
+      </ul>
 
-        <li  onClick={onDownload} className="border-left plr-20"><i className="fa fa-download"></i></li>
-        <li onClick={onFullScreen} className="border-left plr-20"><i className="fa fa-compress"></i></li>
+
+      <ul className="vertical-align inline-list">
+        
+        <li className="border-left">
+          <Link to="/" className="link" title="React Playground">
+            <i className="fab fa-react"></i>
+          </Link>
+        </li>
+
+        <li title="About" className="border-left"><Link to="/about" className="link"><i className="fa fa-info-circle"></i></Link></li>
+        <li title="Contact" className="border-left"><Link to="/contact" className="link"><i className="fa fa-envelope"></i></Link></li>
 
         <li className="border-left">
           <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
         </li>
+
+        <li onClick={onFullScreen} className="border-left plr-20 color-white"><i className="fa fa-compress"></i></li>
       </ul>
 
     </header>);

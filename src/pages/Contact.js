@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 
 export default function Contact () {
 
@@ -40,8 +39,10 @@ export default function Contact () {
   }
 
   return (<>
-    <Navbar />
-    <div className="container horizontal-align text-center">
+    <div className="w-100 horizontal-align text-center py-3">
+
+      <h1 className="display-5 mb-0"><i className="fa fa-envelope-open-text"></i></h1>
+
       <h1 className="display-4">Let’s get in touch</h1>
       <p className="lead m-0">Get in touch, and let us know how we can help.</p>
       <p className="lead m-0 mb-3">Fill out the form, and we’ll be in touch as soon as possible.</p>

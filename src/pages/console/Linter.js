@@ -16,12 +16,17 @@ const Linter = ({ jsValue }) => {
     return () => { isMounted = false; }
   }, [jsValue]);
 
-  return <ul className="linter">
-    <li><i className="fas fa-bug"></i> Linter</li>
-    {jsHintErrors.map((l, i) => <li key={'linter' + i}>
+  return <div className="w-100 linter">
+
+    <p><i className="fas fa-bug"></i> Linter</p>
+
+    <ul>
+      {jsHintErrors.map((l, i) => <li key={'linter' + i}>
         <i className="fas fa-angle-right"></i> {'Line ' + l.line + ':'} {l.reason}
       </li>)}
-  </ul>
+    </ul>
+
+  </div>
 }
 
 export default React.memo(Linter);

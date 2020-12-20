@@ -5,6 +5,7 @@ import Header from './Header';
 import Linter from './Linter';
 import { evalConsole, formatOutput } from '../../util/evalConsole';
 import EditorAce from '../../components/EditorAce';
+import downloadCode from '../../util/downloadCode';
 
 export default function JsConsole () {
 
@@ -59,8 +60,12 @@ export default function JsConsole () {
     }
   };
 
+  const onDownload = () => {
+    downloadCode(editorValue, 'reacto.' + (language.startsWith('type') ? 'ts' : 'js'));
+  }
+
   return <main>
-    <Header editorValue={editorValue} setLangauge={setLangauge} language={language} />
+    <Header setLangauge={setLangauge} language={language} />
 
     <Split gutterSize={5}>
       <div className="h-100 editor">
@@ -68,6 +73,10 @@ export default function JsConsole () {
         <div className="menu horizontal-align">
           <button className="button btn-run fs-18 mb-10" onClick={() => { onRunCode() }}>
             <i className="fa fa-play"></i>
+          </button>
+
+          <button className="button btn-run fs-18" onClick={onDownload}>
+            <i className="fa fa-download"></i>
           </button>
         </div>
       </div>

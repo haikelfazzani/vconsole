@@ -4,10 +4,12 @@ import ReactDOM from 'react-dom';
 import EditorAce from '../../components/EditorAce';
 import ErrorBoundary from './ErrorBoundary';
 import Split from 'react-split';
+import styled from 'styled-components';
 
 import Prettier from '../../util/Prettier';
 import downloadCode from '../../util/downloadCode';
 import LocalData from '../../util/LocalData';
+import OutLink from '../../components/OutLink';
 
 let babelOptions = { envName: 'production', presets: ['react', 'es2015'], babelrc: false };
 
@@ -36,8 +38,8 @@ export default function Playground () {
           setErrors(e || e.message);
         });
 
-        let Func = new Function('React', 'ReactDOM', 'ErrorBoundary', result.code);
-        Func(React, ReactDOM, ErroB);
+        let Func = new Function('React', 'ReactDOM', 'ErrorBoundary', 'styled', result.code);
+        Func(React, ReactDOM, ErroB, styled);
         setErrors('');
       } catch (err) {
         setErrors(err || err.message);
@@ -86,11 +88,21 @@ export default function Playground () {
     }
   }
 
+  const onFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.querySelector('main').requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
+
   return (<>
     <header className="w-100 vertical-align justify-between">
       <ul className="vertical-align inline-list">
 
-        <li className="border-right"><Link to="/" className="link"><i className="fa fa-home"></i></Link></li>
+        <li className="border-right color-white"><i className="fab fa-react"></i></li>
 
         {tabs.map(tab => <li className={"border-right plr-20 " + (currTab.index === tab.index ? "active-tab" : "")}
           key={tab.index}>
@@ -103,8 +115,16 @@ export default function Playground () {
         <li onClick={() => { onAddTab() }}><i className="fa fa-plus"></i></li>
       </ul>
 
-      <ul className="vertical-align inline-list">
-        <li className="border-left plr-20" onClick={onDownload}><i className="fa fa-download"></i></li>
+      <ul className="vertical-align inline-list">        
+        <li title="Console" className="border-left"><Link to="/js-console" className="link"><i className="fa fa-terminal"></i></Link></li>
+        <li title="About" className="border-left"><Link to="/about" className="link"><i className="fa fa-info-circle"></i></Link></li>
+        <li title="Contact" className="border-left"><Link to="/contact" className="link"><i className="fa fa-envelope"></i></Link></li>
+
+        <li className="border-left">
+          <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
+        </li>
+
+        <li title="FullScreen" className="border-left plr-20 color-white" onClick={onFullScreen}><i className="fa fa-compress"></i></li>
       </ul>
     </header>
 
@@ -116,18 +136,24 @@ export default function Playground () {
             <i className="fa fa-play"></i>
           </button>
 
-          <button className="button btn-run fs-18" onClick={onPrettier}>
+          <button className="button btn-run fs-18  mb-10" onClick={onPrettier}>
             <i className="fa fa-stream"></i>
+          </button>
+
+          <button className="button btn-run fs-18" onClick={onDownload}>
+            <i className="fa fa-download"></i>
           </button>
         </div>
       </div>
 
-      <Split direction="vertical" cursor="col-resize" gutterSize={7} sizes={[50, 50]}>
+      <Split direction="vertical" cursor="col-resize" minSize={0} gutterSize={7} sizes={[50, 50]}>
         <div id="preview" ref={previewRef}></div>
-        <ul className="linter color-red">
-          <li><i className="fas fa-bug"></i> Linter</li>
-          <li className="h-100 overflow-auto">{'' + errors}</li>
-        </ul>
+        <div className="w-100 linter">
+          <p><i className="fas fa-bug"></i> Linter</p>
+          <ul>
+            <li className="h-100 overflow-auto">{'' + errors}</li>
+          </ul>
+        </div>
       </Split>
     </Split>
   </>);

@@ -1,14 +1,12 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { withRouter } from 'react-router-dom';
 
 function About () {
   return (<>
-    <Navbar />
-    <div className="section container horizontal-align text-center">
+    <div className="w-100 horizontal-align text-center py-3">
 
-      <div><i className="fas fa-tree fs-45"></i></div>
+      <h1 className="display-5 mb-0"><i className="fas fa-tree"></i></h1>
 
       <h1>Free For Open-Source!</h1>
       <p className="lead m-0">Reacto is built by <a href="https://twitter.com/HaikelFazzani" target="_blank" rel="noopener noreferrer">Haikel Fazzani</a> on open-source and wouldn’t exist without it.</p>

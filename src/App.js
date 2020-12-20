@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Home from "./pages/Home";
+import Spinner from "./components/Spinner";
 
 import './styles/App.css';
 import './styles/Queries.css';
@@ -13,11 +13,11 @@ const Contact = React.lazy(() => import('./pages/Contact'));
 export default function App () {
 
   return <BrowserRouter>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner />}>
       <Switch>
-        <Route exact path="/" component={Home} />
+        {/* <Route exact path="/" component={Home} /> */}
         <Route path="/js-console" component={JsConsole} />
-        <Route path="/react-playground" component={ReactLive} />
+        <Route exact path="/" component={ReactLive} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
       </Switch>
