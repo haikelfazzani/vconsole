@@ -136,7 +136,7 @@ export default function Playground () {
             <i className="fa fa-play"></i>
           </button>
 
-          <button className="button btn-run fs-18  mb-10" onClick={onPrettier}>
+          <button className="button btn-run fs-18 mb-10" onClick={onPrettier}>
             <i className="fa fa-stream"></i>
           </button>
 

@@ -6,6 +6,7 @@ import Linter from './Linter';
 import { evalConsole, formatOutput } from '../../util/evalConsole';
 import EditorAce from '../../components/EditorAce';
 import downloadCode from '../../util/downloadCode';
+import Prettier from '../../util/Prettier';
 
 export default function JsConsole () {
 
@@ -60,6 +61,11 @@ export default function JsConsole () {
     }
   };
 
+  const onPrettier = () => {
+    const formattedCode = Prettier(editorValue);
+    setEditorValue(formattedCode);
+  }
+
   const onDownload = () => {
     downloadCode(editorValue, 'reacto.' + (language.startsWith('type') ? 'ts' : 'js'));
   }
@@ -73,6 +79,10 @@ export default function JsConsole () {
         <div className="menu horizontal-align">
           <button className="button btn-run fs-18 mb-10" onClick={() => { onRunCode() }}>
             <i className="fa fa-play"></i>
+          </button>
+
+          <button className="button btn-run fs-18 mb-10" onClick={onPrettier}>
+            <i className="fa fa-stream"></i>
           </button>
 
           <button className="button btn-run fs-18" onClick={onDownload}>
