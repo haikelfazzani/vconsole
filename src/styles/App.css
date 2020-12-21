@@ -3,8 +3,8 @@
 }
 
 :root {
-  --dark-bg-main:#1a2f46;
-    --light-bg:#14283b;
+  --dark-bg-main:#112130;
+    --light-bg:#1a2f46;
     --light-blue: #283e55;
     --muted: #65729b;
     --light-red:#ff8080;
@@ -19,6 +19,10 @@ body,
   color: #ffffff;
   font-size: 14px;
   font-family: "Poppins",sans-serif;
+}
+
+footer {
+  border-top: 1px solid var(--light-blue);
 }
 /**************************/
 
@@ -38,7 +42,7 @@ main header {
   height: 40px;
   background-color: var(--light-bg);
   border-bottom: 1px solid var(--light-blue);
-  box-shadow: 0 4px 5px 0 rgb(0 0 0/22%), 0 2px 0 0 rgb(0 0 0/0);
+  box-shadow: var(--box-shad);
 }
 
 main>div {

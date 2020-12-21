@@ -7,6 +7,7 @@ import { evalConsole, formatOutput } from '../../util/evalConsole';
 import EditorAce from '../../components/EditorAce';
 import downloadCode from '../../util/downloadCode';
 import Prettier from '../../util/Prettier';
+import CopyButton from '../../components/CopyButton';
 
 export default function JsConsole () {
 
@@ -16,7 +17,7 @@ export default function JsConsole () {
   const [editorValue, setEditorValue] = useState(() => {
     let local = localStorage.getItem('reacto-console');
     return local ? JSON.parse(local) : 'console.log("Hello world")'
-  });
+  });  
 
   useEffect(() => {
     let isMounted = true;
@@ -84,6 +85,8 @@ export default function JsConsole () {
           <button className="button btn-run fs-18 mb-10" onClick={onPrettier}>
             <i className="fa fa-stream"></i>
           </button>
+
+          <CopyButton data={editorValue} />
 
           <button className="button btn-run fs-18" onClick={onDownload}>
             <i className="fa fa-download"></i>

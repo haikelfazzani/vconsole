@@ -10,6 +10,7 @@ import Prettier from '../../util/Prettier';
 import downloadCode from '../../util/downloadCode';
 import LocalData from '../../util/LocalData';
 import OutLink from '../../components/OutLink';
+import FullScreenButton from '../../components/FullScreenButton';
 
 let babelOptions = { envName: 'production', presets: ['react', 'es2015'], babelrc: false };
 
@@ -88,16 +89,6 @@ export default function Playground () {
     }
   }
 
-  const onFullScreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.querySelector('main').requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-    }
-  }
-
   return (<>
     <header className="w-100 vertical-align justify-between">
       <ul className="vertical-align inline-list">
@@ -124,7 +115,7 @@ export default function Playground () {
           <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
         </li>
 
-        <li title="FullScreen" className="border-left plr-20 color-white" onClick={onFullScreen}><i className="fa fa-compress"></i></li>
+        <FullScreenButton />
       </ul>
     </header>
 

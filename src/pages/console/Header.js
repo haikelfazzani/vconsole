@@ -4,20 +4,11 @@ import OutLink from '../../components/OutLink';
 
 import DomUtils from '../../util/DomUtils';
 import '../../styles/Sidebar.css';
+import FullScreenButton from '../../components/FullScreenButton';
 
 const TYPESCRIPT_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/3.9.5/typescript.min.js';
 
 function Header ({ setLangauge, language }) {
-
-  const onFullScreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.querySelector('main').requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-    }
-  }
 
   const onSelectLang = (e) => {
     let language = e.target.value;
@@ -60,7 +51,7 @@ function Header ({ setLangauge, language }) {
           <OutLink href="https://github.com/haikelfazzani/react-playground" icon="fab fa-github" />
         </li>
 
-        <li onClick={onFullScreen} className="border-left plr-20 color-white"><i className="fa fa-compress"></i></li>
+        <FullScreenButton />
       </ul>
 
     </header>);
