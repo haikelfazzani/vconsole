@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import './Nav.css';
+import logo from '../logo.png';
 
 function Navbar () {
 
@@ -12,7 +13,9 @@ function Navbar () {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">JSC</Link>
+      <Link to="/" className="navbar-brand">
+        <img src={logo} alt="Online Javascript and Typescript playground" />
+      </Link>
 
       <button type="button" className="btn navbar-toggler" onClick={onNavToggle}>
         <i className="fa fa-bars"></i>

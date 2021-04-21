@@ -11,7 +11,7 @@ export default class SnippetService {
       if (service === 'hastebin') {
         body = { data: body.api_paste_code };
       }
-      const url = `http://haikel.pythonanywhere.com/api/${service}/save`;
+      const url = `https://haikel.pythonanywhere.com/api/${service}/save`;
       let resp = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(body),
