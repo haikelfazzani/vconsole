@@ -1,28 +1,41 @@
 {
-  "name": "react-playground",
+  "name": "js-console",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.2",
-    "prettier": "^2.0.5",
-    "react": "^17.0.1",
-    "react-ace": "^9.2.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
-    "react-split": "^2.0.7",
-    "split-views": "^1.0.6",
-    "styled-components": "^5.2.1"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-split": "^2.0.11",
+    "web-vitals": "^0.2.4",
+    "workbox-background-sync": "^5.1.3",
+    "workbox-broadcast-update": "^5.1.3",
+    "workbox-cacheable-response": "^5.1.3",
+    "workbox-core": "^5.1.3",
+    "workbox-expiration": "^5.1.3",
+    "workbox-google-analytics": "^5.1.3",
+    "workbox-navigation-preload": "^5.1.3",
+    "workbox-precaching": "^5.1.3",
+    "workbox-range-requests": "^5.1.3",
+    "workbox-routing": "^5.1.3",
+    "workbox-strategies": "^5.1.3",
+    "workbox-streams": "^5.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "yarn build && cd build && ren index.html 202.html && surge"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [

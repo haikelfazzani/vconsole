@@ -20,35 +20,13 @@ function createScript (iframe, jsScript) {
   doc.body.append(script);
 }
 
-export function evalConsole (jsScript) {
-
-  const iframe = createIframe();
-  createScript(iframe, jsScript);
-
-  return new Promise((resolve, reject) => {
-    // handle errors
-    iframe.contentWindow.onerror = (message, file, line, col, error) => {
-      reject(`(${line}:${col}) -> ${error}`);
-    };
-
-    // get console outputs as string
-    let logMessages = [];
-    iframe.contentWindow.console.log = (...args) => {
-      logMessages.push.apply(logMessages, [args]);
-      resolve(logMessages);
-    };
-  });
-}
-
-// [ [], [] ]
-export function formatOutput (logMessages) {
+function formatOutput (logMessages) {
   return logMessages.map(msg => concatArgs(msg)).join('\n');
 }
 
 function concatArgs (logMessages) {
   let splitArgs = false;
   return logMessages.map(msg => {
-
     if (msg) {
       if (msg.toString() === '[object Map]' || msg.toString() === '[object Set]') {
         let arr = [...msg];
@@ -67,4 +45,21 @@ function concatArgs (logMessages) {
     return (msg === undefined) ? 'undefined' : msg;
   })
     .join(splitArgs ? '\n' : ' ');
+}
+
+export default function runCode (jsScript) {
+  const iframe = createIframe();
+  createScript(iframe, jsScript);
+
+  // handle errors
+  iframe.contentWindow.onerror = (message, file, line, col, error) => {
+    window.parent.postMessage(`(${line}:${col}) -> ${error}`);
+  };
+
+  // get console outputs as string
+  let messages = [];
+  iframe.contentWindow.console.log = async (...args) => {
+    messages.push.apply(messages, [args]);
+    window.parent.postMessage(formatOutput(messages));
+  };
 }

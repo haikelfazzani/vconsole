@@ -1,0 +1,22 @@
+.playground {
+  height: calc(100vh - 50px);
+}
+
+.playground>div:first-child{
+  width: 100%; height: 100%;
+  display: flex;
+}
+
+.editor {position: relative;}
+.menu {display: flex; flex-direction: column;}
+.editor> .menu {position: absolute; right: 10px; top: 10px; z-index: 99999;}
+
+.editor,.ace-monokai .ace_gutter-active-line,
+.ace-monokai .ace_marker-layer .ace_active-line {background-color: var(--light-blue);}
+.gutter {background-color: var(--dark);}
+
+.gutter:hover { cursor: col-resize;}
+.gutter-vertical:hover {cursor: row-resize !important;}
+
+.ace-monokai,.ace_gutter {background-color: var(--dark-blue) !important;}
+.ace_content {width: 100% !important;}

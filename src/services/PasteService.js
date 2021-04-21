@@ -1,22 +1,35 @@
-export async function savePaste ({ code, filename, expire_date, format }) {
-  try {
-    let response = await fetch(process.env.REACT_APP_PASTE_SERVICE_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain'
-      },
-      body: JSON.stringify({
-        code: code || "print('hello')",
-        filename: (filename || "reacto.js"),
-        expire_date: expire_date || "1D",
-        format: format || "javascript"
-      })
-    });
+import DropboxService from "./DropboxService";
 
+export default class SnippetService {
 
-    response = await response.text();
-    return response;
-  } catch (error) {
-    return null;
+  static async save (service, body) {
+    if (service === 'dropbox') {
+      let resp = await DropboxService.upload(body.api_paste_code, body.api_paste_name);
+      return resp;
+    }
+    else {
+      if (service === 'hastebin') {
+        body = { data: body.api_paste_code };
+      }
+      const url = `http://haikel.pythonanywhere.com/api/${service}/save`;
+      let resp = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      let paste = await resp.text();
+      return paste;
+    }
+  }
+
+  static async raw (service, pasteURL) {
+    try {
+      const url = `http://haikel.pythonanywhere.com/api/${service}?paste_url=${pasteURL}`;
+      let resp = await fetch(url);
+      let txt = await resp.text();
+      return txt;
+    } catch (error) {
+      return '';
+    }
   }
 }

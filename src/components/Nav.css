@@ -1,0 +1,25 @@
+.navbar { 
+  height: 50px;
+  background-color: var(--dark);
+  border-bottom: 1px solid var(--light-blue);
+  box-shadow: var(--box-shad);
+
+  display: flex;
+  align-items: center;
+justify-content: space-between;  
+ text-transform: uppercase;
+}
+
+.navbar-brand { font-size: 22px;     color: #e91e63 !important; display: flex; align-items: center; font-weight: 600;}
+
+.navbar-collapse {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar a {color: var(--white); text-decoration: none;}
+
+.nav-item {padding: .5rem;}
+
+.navbar-toggler {display: none;}
