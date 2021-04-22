@@ -1,14 +1,14 @@
 import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { Link, useParams, withRouter } from 'react-router-dom';
 import Split from 'react-split';
 
 import runCode from '../utils/runCode';
 import Util from '../utils/Util';
 import './Playground.css';
 import './Nav.css';
-import { Link, useParams, withRouter } from 'react-router-dom';
 
 const Sidebar = lazy(() => import("../components/Sidebar"));
-const FormSave = lazy(() => import("../containers/FormSave"));
+const Tabs = lazy(() => import("../components/Tabs"));
 
 const eoptions = {
   enableBasicAutocompletion: true,
@@ -153,9 +153,9 @@ function Playground () {
       <Sidebar setEditorValue={setEditorValue} aceEditor={aceEditor} />
 
       <div className={"modal vertical-align justify-center flex-wrap" + (showModal ? '' : ' d-none')}>
-        <div className="w-50 vertical-align justify-center flex-wrap p-20 bg-dark box-shad scaleIn">
+        <div className="w-50 p-20 bg-dark box-shad scaleIn">
           <button className="btn-close-modal bg-inherit" onClick={() => { setShowModal(false) }}>X</button>
-          <FormSave />
+          <Tabs />
         </div>
       </div>
     </Suspense>

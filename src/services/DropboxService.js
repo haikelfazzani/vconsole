@@ -1,7 +1,7 @@
 const base_url = 'https://content.dropboxapi.com/2';
 
 export default class DropboxService {
-  static async download (filename = "vconsole.js") {
+  static async download (filename) {
     try {
       const token = localStorage.getItem('dropbox-token');
       let resp = await fetch(base_url + '/files/download', {
@@ -18,14 +18,14 @@ export default class DropboxService {
     }
   }
 
-  static async upload (api_paste_code, api_paste_name = "vconsole.js") {// api_paste_name=filename
+  static async upload (content, filename) {// api_paste_name=filename
     try {
       const token = localStorage.getItem('dropbox-token');
-      let file = new File([api_paste_code], api_paste_name, { type: "application/javascript" });
+      let file = new File([content], filename, { type: "application/javascript" });
       let resp = await fetch(base_url + '/files/upload', {
         headers: {
           Authorization: 'Bearer ' + token,
-          "Dropbox-API-Arg": JSON.stringify({ path: `/${api_paste_name}` }),
+          "Dropbox-API-Arg": JSON.stringify({ path: `/${filename}` }),
           'Content-Type': 'application/octet-stream'
         },
         method: 'POST',
@@ -34,7 +34,7 @@ export default class DropboxService {
       let data = await resp.json();
       return 'https://www.dropbox.com/home?preview=' + data.name;
     } catch (error) {
-      return null;
+      return error.message;
     }
   }
 }
