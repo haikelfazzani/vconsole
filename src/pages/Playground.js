@@ -4,6 +4,9 @@ import Split from 'react-split';
 
 import runCode from '../utils/runCode';
 import Util from '../utils/Util';
+
+import PasteService from '../services/PasteService';
+
 import './Playground.css';
 import './Nav.css';
 
@@ -39,7 +42,7 @@ function Playground () {
 
   const [showModal, setShowModal] = useState(false);
 
-  const { service, paste} = useParams();
+  const { paste_url } = useParams();
 
   useEffect(() => {
     let element = editorRef.current;
@@ -69,6 +72,17 @@ function Playground () {
     window.addEventListener("message", receive, false);
     return () => { window.removeEventListener("message", receive, false); }
   }, []);
+
+  useEffect(() => {
+    if (paste_url && aceEditor) {
+      PasteService.raw(paste_url)
+        .then(v => {
+          console.log(v);
+          aceEditor.setValue(v, 1);
+          setEditorValue(v);
+        });
+    }
+  }, [paste_url,aceEditor]);
 
   const onAction = (actionType) => {
     switch (actionType) {

@@ -24,10 +24,12 @@ export default function FormSaveToken () {
       <label>Enter key</label>
       <input className="p-10" type="password" name="token"
         value={token} onChange={(e) => { setToken(e.target.value) }} placeholder="token or api key" required />
-    </div>
+    </div>    
 
     <button type="submit" className="w-100 bg-sky-blue box-shad p-10 fw fs-16">
       <i className="fa fa-save"></i> save key
     </button>
+
+    <p className="mb-0">Note: All keys are stored in client side</p>
   </form>);
 }

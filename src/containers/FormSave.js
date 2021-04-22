@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router';
 import PasteService from '../services/PasteService';
 
-export default function FormSave () {
-
-  const local = localStorage.getItem('editor-value');
-
+function FormSave (props) {
   const [fields, setFields] = useState({
     service: 'glot',
-    title:'',
+    title: '',
     filename: '',
     language: 'javascript',
-    api_paste_expire_date: '1H',
-    content: local ? JSON.parse(local) : 'Nothing'
+    api_paste_expire_date: '1H'
   });
 
   const [msg, setMsg] = useState(null);
@@ -23,14 +20,17 @@ export default function FormSave () {
   const onSavePaste = async e => {
     e.preventDefault();
     try {
-      let resp = await PasteService.save(fields.service, fields);
+      const local = localStorage.getItem('editor-value');
+      let content = local ? JSON.parse(local) : 'Nothing';
+      let resp = await PasteService.save(fields.service, fields, content);
+      props.history.push('/' + resp);
       setMsg(resp);
     } catch (error) {
       setMsg(error.message);
     }
   }
 
-  return (<form className="h-100 w-100 overflow" onSubmit={onSavePaste}>    
+  return (<form className="h-100 w-100 overflow" onSubmit={onSavePaste}>
     <div className="form-control mb-3">
       <label>Choose a host</label>
       <select className="p-10" name="service" onChange={onChange} value={fields.service}>
@@ -90,3 +90,5 @@ export default function FormSave () {
     </div>}
   </form>);
 }
+
+export default withRouter(FormSave);

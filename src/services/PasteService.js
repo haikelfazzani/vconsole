@@ -3,35 +3,34 @@ const base_url = 'https://paste.mxsrv.workers.dev';
 
 export default class SnippetService {
 
-  static async save (service, body) {
-
+  static async save (service, options, content) {
     switch (service) {
       case 'dropbox':
-        return await DropboxService.upload(body.content, body.filename);
+        return await DropboxService.upload(content, options.filename);
 
       case 'glot':
-        return await this.glot(body);
+        return await this.glot(options, content);
 
       default:
         break;
     }
   }
 
-  static async glot (body) {
-    let token = body.token || localStorage.getItem('glot-token');
+  static async glot (options, content) {
+    let token = options.token || localStorage.getItem('glot-token');
     let resp = await fetch(base_url, {
       body: JSON.stringify({
-        "language": body.language || "javascript",
-        "title": body.title,
-        "public": true,
-        "files": [{ "name": body.filename, "content": body.content }]
+        language: options.language || "javascript",
+        title: options.title,
+        public: true,
+        files: [{ name: options.filename, content }],
+        token
       }),
-      headers: { 'Content-Type': 'application/json', Authorization: 'Token ' + token },
       method: 'POST'
     });
 
     let data = await resp.json();
-    return data
+    return data.url
   }
 
   static async raw (pasteURL) {

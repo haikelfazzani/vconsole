@@ -7,7 +7,7 @@ export default function App () {
   return <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Playground} />
-      <Route path="/:service/:paste" component={Playground} />
+      <Route path="/:paste_url" component={Playground} />
       <Redirect path="*" to="/" />
     </Switch>
   </BrowserRouter>;
