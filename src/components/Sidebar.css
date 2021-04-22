@@ -1,6 +1,6 @@
 .sidebar {
   height: 100%;
-  width: 300px;
+  width: 250px;
   background: #343a40;
   position: fixed;
   bottom: 0;
@@ -27,6 +27,7 @@
   left: 0;
   background-color: #ffffff;
   color: #343a40;
+  font-size: 16px;
   transform: translateX(-100%);
   padding: 1em .5em;
   border: 0;

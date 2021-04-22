@@ -37,6 +37,7 @@ export default function Sidebar ({ setEditorValue, aceEditor }) {
       </div>
 
       <div className="sidebar-content">
+      <summary className="bg-sky-blue"><i className="fa fa-list"></i> samples</summary>
         {snippets && snippets.map((s, i) => <details key={s.name} className="cp">
 
           <summary className="bg-dark cp">{s.name}</summary>

@@ -1,21 +1,14 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Nav from "./components/Nav";
-import Home from "./pages/Home";
-
-const Playground = lazy(() => import("./pages/Playground"));
+import Playground from "./pages/Playground";
 
 export default function App () {
 
   return <BrowserRouter>
-    <Nav />
-    <Suspense fallback={<div></div>}>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/playground" component={Playground} />
-
-        <Redirect path="*" to="/" />
-      </Switch>
-    </Suspense>
+    <Switch>
+      <Route exact path="/" component={Playground} />
+      <Route path="/:service/:paste" component={Playground} />
+      <Redirect path="*" to="/" />
+    </Switch>
   </BrowserRouter>;
 }

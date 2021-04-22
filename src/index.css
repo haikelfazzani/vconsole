@@ -6,7 +6,8 @@
   --dark:#171c21;
     --dark-blue:#252e38;
     --light-blue: #29323f;
-    --muted: #65729b;
+    --sky-blue: #03a9f4;
+    --muted: #535663;
     --white:#fff;
     --light-red:#ff8080;
     --yellow:#f0ec00;
@@ -25,10 +26,7 @@ body,
 footer {
   border-top: 1px solid var(--light-blue);
 }
-/**************************/
-main,.navbar {padding:.5rem 40px;}
 /******************************************/
-
 ul {list-style: none; margin: 0; padding: 0;}
 
 button,.btn, .link, select {
@@ -36,8 +34,6 @@ button,.btn, .link, select {
   color: #fff;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
   letter-spacing: .6px;
   line-height: 24px;
   padding: 6px 10px;
@@ -45,11 +41,13 @@ button,.btn, .link, select {
   pointer-events: auto;
   text-transform: none;  
   transform: scale(1);
-  transition: opacity .3s ease-in-out; 
+  transition: opacity .2s ease-in-out; 
   text-decoration: none;
   text-transform: uppercase;  
   outline: none;
 }
+
+button:hover,.btn:hover { opacity: 0.8;}
 
 .snackbar {
   width: auto;
@@ -96,6 +94,7 @@ h3{text-transform: uppercase; font-size: 22px;}
 .mb-5 {margin-bottom: 30px;}
 .mt-5 {margin-top: 30px;}
 .mr-3 {margin-right: 10px;}
+.ml-3 {margin-left: 10px;}
 
 .w-100 {width: 100%;}
 .h-100 {height: 100%;}
@@ -104,6 +103,13 @@ h3{text-transform: uppercase; font-size: 22px;}
 .bg-inherit {background-color: inherit;}
 .bg-dark {background-color: var(--dark); color: var(--white);}
 .bg-white {background-color: var(--white); color: var(--dark);}
+.bg-sky-blue {background-color: var(--sky-blue); color: var(--white);}
+
+.txt-sky-blue {color: var(--sky-blue);}
+
+.fs-16 {font-size: 16px;}
+
+.fw {font-weight: 600;}
 
 .cp {cursor: pointer;}
 
@@ -119,21 +125,30 @@ h3{text-transform: uppercase; font-size: 22px;}
 .overflow {overflow: auto;}
 /****************************/
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--light-blue);
-}
-
-::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
+  border-radius: 4px;
 }
-
 /***************************/
 @media screen and (max-width: 600px) {
   .disp-none-sm {
     display: none !important;
   }
+
+  .w-75,.w-50 {width: 90% !important;}
+}
+
+/***********************/
+.scaleIn {
+  animation-name: scaleIn;
+  animation-duration: 0.6s;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
 }

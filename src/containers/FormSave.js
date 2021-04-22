@@ -27,7 +27,6 @@ export default function FormSave () {
         localStorage.setItem('dropbox-token', fields.dropbox_token);
       }
       let resp = await PasteService.save(fields.service, fields);
-      console.log(resp);
       setMsg(resp);
     } catch (error) {
       setMsg(error.message);
@@ -35,7 +34,7 @@ export default function FormSave () {
   }
 
   return (<form className="h-100 w-100 overflow" onSubmit={onSavePaste}>
-    <h3 className="mt-0">Form Save paste</h3>
+    <h3 className="mt-0"><i className="fa fa-save"></i> Form Save paste</h3>
     <div className="form-control mb-3">
       <label>Choose a host</label>
       <select className="p-10" name="service" onChange={onChange} value={fields.service}>
@@ -77,13 +76,13 @@ export default function FormSave () {
 
       : <div className="form-control mb-3">
         <label>dropbox token</label>
-        <input className="p-10" type="text" name="dropbox_token"
+        <input className="p-10" type="password" name="dropbox_token"
           onChange={onChange}
           value={fields.dropbox_token}
           placeholder="token key" required />
       </div>}
 
-    <button type="submit" className="w-100 box-shad bg-white p-10">
+    <button type="submit" className="w-100 bg-sky-blue box-shad p-10 fw fs-16">
       <i className="fa fa-save"></i> save paste
     </button>
 
