@@ -30,7 +30,7 @@ function FormSave (props) {
     }
   }
 
-  return (<form className="h-100 w-100 overflow" onSubmit={onSavePaste}>
+  return (<form className="h-100 w-100" onSubmit={onSavePaste}>
     <div className="form-control mb-3">
       <label>Choose a host</label>
       <select className="p-10" name="service" onChange={onChange} value={fields.service}>

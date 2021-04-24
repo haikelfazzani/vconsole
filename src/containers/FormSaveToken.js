@@ -10,7 +10,7 @@ export default function FormSaveToken () {
     localStorage.setItem(service + '-token', token);
   }
 
-  return (<form className="h-100 w-100 overflow" onSubmit={onSave}>
+  return (<form className="h-100 w-100" onSubmit={onSave}>
     <div className="form-control mb-3">
       <label>Choose a host</label>
       <select className="p-10" name="service" onChange={(e) => { setService(e.target.value) }} value={service}>

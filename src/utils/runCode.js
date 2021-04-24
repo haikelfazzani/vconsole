@@ -20,6 +20,21 @@ function createScript (iframe, jsScript) {
   doc.body.append(script);
 }
 
+function addLibs (iframe) {
+  let libs = localStorage.getItem('libraries');
+  if (libs) {
+    libs = JSON.parse(libs);
+    for (let i = 0; i < libs.length; i++) {
+      const url = libs[i];
+      const doc = iframe.contentDocument;
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = url;
+      doc.body.append(script);
+    }
+  }
+}
+
 function formatOutput (logMessages) {
   return logMessages.map(msg => concatArgs(msg)).join('\n');
 }
@@ -49,8 +64,9 @@ function concatArgs (logMessages) {
 
 export default function runCode (jsScript) {
   const iframe = createIframe();
+  addLibs(iframe);
   createScript(iframe, jsScript);
-
+  
   // handle errors
   iframe.contentWindow.onerror = (message, file, line, col, error) => {
     window.parent.postMessage(`(${line}:${col}) -> ${error}`);

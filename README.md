@@ -1,6 +1,6 @@
 # VConsole 
-Javascript and Typescript console on the browser
+Advanced Javascript console on the browser
 
 ### Todo
-- [ ] Typescript
+- [x] Add external library
 - [ ] PWA

@@ -9,14 +9,15 @@ import PasteService from '../services/PasteService';
 
 import './Playground.css';
 import './Nav.css';
+import Modal from '../components/Modal';
 
 const Sidebar = lazy(() => import("../components/Sidebar"));
 const Tabs = lazy(() => import("../components/Tabs"));
 
 const eoptions = {
   enableBasicAutocompletion: true,
-  enableSnippets: true,
-  enableLiveAutocompletion: false,
+  enableSnippets: false,
+  enableLiveAutocompletion: true,
   highlightActiveLine: true,
   wrapBehavioursEnabled: true,
   showPrintMargin: true,
@@ -35,6 +36,7 @@ function Playground () {
   const outputRef = useRef(null);
 
   const [aceEditor, setAceEditor] = useState(null);
+  const [outputEditor, setOutputEditor] = useState(null);
   const [actionMsg, setActionMsg] = useState('');
 
   const local = localStorage.getItem('editor-value');
@@ -46,11 +48,18 @@ function Playground () {
 
   useEffect(() => {
     let element = editorRef.current;
+    let oelement = outputRef.current;
+
     if (!aceEditor && element && window.ace) {
       const editor = window.ace.edit(element);
       editor.setValue(editorValue, 1);
       editor.setOptions(eoptions);
       setAceEditor(editor);
+      
+      const oeditor = window.ace.edit(oelement);
+      oeditor.setOptions(eoptions);
+      setOutputEditor(oeditor)
+
       editor.getSession().on('change', function () {
         let val = editor.session.getValue();
         setEditorValue(val);
@@ -59,25 +68,21 @@ function Playground () {
 
     const receive = (e) => {
       if (e && (e.data.message || e.data)) {
-        if (outputRef && outputRef.current) {
-          let element = outputRef.current;
-          const editor = window.ace.edit(element);
-          editor.setValue(e.data, 1);
-          editor.setOptions(eoptions);
-          editor.clearSelection();
+        if (outputEditor) {
+          outputEditor.setValue(e.data, 1);
+          outputEditor.clearSelection();
         }
       }
     }
 
     window.addEventListener("message", receive, false);
     return () => { window.removeEventListener("message", receive, false); }
-  }, []);
+  }, [outputEditor]);
 
   useEffect(() => {
     if (paste_url && aceEditor) {
       PasteService.raw(paste_url)
         .then(v => {
-          console.log(v);
           aceEditor.setValue(v, 1);
           setEditorValue(v);
         });
@@ -165,13 +170,7 @@ function Playground () {
 
     <Suspense fallback={<div></div>}>
       <Sidebar setEditorValue={setEditorValue} aceEditor={aceEditor} />
-
-      <div className={"modal vertical-align justify-center flex-wrap" + (showModal ? '' : ' d-none')}>
-        <div className="w-50 p-20 bg-dark box-shad scaleIn">
-          <button className="btn-close-modal bg-inherit" onClick={() => { setShowModal(false) }}>X</button>
-          <Tabs />
-        </div>
-      </div>
+      <Modal showModal={showModal} setShowModal={setShowModal}><Tabs /></Modal>
     </Suspense>
   </main>;
 }
