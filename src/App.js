@@ -3,11 +3,9 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Playground from "./pages/Playground";
 
 export default function App () {
-
   return <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Playground} />
-      <Route path="/:paste_url" component={Playground} />
       <Redirect path="*" to="/" />
     </Switch>
   </BrowserRouter>;

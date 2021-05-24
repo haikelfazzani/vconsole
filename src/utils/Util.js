@@ -6,7 +6,6 @@ const jsBeautyOptions = {
 };
 
 export default class Util {
-
   static pretty (data) {
     if (window.js_beautify) { return window.js_beautify(data, jsBeautyOptions); }
   }

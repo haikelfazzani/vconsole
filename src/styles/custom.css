@@ -1,0 +1,13 @@
+.snackbar {
+  width: auto;
+  position: fixed;
+  bottom: 20px;
+  left: 43%;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  align-items: center;
+  text-transform: uppercase;
+  z-index: 999999;
+  box-shadow: var(--box-shad);
+}

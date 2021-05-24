@@ -1,18 +1,37 @@
 main {
   width: 100vw;
-  height: calc(100vh - 50px);
+  height:100vh ;
+  background-color: var(--dark);
+  border-left: 10px solid var(--dark);
+  border-right: 10px solid var(--dark);
 }
 
-.editor {position: relative;}
-.menu {display: flex; flex-direction: column;}
-.editor> .menu {position: absolute; right: 10px; top: 10px; z-index: 99999;}
+.nav-playground {
+  height: 45px;
+}
 
+.nav-playground button,.nav-playground a {
+  background-color: #153b5f; 
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);}
+
+  .playground { height: calc(100vh - 45px); border-bottom: 10px solid var(--dark); }
+
+/***************************/
+.menu { 
+  border-radius: 4px;
+  height: 40px; display: flex; justify-content: space-between; background-color: #153b5f;    }
+
+.editor> div,.output>div { height: calc(100% - 40px);}
+
+.menu button {background-color: inherit; font-size: 20px; border-radius: 0;}
+/***************************/
 .editor,.ace-monokai .ace_gutter-active-line,
-.ace-monokai .ace_marker-layer .ace_active-line {background-color: var(--light-blue);}
+.ace-monokai .ace_marker-layer .ace_active-line {background-color: var(--light);}
 .gutter {background-color: var(--dark);}
 
 .gutter:hover { cursor: col-resize;}
 .gutter-vertical:hover {cursor: row-resize !important;}
 
-.ace-monokai,.ace_gutter {background-color: var(--dark-blue) !important;}
+.ace-monokai ,.ace_gutter {background-color: var(--black) !important;}
+
 .ace_content {width: 100% !important;}
