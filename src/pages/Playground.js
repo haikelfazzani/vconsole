@@ -137,7 +137,7 @@ function Playground () {
     <div className="nav-playground d-flex justify-between">
       <div>
         {/* <Link className="btn mr-3" to="/"><i className="fa fa-home"></i> home</Link> */}
-        <button className="btn mr-3"><i className="fa fa-terminal"></i> Vconsole</button>
+        <button className="btn mr-3 border-bottom"><i className="fa fa-terminal"></i> Vconsole</button>
       </div>
 
       <div>
@@ -146,8 +146,7 @@ function Playground () {
         </button> */}
 
         <div className="dropdown position-relative mr-3">
-          <button type="button" className="btn bg-danger border-bottom">
-            <i className="fa fa-font mr-2"></i>{gstate.fontSize}</button>
+          <button type="button" className="btn"><i className="fa fa-font"></i> {gstate.fontSize}</button>
           <button className="btn dropdown-menu">
             {fontSizes.map(f => <div
               className="dropdown-item cp"
@@ -164,9 +163,11 @@ function Playground () {
           <i className="fa fa-copy"></i> copy
         </button>
 
-        <button className="btn" title="Download Code" onClick={() => { onAction('download'); }}>
+        <button className="btn mr-3" title="Download Code" onClick={() => { onAction('download'); }}>
           <i className="fa fa-download"></i> download
         </button>
+
+        <a className="btn" href="https://github.com/haikelfazzani/vconsole"><i className="fab fa-github"></i></a>
       </div>
     </div>
 
