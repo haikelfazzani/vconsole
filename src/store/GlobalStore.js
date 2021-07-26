@@ -4,9 +4,10 @@ import LocalData from '../utils/LocalData';
 const GContext = createContext();
 
 const initState = {
+  preprocessor: 'javascript',
   codeEditor: LocalData.getCode(),
   fontSize: LocalData.getFontSize(),
-  mode: 'ace/mode/javascript',
+  mode: 'ace/mode/typescript',
   theme: 'ace/theme/monokai'
 };
 

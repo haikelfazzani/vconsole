@@ -1,5 +1,6 @@
 :root {
   --dark:#00264c;
+  --light-dark:#153b5f;
   --secondary:rgb(189, 189, 189);
   --black:#001d36;
   --white:#fff;
@@ -8,7 +9,7 @@
   --warning:#ffc400;
   --green:#00e700;
   --dark-transp:#000000a8;
-  --light-dark:#d6d8d9;
+  
   --box-shad:0px 5px 18px rgb(0 0 0 / 20%);
   --light-shadow:0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }

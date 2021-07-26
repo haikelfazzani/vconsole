@@ -11,6 +11,7 @@ import './Playground.css';
 import '../styles/dropdown.css';
 import AddLib from '../containers/AddLib';
 import Modal from '../containers/Modal';
+import Transpile from '../utils/Transpile';
 
 const fontSizes = [12, 14, 16, 18, 20, 22, 24];
 
@@ -39,7 +40,7 @@ function Playground () {
     highlightGutterLine: true,
     fontSize: +gstate.fontSize,
     theme: 'ace/theme/monokai',
-    useWorker: true,
+    useWorker: false,
     tabSize: 4,
     mode: 'ace/mode/javascript'
   }
@@ -114,8 +115,14 @@ function Playground () {
         break;
 
       case 'run':
-        runCode(editorValue);
-        LocalData.saveCode(editorValue);
+        try {
+          let jsCode = await Transpile.toJs(editorValue, gstate.preprocessor)
+          runCode(jsCode);
+          LocalData.saveCode(editorValue);
+        } catch (error) {
+          outputEditor.setValue('' + error, 1);
+          outputEditor.clearSelection();
+        }
         break;
 
       case 'close-snack':
@@ -133,6 +140,11 @@ function Playground () {
     LocalData.setFontSize(size);
   }
 
+  const onPreprocessor = prepo => {
+    Transpile.addOrRemoveFromDom(prepo)
+    setGState({ ...gstate, preprocessor: prepo });
+  }
+
   return <main>
     <div className="nav-playground d-flex justify-between">
       <div>
@@ -146,6 +158,16 @@ function Playground () {
         </button> */}
 
         <div className="dropdown position-relative mr-3">
+          <button type="button" className="btn"><i className="fa fa-code"></i> {gstate.preprocessor}</button>
+          <button className="btn dropdown-menu">
+            {Object.keys(Transpile.allPreps()).map(f => <div
+              className="dropdown-item cp"
+              key={f}
+              onClick={() => { onPreprocessor(f) }}>{f}</div>)}
+          </button>
+        </div>
+
+        <div className="dropdown position-relative mr-3">
           <button type="button" className="btn"><i className="fa fa-font"></i> {gstate.fontSize}</button>
           <button className="btn dropdown-menu">
             {fontSizes.map(f => <div
@@ -156,15 +178,11 @@ function Playground () {
         </div>
 
         <button className="btn mr-3" title="Add Library" onClick={() => { onAction('add-lib'); }}>
-          <i className="fa fa-plus"></i> add lib
-        </button>
-
-        <button className="btn mr-3" title="Copy Code" onClick={() => { onAction('copy'); }}>
-          <i className="fa fa-copy"></i> copy
+          <i className="fa fa-plus"></i> library
         </button>
 
         <button className="btn mr-3" title="Download Code" onClick={() => { onAction('download'); }}>
-          <i className="fa fa-download"></i> download
+          <i className="fa fa-download"></i>
         </button>
 
         <a className="btn" href="https://github.com/haikelfazzani/vconsole"><i className="fab fa-github"></i></a>

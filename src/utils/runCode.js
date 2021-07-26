@@ -42,18 +42,24 @@ function formatOutput (logMessages) {
 function concatArgs (logMessages) {
   let splitArgs = false;
   return logMessages.map(msg => {
-    if (msg) {
-      if (msg.toString() === '[object Map]' || msg.toString() === '[object Set]') {
-        let arr = [...msg];
-        msg = msg.toString() + ` (${arr.length}) ` + JSON.stringify(arr, null, 2);
-        splitArgs = true;
-      }
-      if (msg.toString() === '[object Object]') {
-        msg = msg.toString() + ' ' + JSON.stringify(msg, null, 2);
-      }
+    if (msg) {          
       if (Array.isArray(msg)) {
         msg = `Array (${msg.length}) ` + JSON.stringify(msg, null, 2);
         splitArgs = true;
+      }
+
+      if(typeof msg.toString === 'function') {
+        if (msg.toString() === '[object Map]' || msg.toString() === '[object Set]') {
+          let arr = [...msg];
+          msg = msg.toString() + ` (${arr.length}) ` + JSON.stringify(arr, null, 2);
+          splitArgs = true;
+        }
+        if (msg.toString() === '[object Object]') {
+          msg = msg.toString() + ' ' + JSON.stringify(msg, null, 2);
+        }
+      }
+      else {
+        msg = JSON.stringify(msg, null, 2);
       }
     }
 
