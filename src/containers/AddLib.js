@@ -9,8 +9,7 @@ export default function AddLib () {
     let url = e.target.elements[0].value;
     let libs = localStorage.getItem('libraries');
     libs = JSON.parse(libs) || [];
-    let isFound = libs.find(u => u === url)
-    if (!isFound) {
+    if (!libs.find(u => u === url)) {
       libs.push(url);
       setLibraries(libs);
       localStorage.setItem('libraries', JSON.stringify(libs));
@@ -27,18 +26,14 @@ export default function AddLib () {
   return (<div>
     <form className="w-100 mb-3" onSubmit={onAdd}>
       <div className="w-100 form-control">
-        <label>Add url library</label>
+        <label htmlFor="url"><i className="fa fa-plus-circle"></i> Add library</label>
         <input className="w-100 lg mb-3" type="url" name="url"
           placeholder="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
           required />
       </div>
 
-      <button type="submit" className="w-100 btn lg mt-3">
-        <i className="fa fa-plus"></i> add to my project
-      </button>
+      <button type="submit" className="w-100 btn lg mt-3"><i className="fa fa-plus"></i> add to my project</button>
     </form>
-
-    <h3 className="text-uppercase"><i className="fa fa-list"></i> List of libraries</h3>
 
     <ul className="p-10 border-m">
       {libraries.map((url, i) => <li className="w-100 vertical-align justify-between" key={i}>

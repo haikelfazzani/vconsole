@@ -42,7 +42,7 @@ function Playground () {
     theme: 'ace/theme/monokai',
     useWorker: false,
     tabSize: 4,
-    mode: 'ace/mode/javascript'
+    mode: `ace/mode/typescript`
   }
 
   useEffect(() => {
@@ -95,8 +95,10 @@ function Playground () {
         break;
 
       case 'reset':
-        aceEditor.setValue('', 1);
-        setEditorValue('');
+        if (window.confirm("Do you want to clear console?")) {
+          aceEditor.setValue('', 1);
+          setEditorValue('');
+        }
         break;
 
       case 'copy':
@@ -135,7 +137,7 @@ function Playground () {
   }
 
   const onFontSize = size => {
-    aceEditor.setFontSize(+size);
+    aceEditor.setFontSize(+size);    
     setGState({ ...gstate, fontSize: size });
     LocalData.setFontSize(size);
   }
@@ -143,6 +145,7 @@ function Playground () {
   const onPreprocessor = prepo => {
     Transpile.addOrRemoveFromDom(prepo)
     setGState({ ...gstate, preprocessor: prepo });
+    aceEditor.session.setMode("ace/mode/" + (prepo === 'livescript' ? 'livescript' : 'typescript'))
   }
 
   return <main>
@@ -193,7 +196,7 @@ function Playground () {
       <div className="h-100 editor">
         <header className="w-100 menu">
           <div className="bg-black vertical-align text-uppercase pl-3 pr-3">
-            <i className="fa fa-globe mr-2"></i> Editor</div>
+            <i className="fa fa-globe mr-2"></i> Console</div>
           <div className="vertical-align h-100">
             <button className="btn" title="Format Code" onClick={() => { onAction('pretty'); }}><i className="fa fa-stream"></i></button>
             <button className="btn" title="Copy Code" onClick={() => { onAction('copy'); }}><i className="fa fa-copy"></i></button>
@@ -207,10 +210,12 @@ function Playground () {
       <div className="w-100 h-100 output">
         <header className="w-100 menu">
           <div className="bg-black vertical-align text-uppercase pl-3 pr-3">
-            <i className="fa fa-terminal mr-2"></i> output</div>
+            <i className="fa fa-terminal mr-2"></i> {gstate.preprocessor}</div>
 
           <div className="vertical-align h-100">
-            <button className="btn" title="Clear Code" onClick={() => { onAction('reset'); }}><i className="fa fa-recycle"></i></button>
+            <button className="btn" title="Clear Console" onClick={() => { onAction('reset'); }}>
+              <i className="fa fa-recycle"></i>
+            </button>
           </div>
         </header>
         <div ref={outputRef}></div>
