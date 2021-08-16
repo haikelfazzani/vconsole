@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { GContext } from '../store/GlobalStore';
 import Split from 'react-split';
 import runCode from '../utils/runCode';
@@ -83,13 +83,6 @@ function Playground () {
 
   const onAction = async (actionType) => {
     switch (actionType) {
-      case 'save':
-        aceEditor.setValue(editorValue, 1);
-        setGState({ ...gstate, codeEditor: editorValue });
-        setShowModal(true);
-        LocalData.saveCode(editorValue);
-        break;
-
       case 'add-lib':
         setShowModal(true);
         break;
@@ -151,15 +144,14 @@ function Playground () {
   return <main>
     <div className="nav-playground d-flex justify-between">
       <div>
-        {/* <Link className="btn mr-3" to="/"><i className="fa fa-home"></i> home</Link> */}
         <button className="btn mr-3 border-bottom"><i className="fa fa-terminal"></i> Vconsole</button>
+
+        {/* <Link to="/snippets" className="btn border-bottom" title="Snippets">
+          <i className="fa fa-save"></i> snippets
+        </Link>  */}
       </div>
 
       <div>
-        {/* <button className="btn mr-3" title="Save Code" onClick={() => { onAction('save'); }}>
-          <i className="fa fa-save"></i> {operation || 'save'}
-        </button> */}
-
         <div className="dropdown position-relative mr-3">
           <button type="button" className="btn"><i className="fa fa-code"></i> {gstate.preprocessor}</button>
           <button className="btn dropdown-menu">

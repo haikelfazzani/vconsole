@@ -24,24 +24,31 @@ export default function AddLib () {
   }
 
   return (<div>
-    <form className="w-100 mb-3" onSubmit={onAdd}>
-      <div className="w-100 form-control">
-        <label htmlFor="url"><i className="fa fa-plus-circle"></i> Add library</label>
-        <input className="w-100 lg mb-3" type="url" name="url"
-          placeholder="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
-          required />
-      </div>
+    <h3 className="text-uppercase"><i className="fa fa-plus"></i> Add library</h3>
 
-      <button type="submit" className="w-100 btn lg mt-3"><i className="fa fa-plus"></i> add to my project</button>
+    <form className="w-100 vertical-align mb-3" onSubmit={onAdd}>
+
+      <input className="w-100 lg" type="url" name="url"
+        placeholder="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+        required />
+
+      <button type="submit" className="btn lg"><i className="fa fa-plus"></i></button>
     </form>
 
-    <ul className="p-10 border-m">
-      {libraries.map((url, i) => <li className="w-100 vertical-align justify-between" key={i}>
-        <span>{url}</span>
-        <button type="button" className="btn bg-transparent text-danger p-0" onClick={() => { onRmLib(url) }}>
-          <i className="fa fa-trash"></i>
-        </button>
-      </li>)}
-    </ul>
+    <table>
+      <tr>
+        <th>library Name</th>
+        <th>Action</th>
+      </tr>
+
+      {libraries.map((url, i) => <tr key={i}>
+        <td>{url}</td>
+        <td className="text-center">
+          <button type="button" className="btn text-danger" onClick={() => { onRmLib(url) }}>
+            <i className="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>)}
+    </table>
   </div>);
 }
