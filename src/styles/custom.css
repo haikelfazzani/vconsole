@@ -11,3 +11,7 @@
   z-index: 999999;
   box-shadow: var(--box-shad);
 }
+
+.blur {
+  backdrop-filter: blur(5px);
+}

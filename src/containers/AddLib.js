@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function AddLib () {
+export default function AddLib() {
   const local = localStorage.getItem('libraries');
   const [libraries, setLibraries] = useState(local ? JSON.parse(local) : []);
 
@@ -36,19 +36,23 @@ export default function AddLib () {
     </form>
 
     <table>
-      <tr>
-        <th>library Name</th>
-        <th>Action</th>
-      </tr>
+      <thead>
+        <tr>
+          <th>library Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
 
-      {libraries.map((url, i) => <tr key={i}>
-        <td>{url}</td>
-        <td className="text-center">
-          <button type="button" className="btn text-danger" onClick={() => { onRmLib(url) }}>
-            <i className="fa fa-trash"></i>
-          </button>
-        </td>
-      </tr>)}
+      <tbody>
+        {libraries.map((url, i) => <tr key={i}>
+          <td>{url}</td>
+          <td className="text-center">
+            <button type="button" className="btn text-danger" onClick={() => { onRmLib(url) }}>
+              <i className="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>)}
+      </tbody>
     </table>
   </div>);
 }

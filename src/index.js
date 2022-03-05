@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { GlobalStore } from './store/GlobalStore';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './styles/index.css';
 import './styles/custom.css';
@@ -20,3 +21,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorkerRegistration.register();
