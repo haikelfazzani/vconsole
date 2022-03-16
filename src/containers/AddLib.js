@@ -24,8 +24,6 @@ export default function AddLib() {
   }
 
   return (<div>
-    <h3 className="text-uppercase"><i className="fa fa-plus"></i> Add library</h3>
-
     <form className="w-100 vertical-align mb-3" onSubmit={onAdd}>
 
       <input className="w-100 lg" type="url" name="url"

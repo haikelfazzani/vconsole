@@ -18,16 +18,9 @@
   .navbar {padding: .5rem 15px;}
   .modal{ padding: 15px; }  
 
-  .pl-md-3 {padding-left: 0 !important;}
-  .pr-md-5 {padding-right: 0;}
-
-  .list-group.bg-black {  min-width: auto;}
-
   h1 {font-size: 35px; }
 
   .lead {font-size: 14px;}
-  
-  .w-75,.w-50{ width: 100%;}
 
   .text-sm-center {text-align: center;}
 

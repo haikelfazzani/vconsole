@@ -1,3 +1,5 @@
+import Languages from "./Languages";
+
 export default class Transpile {
 
   static addOrRemoveFromDom(preprocess) {
@@ -5,11 +7,17 @@ export default class Transpile {
       let element = document.getElementById(preprocess)
       if (element) {
         element.parentElement.removeChild(element);
+        return;
       } else {
-        const script = document.createElement('script')
-        script.src = this.allPreps()[preprocess]
-        script.id = preprocess
-        document.body.appendChild(script)
+        const language = Languages.find(lang => lang.name === preprocess);
+
+        const script = document.createElement('script');
+        script.src = language.cdn;
+        script.id = language.name;
+
+        const referenceNode = document.querySelector('.monaco-aria-container')
+
+        if (referenceNode) referenceNode.parentNode.prepend(script);
       }
     }
   }
@@ -59,15 +67,5 @@ export default class Transpile {
           break;
       }
     });
-  }
-
-  static allPreps() {
-    return {
-      javascript: null,
-      typescript: 'https://cdnjs.cloudflare.com/ajax/libs/typescript/4.6.2/typescript.min.js',
-      coffeescript: 'https://cdn.jsdelivr.net/npm/coffeescript@2.5.1/lib/coffeescript-browser-compiler-legacy/coffeescript.min.js',
-      livescript: 'http://livescript.net/livescript-1.6.0-min.js',
-      babel: 'https://unpkg.com/@babel/standalone@7.13.14/babel.min.js'
-    }
   }
 }

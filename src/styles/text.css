@@ -14,15 +14,6 @@ h3 {margin-top: 0; font-size: 1.25rem;font-weight: 100;}
 
 p {word-break: break-word;}
 
-.fs-35 {font-size: 35px !important;}
-.fs-30 {font-size: 30px !important;}
-.fs-20 {font-size: 20px !important;}
-.fs-16 {font-size: 16px !important;}
-.fs-14 {font-size: 14px !important;}
-.fs-13 {    font-size: 13px !important;}
-.fs-12 {font-size: 12px !important;}
-.fs-8 {font-size: 8px !important;}
-
 .text-dark {color: var(--black) !important;}
 .text-white {color: var(--white);}
 .text-danger {color: var(--danger);}

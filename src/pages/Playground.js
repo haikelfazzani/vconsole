@@ -1,85 +1,62 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { GContext } from '../store/GlobalStore';
 import Split from 'react-split';
-import runCode from '../utils/runCode';
+import RunCode from '../utils/RunCode';
 
 import Util from '../utils/Util';
-import LocalData from '../utils/LocalData';
 
-import './Playground.css';
-import '../styles/dropdown.css';
 import AddLib from '../containers/AddLib';
 import Modal from '../containers/Modal';
 import Transpile from '../utils/Transpile';
+import './Playground.css';
+
+import Editor from "@monaco-editor/react";
+import Languages from '../utils/Languages';
 
 const fontSizes = [12, 14, 16, 18, 20, 22, 24];
 
-function Playground () {
-  const editorRef = useRef(null);
-  const outputRef = useRef(null);
-
+function Playground() {
   const { gstate, setGState } = useContext(GContext);
+  const preRef = useRef();
 
-  const [aceEditor, setAceEditor] = useState(null);
-  const [outputEditor, setOutputEditor] = useState(null);
-
-  const [editorValue, setEditorValue] = useState(LocalData.getCode());
+  const [editorValue, setEditorValue] = useState(localStorage.getItem('editorValue') || '');
+  const [message, setMessage] = useState('');
 
   const [showModal, setShowModal] = useState(false);
   const [actionMsg, setActionMsg] = useState('');
 
-  const eoptions = {
-    enableBasicAutocompletion: true,
-    enableSnippets: false,
-    enableLiveAutocompletion: true,
-    highlightActiveLine: true,
-    wrapBehavioursEnabled: true,
-    showPrintMargin: true,
-    showGutter: true,
-    highlightGutterLine: true,
-    fontSize: +gstate.fontSize,
-    theme: 'ace/theme/monokai',
-    useWorker: false,
-    tabSize: 4,
-    mode: `ace/mode/typescript`
+  const onMessageFromWorker = (e) => {
+    if (e && e.data && !e.data.vscodeSetImmediateId) {
+      let m = typeof e.data === 'string' ? e.data : '';
+      if (!m.includes('webpackHotUpdate')) setMessage(m)
+    }
   }
 
   useEffect(() => {
-    let element = editorRef.current;
-    let oelement = outputRef.current;
+    window.addEventListener("message", onMessageFromWorker, false);
+    return () => { window.removeEventListener("message", onMessageFromWorker, false); }
+  }, []);
 
-    if (!aceEditor && element && window.ace) {
-      const editor = window.ace.edit(element);
-      editor.setValue(editorValue, 1);
-      editor.setOptions(eoptions);
-      editor.setFontSize(+gstate.fonSize);
-      setAceEditor(editor);
+  const onEditorDidMount = (editor, monaco) => {
+    monaco.editor.defineTheme('myTheme', {
+      base: 'vs-dark',
+      inherit: true,
+      rules: [{ background: '#001d36' }],
+      colors: { 'editor.background': '#001d36' },
+      fontSize: gstate.fontSize
+    });
 
-      editor.getSession().on('change', function () {
-        let val = editor.session.getValue();
-        setEditorValue(val);
-      });
-    }
+    monaco.editor.setTheme('myTheme');
+    monaco.editor.setModelLanguage(editor.getModel(), gstate.language.syntax);
 
-    const oeditor = window.ace.edit(oelement);
-    oeditor.setOptions(eoptions);
-    oeditor.getSession().setUseWorker(false);
-    oeditor.setFontSize(14);
-    setOutputEditor(oeditor);
+    preRef.current.style.fontSize = gstate.fontSize + 'px';
+  }
 
-    const receive = (e) => {
-      if (e && (e.data.message || e.data)) {
-        if (outputEditor) {
-          outputEditor.setValue(e.data, 1);
-          outputEditor.clearSelection();
-        }
-      }
-    }
-
-    window.addEventListener("message", receive, false);
-    return () => { window.removeEventListener("message", receive, false); }
-  }, [outputEditor]);
+  const onEditorValueChange = value => {
+    setEditorValue(value);
+    localStorage.setItem('editorValue', value)
+  }
 
   const onAction = async (actionType) => {
     switch (actionType) {
@@ -89,7 +66,6 @@ function Playground () {
 
       case 'reset':
         if (window.confirm("Do you want to clear console?")) {
-          aceEditor.setValue('', 1);
           setEditorValue('');
         }
         break;
@@ -100,23 +76,14 @@ function Playground () {
         break;
 
       case 'download':
-        Util.download(editorValue, 'App.js');
-        break;
-
-      case 'pretty':
-        let val = Util.pretty(editorValue);
-        aceEditor.setValue(val, 1);
-        setEditorValue(val);
+        Util.download(editorValue, 'App.' + gstate.language.extension);
         break;
 
       case 'run':
         try {
-          let jsCode = await Transpile.toJs(editorValue, gstate.preprocessor)
-          runCode(jsCode);
-          LocalData.saveCode(editorValue);
+          RunCode(await Transpile.toJs(editorValue, gstate.language.name));
         } catch (error) {
-          outputEditor.setValue('' + error, 1);
-          outputEditor.clearSelection();
+
         }
         break;
 
@@ -129,20 +96,24 @@ function Playground () {
     }
   }
 
-  const onFontSize = size => {
-    aceEditor.setFontSize(+size);    
-    setGState({ ...gstate, fontSize: size });
-    LocalData.setFontSize(size);
-  }
+  const onConfigChange = (key, value) => {
+    let nconfig = {};
 
-  const onPreprocessor = prepo => {
-    Transpile.addOrRemoveFromDom(prepo)
-    setGState({ ...gstate, preprocessor: prepo });
-    aceEditor.session.setMode("ace/mode/" + (prepo === 'livescript' ? 'livescript' : 'typescript'))
+    if (key === 'fontSize') {
+      nconfig = { ...gstate, fontSize: value };
+      preRef.current.style.fontSize = value + 'px';
+    }
+    if (key === 'language') {
+      nconfig = { ...gstate, language: value };
+      Transpile.addOrRemoveFromDom(value.name)
+    }
+
+    setGState(nconfig);
+    localStorage.setItem('config', JSON.stringify(nconfig))
   }
 
   return <main>
-    <div className="nav-playground d-flex justify-between">
+    <header className="w-100 d-flex justify-between">
       <div>
         <button className="btn mr-3 border-bottom"><i className="fa fa-terminal"></i> Vconsole</button>
 
@@ -151,25 +122,27 @@ function Playground () {
         </Link>  */}
       </div>
 
-      <div>
+      <div className='d-flex align-start'>
         <div className="dropdown position-relative mr-3">
-          <button type="button" className="btn"><i className="fa fa-code"></i> {gstate.preprocessor}</button>
-          <button className="btn dropdown-menu">
-            {Object.keys(Transpile.allPreps()).map(f => <div
-              className="dropdown-item cp"
-              key={f}
-              onClick={() => { onPreprocessor(f) }}>{f}</div>)}
+          <button type="button" className="btn">
+            <span><i className="fa fa-code mr-1"></i>{gstate.language.name}</span>
           </button>
+          <ul className="btn dropdown-menu bg-dark">
+            {Languages.map(lang => <li
+              className="dropdown-item cp"
+              key={lang.id}
+              onClick={() => { onConfigChange('language', lang) }}>{lang.name}</li>)}
+          </ul>
         </div>
 
         <div className="dropdown position-relative mr-3">
           <button type="button" className="btn"><i className="fa fa-font"></i> {gstate.fontSize}</button>
-          <button className="btn dropdown-menu">
-            {fontSizes.map(f => <div
+          <ul className="btn dropdown-menu bg-dark">
+            {fontSizes.map(f => <li
               className="dropdown-item cp"
               key={f}
-              onClick={() => { onFontSize(f) }}>{f}</div>)}
-          </button>
+              onClick={() => { onConfigChange('fontSize', f) }}>{f}</li>)}
+          </ul>
         </div>
 
         <button className="btn mr-3" title="Add Library" onClick={() => { onAction('add-lib'); }}>
@@ -182,9 +155,9 @@ function Playground () {
 
         <a className="btn" href="https://github.com/haikelfazzani/vconsole"><i className="fab fa-github"></i></a>
       </div>
-    </div>
+    </header>
 
-    <Split gutterSize={10} className="playground d-flex">
+    <Split minSize={0} gutterSize={10} className="playground d-flex">
       <div className="h-100 editor">
         <header className="w-100 menu">
           <div className="bg-black vertical-align text-uppercase pl-3 pr-3">
@@ -196,13 +169,21 @@ function Playground () {
           </div>
         </header>
 
-        <div ref={editorRef}></div>
+        <Editor
+          height="calc(100% - 45px)"
+          language={gstate.language.syntax}
+          value={editorValue}
+          theme="vs-dark"
+          onChange={onEditorValueChange}
+          onMount={onEditorDidMount}
+          options={{ fontSize: gstate.fontSize }}
+        />
       </div>
 
       <div className="w-100 h-100 output">
         <header className="w-100 menu">
           <div className="bg-black vertical-align text-uppercase pl-3 pr-3">
-            <i className="fa fa-terminal mr-2"></i> {gstate.preprocessor}</div>
+            <i className="fa fa-terminal mr-2"></i> {gstate.language.name} {gstate.language.version}</div>
 
           <div className="vertical-align h-100">
             <button className="btn" title="Clear Console" onClick={() => { onAction('reset'); }}>
@@ -210,7 +191,8 @@ function Playground () {
             </button>
           </div>
         </header>
-        <div ref={outputRef}></div>
+
+        <pre className='w-100' ref={preRef} dangerouslySetInnerHTML={{ __html: message }}></pre>
       </div>
     </Split>
 

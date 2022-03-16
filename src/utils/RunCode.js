@@ -1,18 +1,25 @@
-function removeElement (id) {
+import Sleep from "./Sleep";
+
+function removeElement(id) {
   let elem = document.getElementById(id);
   return elem ? elem.parentNode.removeChild(elem) : null;
 }
 
-function createIframe () {
+function createIframe() {
   removeElement('js-console-iframe');
   const iframe = document.createElement('iframe');
   iframe.id = 'js-console-iframe';
   iframe.style.display = 'none';
-  document.body.appendChild(iframe);
-  return iframe;
+
+  //document.body.appendChild(iframe);
+  const referenceNode = document.querySelector('.monaco-aria-container')
+  if (referenceNode) {
+    referenceNode.parentNode.prepend(iframe);
+    return iframe;
+  }
 }
 
-function createScript (iframe, jsScript) {
+function createScript(iframe, jsScript) {
   const doc = iframe.contentDocument;
   const script = doc.createElement('script');
   const blob = new Blob([jsScript], { type: 'application/javascript' });
@@ -20,7 +27,7 @@ function createScript (iframe, jsScript) {
   doc.body.append(script);
 }
 
-function addLibs (iframe) {
+function addLibs(iframe) {
   let libs = localStorage.getItem('libraries');
   if (libs) {
     libs = JSON.parse(libs);
@@ -35,27 +42,34 @@ function addLibs (iframe) {
   }
 }
 
-function formatOutput (logMessages) {
+function formatOutput(logMessages) {
   return logMessages.map(msg => concatArgs(msg)).join('\n');
 }
 
-function concatArgs (logMessages) {
+function concatArgs(logMessages) {
   let splitArgs = false;
   return logMessages.map(msg => {
-    if (msg) {          
+    if (msg) {
+      console.log(typeof msg);
+
+      if(typeof msg === 'string') {
+        msg = '<span class="warning">"'+msg + '"</span> ';
+      }
+
+
       if (Array.isArray(msg)) {
         msg = `Array (${msg.length}) ` + JSON.stringify(msg, null, 2);
         splitArgs = true;
       }
 
-      if(typeof msg.toString === 'function') {
+      if (typeof msg.toString === 'function') {
         if (msg.toString() === '[object Map]' || msg.toString() === '[object Set]') {
           let arr = [...msg];
-          msg = msg.toString() + ` (${arr.length}) ` + JSON.stringify(arr, null, 2);
+          msg = msg.toString() + ` <span class="green">(${arr.length})</span> ` + JSON.stringify(arr, null, 2);
           splitArgs = true;
         }
         if (msg.toString() === '[object Object]') {
-          msg = msg.toString() + ' ' + JSON.stringify(msg, null, 2);
+          msg = '<span class="green">'+msg.toString() + '</span> ' + JSON.stringify(msg, null, 2);
         }
       }
       else {
@@ -68,11 +82,13 @@ function concatArgs (logMessages) {
     .join(splitArgs ? '\n' : ' ');
 }
 
-export default function runCode (jsScript) {
+export default async function RunCode(jsScript) {
   const iframe = createIframe();
   addLibs(iframe);
-  createScript(iframe, jsScript);
   
+  await Sleep(500);
+  createScript(iframe, jsScript);
+
   // handle errors
   iframe.contentWindow.onerror = (message, file, line, col, error) => {
     window.parent.postMessage(`(${line}:${col}) -> ${error}`);

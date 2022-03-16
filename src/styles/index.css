@@ -30,10 +30,6 @@ body {
   font-family: 'Noto Sans', 'Courier New', Courier, monospace;
 }
 
-.container {
-  padding: 20px 80px;
-}
-
 /************************************************/
 p,
 .badge,
@@ -45,7 +41,6 @@ label {
 }
 
 pre {
-  max-height: 130px;
   padding: 15px;
   white-space: pre-wrap;
   word-break: keep-all
@@ -70,12 +65,6 @@ label {
   box-shadow: var(--light-shadow);
 }
 
-.form-contact {
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-}
-
 label {
   max-width: 100%;
   display: inline-block;
@@ -89,7 +78,6 @@ label {
 .active-tab {
   background-color: var(--dark-transp) !important;
 }
-
 /*****************************************/
 .modal {
   width: 100vw;
@@ -132,8 +120,8 @@ textarea {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  border-radius: .25rem;
   border: 0;
+  padding: .7rem 1rem;
 }
 
 textarea.form-control {
@@ -148,7 +136,7 @@ textarea.form-control {
   text-align: center;
   vertical-align: middle;
   user-select: none;
-  padding: .275rem .75rem;
+  padding: .7rem 1rem;
   font-size: 1rem;
   line-height: 1.5;
   border: 0;
@@ -199,52 +187,8 @@ th {
   border: 2px solid var(--light-dark);
   padding: 10px;
 }
-/****************************************/
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  display: none;
-  padding: .5rem 0;
-  margin: .1rem 0 0;
-  font-size: 1rem;
-  list-style: none;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, .15);
-  border-radius: .25rem;
-}
-
-.dropdown-item {
-  display: block;
-  width: 100%;
-  padding: .25rem 1.5rem;
-  text-align: inherit;
-  white-space: nowrap;
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-}
-
-.dropdown:hover .dropdown-menu {
-  display: flex;
-}
-
-.dropdown-item:hover {
-  background-color: rgba(212, 212, 212, 0.411);
-}
 
 /****************************************/
-.list-group {
-  min-width: 250px;
-}
-
-.list-group>li {
-  border: 0;
-  border-bottom: 1px solid #363636;
-}
-
 ul {
   margin: 0;
   padding: 0;
@@ -310,7 +254,8 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--black);
+  background: #b5deffa8;
+  border-radius: 7px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

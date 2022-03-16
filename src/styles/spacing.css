@@ -1,12 +1,8 @@
 .position-relative{position: relative;}
 .position-absolute {position: absolute;}
 
-.min-v100 {min-height: 100vh;}
-
 .h-100 { height: 100%;}
 .w-100{ width: 100%;}
-.w-75{ width: 75%;}
-.w-50{ width: 50%;}
 
 .mx-auto {margin: auto;}
 
@@ -15,10 +11,6 @@
 
 .p-0 {padding: 0 !important;}
 .pr-0 {padding-right: 0;}
-
-.p-5 {padding: .55rem; }
-.p-10 {padding: .75rem 1.25rem; }
-.p-30 {padding: 25px 20px;}
 
 .mt-1 {margin-top: .25rem!important;}
 .mr-1 {margin-right: .25rem!important;}

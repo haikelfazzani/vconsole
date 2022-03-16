@@ -6,9 +6,7 @@ main {
   border-right: 10px solid var(--dark);
 }
 
-.nav-playground {
-  height: 45px;
-}
+main header {height: 45px !important;}
 
 select,
 .nav-playground button,
@@ -16,10 +14,13 @@ select,
   background-color: var(--light-dark);
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
 }
+/***********************/
+.playground { height: calc(100% - 55px);}
 
-.playground {
-  height: calc(100vh - 45px);
-  border-bottom: 10px solid var(--dark);
+
+pre {background-color: var(--black); 
+  margin: 0; height: calc(100% - 45px) !important; overflow: auto; 
+  line-height: 1.7;
 }
 
 /***************************/
@@ -31,21 +32,13 @@ select,
   background-color: var(--light-dark);
 }
 
-.editor>div,
-.output>div {
-  height: calc(100% - 40px);
-}
-
 .menu button {
   background-color: inherit;
   font-size: 20px;
   border-radius: 0;
 }
-
 /***************************/
-.editor,
-.ace-monokai .ace_gutter-active-line,
-.ace-monokai .ace_marker-layer .ace_active-line {
+.editor {
   background-color: var(--light);
 }
 
@@ -59,13 +52,4 @@ select,
 
 .gutter-vertical:hover {
   cursor: row-resize !important;
-}
-
-.ace-monokai,
-.ace_gutter {
-  background-color: var(--black) !important;
-}
-
-.ace_content {
-  width: 100% !important;
 }
