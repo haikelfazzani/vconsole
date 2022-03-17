@@ -13,7 +13,7 @@
   --light-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
-[data-theme="dark"] {
+[data-theme="vs-dark"] {
   --dark: #1e1e1e;
   --black: #000;
   --gray: #303030;
@@ -21,7 +21,7 @@
   --white: #fff;
 }
 
-[data-theme="light"] {
+[data-theme="vs-light"] {
   --dark: #fff;
   --black: #f0f0f0;
   --gray: #dfdfdf;

@@ -17,9 +17,12 @@ import '../styles/Playground.css';
 const fontSizes = [10, 12, 14, 16, 18, 20, 22, 24];
 
 function Playground() {
-  const params = new URLSearchParams(window.location.search);
-  let lang = params.get('language');
-  let code = params.get('code');
+  const isMobile = window.innerWidth < 700,
+    params = new URLSearchParams(window.location.search);
+
+  let lang = params.get('language'),
+    code = params.get('code'),
+    theme = params.get('theme');
 
   const { gstate, setGState } = useContext(GContext);
   const preRef = useRef();
@@ -32,11 +35,14 @@ function Playground() {
 
   const [isRunning, setIsRunning] = useState(false);
 
+
   const onEditorDidMount = (editor, monaco) => {
     let language = gstate.language;
-    if (lang) {
-      language = Languages.find(l => l.name === lang);
-      setGState({ ...gstate, language });
+    if (lang || theme) {
+      theme = theme || gstate.theme;
+      if (lang) language = Languages.find(l => l.name === lang);
+      setGState({ ...gstate, language, theme });
+      document.documentElement.setAttribute('data-theme', theme);
     }
 
     Transpile.addOrRemoveFromDom(language.name)
@@ -122,7 +128,7 @@ function Playground() {
     if (key === 'theme') {
       const theme = gstate.theme === 'vs-dark' ? 'vs-light' : 'vs-dark';
       nconfig = { ...gstate, theme };
-      document.documentElement.setAttribute('data-theme', theme.replace('vs-', ''));
+      document.documentElement.setAttribute('data-theme', theme);
     }
 
     setGState(nconfig);
@@ -162,7 +168,8 @@ function Playground() {
       </div>
     </header>
 
-    <Split minSize={0} gutterSize={10} className="bg-dark playground d-flex">
+    <Split direction={isMobile ? "vertical" : "horizontal"}
+      minSize={0} gutterSize={10} className={"bg-dark playground d-flex" + (isMobile ? " flex-column" : "")}>
       <div className="h-100 editor">
         <header className="w-100 bg-light d-flex justify-between">
           <div className="bg-dark vertical-align text-uppercase pl-3 pr-3 d-sm-none">
@@ -181,7 +188,7 @@ function Playground() {
           theme={gstate.theme}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}
-          options={{ fontSize: gstate.fontSize }}
+          options={{ fontSize: gstate.fontSize, minimap: { enabled: !isMobile } }}
         />
       </div>
 
@@ -223,8 +230,9 @@ function Playground() {
       <h3 className='blue'>How to embed Vconsole into your website</h3>
       <pre className='warning p-0'>{`const code = encodeURIComponent(btoa("console.log('hello')"));
 const language = 'livescript';
+const theme = 'vs-dark'; // or 'vs-light'
 
-https://vconsole.vercel.app?language=language&code=code`}</pre>
+https://vconsole.vercel.app?language=language&code=code&theme=theme`}</pre>
     </Modal>
   </main>;
 }
