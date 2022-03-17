@@ -25,21 +25,15 @@ export default function AddLib() {
 
   return (<div>
     <form className="w-100 vertical-align mb-3" onSubmit={onAdd}>
-
       <input className="w-100 lg" type="url" name="url"
         placeholder="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
         required />
 
-      <button type="submit" className="btn lg"><i className="fa fa-plus"></i></button>
+      <button type="submit" className="h-100 btn"><i className="fa fa-plus"></i></button>
     </form>
 
-    <table>
-      <thead>
-        <tr>
-          <th>library Name</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+    <table className='bg-white'>
+      <thead><tr><th>library Name</th><th>Action</th></tr></thead>
 
       <tbody>
         {libraries.map((url, i) => <tr key={i}>

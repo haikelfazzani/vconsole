@@ -1,12 +1,11 @@
-.d-block {display: contents;}
-.d-none {display: none !important;}
+.d-none {display: none !important; }
 
-.d-flex{display: flex;}
+.d-flex{ display: flex; }
 
 .flex-column {flex-direction: column;}
 
-.vertical-align{display: flex; align-items: center;}
-.horizontal-align{display: flex; flex-direction: column; justify-content: center; }
+.vertical-align{ display: flex; align-items: center; }
+.horizontal-align{ display: flex; flex-direction: column; justify-content: center; }
 
 .flex-wrap {flex-wrap: wrap;}
 

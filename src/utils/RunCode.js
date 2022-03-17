@@ -50,15 +50,17 @@ function concatArgs(logMessages) {
   let splitArgs = false;
   return logMessages.map(msg => {
     if (msg) {
-      console.log(typeof msg);
 
-      if(typeof msg === 'string') {
-        msg = '<span class="warning">"'+msg + '"</span> ';
+      if (typeof msg === 'string') {
+        msg = '<span class="warning">"' + msg + '"</span> ';
       }
 
+      if (typeof msg === 'number') {
+        msg = '<span class="blue">' + msg + '</span> ';
+      }
 
       if (Array.isArray(msg)) {
-        msg = `Array (${msg.length}) ` + JSON.stringify(msg, null, 2);
+        msg = `<span class="green">Array (${msg.length})</span> ` + JSON.stringify(msg, null, 2);
         splitArgs = true;
       }
 
@@ -69,7 +71,7 @@ function concatArgs(logMessages) {
           splitArgs = true;
         }
         if (msg.toString() === '[object Object]') {
-          msg = '<span class="green">'+msg.toString() + '</span> ' + JSON.stringify(msg, null, 2);
+          msg = '<span class="green">' + msg.toString() + '</span> ' + JSON.stringify(msg, null, 2);
         }
       }
       else {
@@ -85,7 +87,7 @@ function concatArgs(logMessages) {
 export default async function RunCode(jsScript) {
   const iframe = createIframe();
   addLibs(iframe);
-  
+
   await Sleep(500);
   createScript(iframe, jsScript);
 

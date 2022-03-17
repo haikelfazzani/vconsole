@@ -1,0 +1,44 @@
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+header {height: 45px !important; }
+
+select,
+.nav-playground button,
+.nav-playground a {
+  background-color: var(--light-dark);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+}
+
+.playground { height: calc(100% - 55px);}
+
+.playground .btn {border-left: 1px solid var(--light);}
+
+pre {
+  background-color: var(--dark); 
+  margin: 0; height: calc(100% - 45px) !important; overflow: auto; 
+  line-height: 1.7;
+  padding: 15px;
+  white-space: pre-wrap;
+  word-break: keep-all
+}
+
+.gutter {
+  background-color: var(--gray);
+}
+
+.gutter:hover {
+  cursor: col-resize;
+}
+
+.gutter-vertical:hover {
+  cursor: row-resize !important;
+}

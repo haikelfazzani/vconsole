@@ -1,12 +1,13 @@
 .bg-black {background-color: var(--black); color: var(--white);}
 .bg-white { background-color: var(--white); color: var(--black);}
 .bg-dark { background-color: var(--dark); color: var(--white);}
+.bg-light { background-color: var(--light); color: var(--white);}
 
 .bg-warning { background-color: var(--warning); color: var(--black);}
 .bg-transparent {background-color: transparent;}
-.bg-bleu {background-color: var(--bleu) !important;}
 
 .warning { color: var(--warning);}
 .green { color: var(--green);}
+.blue { color: var(--blue);}
 
-.border-0 {border: 0;}
+.border-0 {border: 0 !important;}

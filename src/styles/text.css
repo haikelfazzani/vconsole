@@ -1,30 +1,7 @@
-h1 { margin: 0; font-size: 55px; font-weight: 600;}
-
-h2 {
-  margin-bottom: 0;
-  font-weight: 700;
-  font-size: 30px;
-  color: var(--dark);  
-  letter-spacing: 1.5px;
-}
-
-h3 {margin-top: 0; font-size: 1.25rem;font-weight: 100;}
-
-.display-5 { font-size: 50px; }
-
-p {word-break: break-word;}
-
-.text-dark {color: var(--black) !important;}
-.text-white {color: var(--white);}
-.text-danger {color: var(--danger);}
-.text-warning {color: var(--warning);}
-.text-muted {color: #878796 !important;}
-.text-green {color: var(--green);}
-
 .text-uppercase {text-transform: uppercase;}
-
-.text-center {text-align: center;}
-.text-left {text-align: left;}
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-jusitfy { text-align: justify; }
 
 .text-truncate {
   width: 130px;
@@ -33,28 +10,4 @@ p {word-break: break-word;}
   text-overflow: ellipsis;
 }
 
-.text-jusitfy {text-align: justify;}
-
-.lead {font-size: 22px !important;}
-
-small {font-size: 10px;}
-
-.fw {font-weight: 600;}
-
-.fi {font-style: italic;}
-
 .ltsp2 {letter-spacing: 2px;}
-
-.mx-lines-3 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
-
-.mx-lines-2 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}

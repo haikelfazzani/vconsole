@@ -5,7 +5,6 @@
   left: 43%;
   padding: 10px 15px;
   border-radius: 4px;
-  font-size: 14px;
   align-items: center;
   text-transform: uppercase;
   z-index: 999999;
@@ -13,7 +12,7 @@
 }
 
 .blur {
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
 }
 
 .br7 {border-radius: 7px;}
@@ -26,23 +25,17 @@
   display: none;
   padding: .5rem 0;
   margin: .1rem 0 0;
-  font-size: 1rem;
   list-style: none;
-  background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, .15);
-  border-radius: .25rem;
+  border-radius: 7px;
 }
 
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: .25rem 1.5rem;
-  text-align: inherit;
+  padding: .5rem 1.5rem;  
   white-space: nowrap;
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
 }
 
 .dropdown:hover .dropdown-menu {

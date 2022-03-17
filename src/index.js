@@ -10,7 +10,7 @@ import './styles/custom.css';
 import './styles/colors.css';
 import './styles/text.css';
 import './styles/spacing.css';
-import './styles/grid.css';
+import './styles/display.css';
 
 import './styles/queries.css';
 
