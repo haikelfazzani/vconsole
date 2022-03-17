@@ -17,20 +17,30 @@ import '../styles/Playground.css';
 const fontSizes = [10, 12, 14, 16, 18, 20, 22, 24];
 
 function Playground() {
+  const params = new URLSearchParams(window.location.search);
+  let lang = params.get('language');
+  let code = params.get('code');
+
   const { gstate, setGState } = useContext(GContext);
   const preRef = useRef();
 
   const [editorValue, setEditorValue] = useState(localStorage.getItem('editorValue') || '');
   const [message, setMessage] = useState('');
 
-  const [showModal, setShowModal] = useState(false);
-  const [actionMsg, setActionMsg] = useState('');
+  const [showAddLib, setShowAddLib] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const [isRunning, setIsRunning] = useState(false);
 
   const onEditorDidMount = (editor, monaco) => {
-    Transpile.addOrRemoveFromDom(gstate.language.name)
-    monaco.editor.setModelLanguage(editor.getModel(), gstate.language.syntax);
+    let language = gstate.language;
+    if (lang) {
+      language = Languages.find(l => l.name === lang);
+      setGState({ ...gstate, language });
+    }
+
+    Transpile.addOrRemoveFromDom(language.name)
+    monaco.editor.setModelLanguage(editor.getModel(), language.syntax);
     preRef.current.style.fontSize = gstate.fontSize + 'px';
   }
 
@@ -45,6 +55,10 @@ function Playground() {
   }
 
   useEffect(() => {
+    if (code) {
+      setEditorValue(decodeURIComponent(atob(code)));
+    }
+
     window.addEventListener("message", onMessageFromWorker, false);
     return () => { window.removeEventListener("message", onMessageFromWorker, false); }
   }, []);
@@ -54,10 +68,10 @@ function Playground() {
     localStorage.setItem('editorValue', value)
   }
 
-  const onAction = async (actionType) => {
+  const onNavMenu = async (actionType) => {
     switch (actionType) {
       case 'add-lib':
-        setShowModal(true);
+        setShowAddLib(true);
         break;
 
       case 'reset':
@@ -68,11 +82,14 @@ function Playground() {
 
       case 'copy':
         Util.copy(editorValue);
-        setActionMsg('The code is copied')
         break;
 
       case 'download':
         Util.download(editorValue, 'App.' + gstate.language.extension);
+        break;
+
+      case 'info':
+        setShowInfo(true);
         break;
 
       default:
@@ -115,7 +132,7 @@ function Playground() {
   return <main>
     <header className="w-100 d-flex justify-between align-start d-sm-none">
       <div>
-        <button className="btn mr-3"><i className="fa fa-coffee mr-2"></i>Vconsole</button>
+        <button className="btn mr-3 shadow"><i className="fa fa-coffee mr-2"></i>Vconsole</button>
 
         {/* <Link to="/snippets" className="btn border-bottom" title="Snippets">
           <i className="fa fa-save"></i> snippets
@@ -124,17 +141,21 @@ function Playground() {
 
       <div className='d-flex align-start'>
         <div className="vertical-align h-100 d-sm-none">
-          <button className="h-100 btn mr-3" title="Clear Console" onClick={() => { onAction('reset'); }}>
+          <button className="h-100 btn mr-3" title="Clear Console" onClick={() => { onNavMenu('reset'); }}>
             <i className="fa fa-recycle"></i>
           </button>
         </div>
 
-        <button className="btn mr-3" title="Add Library" onClick={() => { onAction('add-lib'); }}>
+        <button className="btn mr-3" title="Add Library" onClick={() => { onNavMenu('add-lib'); }}>
           <i className="fa fa-plus"></i> library
         </button>
 
         <button className="btn mr-3" title="Change theme" onClick={() => { onConfigChange('theme'); }}>
           <i className="fa fa-adjust"></i>
+        </button>
+
+        <button className="btn mr-3" title="Info" onClick={() => { onNavMenu('info'); }}>
+          <i className="fa fa-info-circle"></i>
         </button>
 
         <a className="btn" href="https://github.com/haikelfazzani/vconsole"><i className="fab fa-github"></i></a>
@@ -147,8 +168,8 @@ function Playground() {
           <div className="bg-dark vertical-align text-uppercase pl-3 pr-3 d-sm-none">
             <i className="fa fa-terminal mr-2"></i>Console</div>
           <div className="h-100 d-flex">
-            <button className="h-100 btn" title="Download Code" onClick={() => { onAction('download'); }}><i className="fa fa-download"></i></button>
-            <button className="h-100 btn" title="Copy Code" onClick={() => { onAction('copy'); }}><i className="fa fa-copy"></i></button>
+            <button className="h-100 btn" title="Download Code" onClick={() => { onNavMenu('download'); }}><i className="fa fa-download"></i></button>
+            <button className="h-100 btn" title="Copy Code" onClick={() => { onNavMenu('copy'); }}><i className="fa fa-copy"></i></button>
             <button className="h-100 btn bg-bleu" title="Run Code" onClick={onRun} disabled={isRunning}><i className="fa fa-play mr-1"></i>run</button>
           </div>
         </header>
@@ -196,15 +217,15 @@ function Playground() {
       </div>
     </Split>
 
+    <Modal showModal={showAddLib} setShowModal={setShowAddLib}><AddLib /></Modal>
 
-    <Modal showModal={showModal} setShowModal={setShowModal}>
-      <AddLib />
+    <Modal showModal={showInfo} setShowModal={setShowInfo}>
+      <h3 className='blue'>How to embed Vconsole into your website</h3>
+      <pre className='warning p-0'>{`const code = encodeURIComponent(btoa("console.log('hello')"));
+const language = 'livescript';
+
+https://vconsole.vercel.app?language=language&code=code`}</pre>
     </Modal>
-
-    <div className={"bg-dark snackbar" + (actionMsg ? ' d-flex' : ' d-none')}>
-      <p className="m-0">{actionMsg}</p>
-      <button className="btn p-0 ml-3 bg-transparent" onClick={() => { onAction('close-snack'); }}>x</button>
-    </div>
   </main>;
 }
 
