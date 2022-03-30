@@ -3,6 +3,8 @@
 - [x] Typescript
 - [x] Coffeescript
 - [x] LiveScript
+- [x] Babel
+- [x] HTML
 
 ### Embed
 ```js

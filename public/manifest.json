@@ -1,6 +1,6 @@
 {
   "short_name": "VConsole",
-  "name": "VConsole is online Javascript, Typescript, Livescript and CoffeeScript playground",
+  "name": "Online Javascript playground",
   "icons": [
     {
       "src": "favicon.ico",

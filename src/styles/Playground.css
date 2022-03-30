@@ -39,13 +39,16 @@ select,
   background-color: var(--dark) !important;
 }
 
-pre {
+pre, iframe {
+  border: 0;
   margin: 0; height: calc(100% - 45px) !important; 
   overflow: auto; 
   line-height: 1.7;
   padding: 15px;
   word-break: keep-all
 }
+
+iframe { padding: 0; }
 
 .gutter { background-color: var(--gray); }
 .gutter:hover { cursor: col-resize; }

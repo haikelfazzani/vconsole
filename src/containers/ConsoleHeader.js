@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../store/GlobalStore';
 import RunCode from '../utils/RunCode';
-import toJS from '../utils/toJS';
 
 export default function ConsoleHeader() {
   const { gstate, dispatch } = useContext(GlobalContext);
@@ -10,7 +9,7 @@ export default function ConsoleHeader() {
   const onRun = async () => {
     dispatch({ type: 'isRunning', payload: { isRunning: true } });
     const code = localStorage.getItem('editorValue')
-    RunCode(await toJS(code, gstate.language.name));
+    await RunCode(code, gstate.language.name);
   }
 
   return <header className="w-100 d-flex justify-between">

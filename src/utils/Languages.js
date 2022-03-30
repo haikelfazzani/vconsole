@@ -1,10 +1,19 @@
 const Languages = [
   {
+    id: 111,
+    name: 'html',
+    extension: 'html',
+    syntax: 'html',
+    version: '',
+    cdn: null
+  },
+  {
     id: 1,
     name: 'javascript',
     extension: 'js',
     syntax: 'javascript',
     version: '',
+    cdn: null
   },
   {
     id: 2,
@@ -30,14 +39,14 @@ const Languages = [
     version: '2.6.1',
     cdn: 'https://cdn.jsdelivr.net/npm/coffeescript@2.6.1/lib/coffeescript-browser-compiler-legacy/coffeescript.min.js'
   },
-  // {
-  //   id: 5,
-  //   name: 'babel',
-  //   extension: 'js',
-  //   syntax: 'javascript',
-  //   version: '7.17.0',
-  //   cdn: 'https://unpkg.com/@babel/standalone@7.17.0/babel.min.js'
-  // }
+  {
+    id: 5,
+    name: 'babel',
+    extension: 'js',
+    syntax: 'javascript',
+    version: '7.17.0',
+    cdn: 'https://unpkg.com/@babel/standalone@7.17.0/babel.min.js'
+  }
 ]
 
 export default Languages;

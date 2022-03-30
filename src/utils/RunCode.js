@@ -1,4 +1,5 @@
 import Sleep from "./Sleep";
+import toJS from "./toJS";
 
 function removeElement(id) {
   let elem = document.getElementById(id);
@@ -21,7 +22,7 @@ function createIframe() {
 
 function createScript(iframe, jsScript) {
   const doc = iframe.contentDocument;
-  if(doc) {
+  if (doc) {
     const script = doc.createElement('script');
     const blob = new Blob([jsScript], { type: 'application/javascript' });
     script.src = URL.createObjectURL(blob);
@@ -50,7 +51,7 @@ function formatOutput(logMessages) {
 
 function concatArgs(logMessages) {
   let splitArgs = false;
-  return logMessages.map(msg => {        
+  return logMessages.map(msg => {
     if (msg) {
       if (typeof msg === 'string') {
         msg = '<span class="warning">"' + msg + '"</span> ';
@@ -85,22 +86,27 @@ function concatArgs(logMessages) {
     .join(splitArgs ? '\n' : ' ');
 }
 
-export default async function RunCode(jsScript) {
-  const iframe = createIframe();
-  addLibs(iframe);
+export default async function RunCode(code, language) {
+  if (language === 'html') window.parent.postMessage(code)
+  else {
+    const jsScript = await toJS(code, language);
 
-  await Sleep(500);
-  createScript(iframe, jsScript);
+    const iframe = createIframe();
+    addLibs(iframe);
 
-  // handle errors
-  iframe.contentWindow.onerror = (message, file, line, col, error) => {
-    window.parent.postMessage(`<span class="danger">(${line}:${col}) -> ${error}</span>`);
-  };
+    await Sleep(200);
+    createScript(iframe, jsScript);
 
-  // get console outputs as string
-  let messages = [];
-  iframe.contentWindow.console.log = async (...args) => {
-    messages.push.apply(messages, [args]);
-    window.parent.postMessage(formatOutput(messages));
-  };
+    // handle errors
+    iframe.contentWindow.onerror = (message, file, line, col, error) => {
+      window.parent.postMessage(`<span class="danger">(${line}:${col}) -> ${error}</span>`);
+    };
+
+    // get console outputs as string
+    let messages = [];
+    iframe.contentWindow.console.log = async (...args) => {
+      messages.push.apply(messages, [args]);
+      window.parent.postMessage(formatOutput(messages));
+    };
+  }
 }

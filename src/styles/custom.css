@@ -1,14 +1,10 @@
 .snackbar {
-  width: auto;
+  max-width: 300px;
   position: fixed;
   bottom: 20px;
-  left: 43%;
-  padding: 10px 15px;
-  border-radius: 4px;
-  align-items: center;
+  right: 20px;
   text-transform: uppercase;
   z-index: 999999;
-  box-shadow: var(--box-shad);
 }
 
 hr {
@@ -37,8 +33,9 @@ hr {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: .5rem 1.5rem;  
+  padding: .5rem 1.2rem;  
   white-space: nowrap;
+  transition: background-color 0.25s;
 }
 
 .dropdown:hover .dropdown-menu {

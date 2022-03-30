@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../store/GlobalStore';
-import addOrRemoveElement from '../utils/addOrRemoveElement';
-import copy from '../utils/copy';
+
 import Languages from '../utils/Languages';
 import download from '../utils/download';
 import { toSvg } from 'html-to-image';
@@ -11,7 +10,6 @@ export default function OutputHeader() {
   const { language, fontSize, fontSizes } = gstate;
 
   const onConfig = React.useCallback((actionType, value) => {
-
     if (actionType === 'to-svg') {
       document.querySelector('[data-name="vs/editor/editor.main"]').crossOrigin = 'anonymous';
       document.querySelector('.output').style.display = 'none';
@@ -37,25 +35,6 @@ export default function OutputHeader() {
       const code = localStorage.getItem('editorValue') || '';
       download(code, 'App.' + gstate.language.extension);
     }
-
-    if (actionType === 'copy') {
-      const code = localStorage.getItem('editorValue') || '';;
-      copy(code);
-    }
-
-    if (actionType === 'fontSize') {
-      dispatch({ type: 'fontSize', payload: { fontSize: value } })
-    }
-
-    if (actionType === 'copy') {
-      const code = localStorage.getItem('output') || '';
-      copy(code)
-    }
-
-    if (actionType === 'language') {
-      addOrRemoveElement(value.name);
-      dispatch({ type: 'language', payload: { language: value } })
-    }
   }, [])
 
   return <header className="w-100 d-flex justify-between">
@@ -69,7 +48,7 @@ export default function OutputHeader() {
         {Languages.map(lang => <li
           className="dropdown-item cp"
           key={lang.id}
-          onClick={() => { onConfig('language', lang) }}>{lang.name} {lang.version}</li>)}
+          onClick={() => { dispatch({ type: 'language', payload: { language: lang } }) }}>{lang.name} {lang.version}</li>)}
       </ul>
     </div>
 
@@ -78,15 +57,15 @@ export default function OutputHeader() {
         <i className="fa fa-adjust"></i>
       </button>
 
-      <button className="h-100 btn" title="Copy output" onClick={() => { onConfig('copy'); }}><i className="fa fa-copy"></i></button>
+      <button className="h-100 btn" title="Copy output" onClick={() => { dispatch({ type: 'copy-output' }) }}><i className="fa fa-copy"></i></button>
 
       <div className="dropdown position-relative">
-        <button type="button" className="h-100 btn"><i className="fa fa-font"></i> {fontSize}</button>
+        <button type="button" className="h-100 btn nowrap"><i className="fa fa-font"></i> {fontSize}</button>
         <ul className="btn dropdown-menu shadow">
           {fontSizes.map(f => <li
             className="dropdown-item cp"
             key={f}
-            onClick={() => { onConfig('fontSize', f) }}>{f}</li>)}
+            onClick={() => { dispatch({ type: 'fontSize', payload: { fontSize: f } }) }}>{f}</li>)}
         </ul>
       </div>
 
@@ -94,6 +73,11 @@ export default function OutputHeader() {
         <button type="button" className="h-100 btn"><i className="fa fa-ellipsis-v"></i></button>
 
         <ul className="btn dropdown-menu shadow" style={{ right: 0, left: 'auto', textAlign: 'left' }}>
+
+          <li className="dropdown-item cp" title="Share url" onClick={() => { dispatch({ type: 'share-url' }) }}>
+            <i className="fa fa-share mr-3"></i>share url
+          </li>
+
           <li className="dropdown-item cp" title="Enable minimap" onClick={() => { dispatch({ type: 'minimap' }); }}>
             <i className="fa fa-window mr-3"></i>Enable minimap
           </li>
@@ -107,7 +91,7 @@ export default function OutputHeader() {
           <li className="dropdown-item cp" title="Download Code" onClick={() => { onConfig('download'); }}>
             <i className="fa fa-download mr-3"></i>download code
           </li>
-          <li className="dropdown-item cp" title="Copy Code" onClick={() => { onConfig('copy'); }}>
+          <li className="dropdown-item cp" title="Copy Code" onClick={() => { dispatch({ type: 'copy-code' }) }}>
             <i className="fa fa-copy mr-3"></i>copy code
           </li>
 

@@ -1,8 +1,12 @@
 import React, { createContext, useReducer } from 'react';
+import addCDNToDOM from '../utils/addCDNToDOM';
+import copy from '../utils/copy';
 
 const initState = localStorage.getItem('config')
   ? JSON.parse(localStorage.getItem('config'))
   : {
+    message: '',
+    showSnackbar: false,
     fontSizes: [10, 12, 14, 16, 18, 20, 22, 24],
     showAddLibModal: false,
     showInfoModal: false,
@@ -19,6 +23,9 @@ const GlobalContext = createContext();
 
 function globalReducer(state, action) {
   switch (action.type) {
+    case 'show-snackbar':
+      return { ...state, showSnackbar: false, message: '' };
+
     case 'isRunning': {
       return { ...state, isRunning: action.payload.isRunning }
     }
@@ -40,8 +47,10 @@ function globalReducer(state, action) {
     }
 
     case 'language': {
-      const newState = { ...state, language: action.payload.language };
-      localStorage.setItem('config', JSON.stringify(newState))
+      const language = action.payload.language;
+      addCDNToDOM(language);
+      const newState = { ...state, language };
+      localStorage.setItem('config', JSON.stringify(newState));
       return newState
     }
 
@@ -59,8 +68,29 @@ function globalReducer(state, action) {
       return newState
     }
 
+    case 'share-url': {
+      let code = localStorage.getItem('editorValue') || '';
+      code = encodeURIComponent(btoa(code));
+      const url = `${window.location.href}?language=${state.language.name}&code=${code}`;
+      window.location.href.replace(url)
+      copy(url);
+
+      return { ...state, message: url, showSnackbar: true }
+    }
+
+    case 'copy-output': {
+      copy(localStorage.getItem('output') || '');
+      return { ...state, message: 'Copied', showSnackbar: true }
+    }
+
+    case 'copy-code': {
+      copy(localStorage.getItem('editorValue') || '');
+      return { ...state, message: 'Copied', showSnackbar: true }
+    }
+
     default: {
       console.log(`Unhandled action type: ${action.type}`)
+      return state
     }
   }
 }

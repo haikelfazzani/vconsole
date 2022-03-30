@@ -167,6 +167,8 @@ ul {
 
 .fadein { animation: fadein .25s; }
 
+.rounded {border-radius: 50%;}
+
 @keyframes fadein {
   from {
     opacity: 0;

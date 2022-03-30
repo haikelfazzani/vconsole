@@ -10,18 +10,16 @@ import Editor from "@monaco-editor/react";
 import Languages from '../utils/Languages';
 import ConsoleHeader from '../containers/ConsoleHeader';
 import OutputHeader from '../containers/OutputHeader';
-import addOrRemoveElement from '../utils/addOrRemoveElement';
 
-import '../styles/Playground.css';
-import toJS from '../utils/toJS';
 import RunCode from '../utils/RunCode';
+import '../styles/Playground.css';
+import Snackbar from '../components/Snackbar';
 
 function Playground() {
   const isMobile = window.innerWidth < 700,
     params = new URLSearchParams(window.location.search);
 
   const { gstate, dispatch } = useContext(GlobalContext);
-  const { showAddLibModal, showInfoModal } = gstate;
 
   let lang = params.get('language'),
     code = params.get('code'),
@@ -35,28 +33,27 @@ function Playground() {
   const onEditorDidMount = (editor, monaco) => {
     let language = gstate.language;
     if (lang) {
-      language = Languages.find(l => l.name === lang);
-    }
-
-    addOrRemoveElement(language.name);
+      language = Languages.find(l => l.name === lang);            
+    }    
 
     const runner = async () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
       const code = localStorage.getItem('editorValue')
-      RunCode(await toJS(code, gstate.language.name));
+      await RunCode(code, gstate.language.name);
     }
 
+    dispatch({ type: 'language', payload: { language } })
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runner);
     monaco.editor.setModelLanguage(editor.getModel(), language.syntax);
   }
 
-  const onMessageFromWorker = (e) => {
+  const onMessageFromWorker = (e) => {    
+    if (e.data && /webpack/gi.test(e.data.type || e.data)) return;
+
     if (e && e.data && !e.data.vscodeSetImmediateId) {
       let m = typeof e.data === 'string' ? e.data : '';
-      if (!m.includes('webpackHotUpdate')) {
-        setMessage(m);
-        localStorage.setItem('output', m);
-      }
+      setMessage(m);
+      localStorage.setItem('output', m);
     }
     dispatch({ type: 'isRunning', payload: { isRunning: false } });
   }
@@ -96,13 +93,15 @@ function Playground() {
 
       <div className="w-100 h-100 output">
         <OutputHeader />
-        <pre className='w-100' style={{ fontSize: fontSize + 'px' }} dangerouslySetInnerHTML={{ __html: message }}></pre>
+        {gstate.language.name === 'html'
+          ? <iframe className='w-100 h-100' title='box' srcDoc={message}></iframe>
+          : <pre className='w-100' style={{ fontSize: fontSize + 'px' }} dangerouslySetInnerHTML={{ __html: message }}></pre>}
       </div>
     </Split>
 
-    <Modal showModal={showAddLibModal} setShowModal={() => { dispatch({ type: 'show-add-lib-modal' }) }}><AddLib /></Modal>
+    <Modal showModal={gstate.showAddLibModal} setShowModal={() => { dispatch({ type: 'show-add-lib-modal' }) }}><AddLib /></Modal>
 
-    <Modal showModal={showInfoModal} setShowModal={() => { dispatch({ type: 'show-info-modal' }) }}>
+    <Modal showModal={gstate.showInfoModal} setShowModal={() => { dispatch({ type: 'show-info-modal' }) }}>
       <pre className='p-0'>
         <h3 className='blue'>How to embed Vconsole into your website</h3>
         {`const code = encodeURIComponent(btoa("console.log('hello')"));
@@ -115,6 +114,8 @@ https://vconsole.vercel.app?language=language&code=code&theme=theme`}
         CtrlCmd + Enter: Run code
       </pre>
     </Modal>
+
+    <Snackbar />
   </main>;
 }
 

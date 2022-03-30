@@ -2,12 +2,13 @@
 .bg-white { background-color: var(--white); color: var(--black);}
 .bg-dark { background-color: var(--dark); color: var(--white);}
 .bg-light { background-color: var(--light); color: var(--white);}
+.bg-gray { background-color: var(--gray); color: var(--white);}
 
 .bg-green { background-color: var(--green); }
 .bg-blue { background-color: var(--blue); }
 .bg-danger { background-color: var(--danger); }
 
-.bg-warning { background-color: var(--warning); color: var(--black);}
+.bg-warning { background-color: var(--warning); }
 .bg-transparent {background-color: transparent;}
 
 .warning { color: var(--warning);}
