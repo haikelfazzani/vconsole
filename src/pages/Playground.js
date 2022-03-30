@@ -43,7 +43,7 @@ function Playground() {
     const runner = async () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
       const code = localStorage.getItem('editorValue')
-      RunCode(await toJS(code, gstate.language));
+      RunCode(await toJS(code, gstate.language.name));
     }
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runner);

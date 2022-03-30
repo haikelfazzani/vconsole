@@ -10,7 +10,7 @@ export default function ConsoleHeader() {
   const onRun = async () => {
     dispatch({ type: 'isRunning', payload: { isRunning: true } });
     const code = localStorage.getItem('editorValue')
-    RunCode(await toJS(code, gstate.language));
+    RunCode(await toJS(code, gstate.language.name));
   }
 
   return <header className="w-100 d-flex justify-between">

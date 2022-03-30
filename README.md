@@ -21,5 +21,8 @@ const theme = 'vs-dark'; // or 'vs-light'
 - [ ] PWA
 - [ ] Samples
 
+### Captures
+![vconsole](https://i.ibb.co/YtHdRWq/vconsole.png)
+
 # License
 MIT
