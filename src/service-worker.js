@@ -33,13 +33,11 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => /fontawesome|fonts.gstatic|monaco-editor/gi.test(url.hostname)
+  ({ url }) => /fontawesome|googleapis|fonts.gstatic|monaco-editor/gi.test(url.hostname)
     && /woff2/g.test(url.pathname),
   new StaleWhileRevalidate({ cacheName: 'fonts' })
 );
 
-// This allows the web app to trigger skipWaiting via
-// registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();

@@ -10,4 +10,6 @@
   text-overflow: ellipsis;
 }
 
+.nowrap { white-space: nowrap;}
+
 .ltsp2 {letter-spacing: 2px;}

@@ -62,7 +62,7 @@ export default function OutputHeader() {
     <div className="h-100 dropdown position-relative mr-3">
 
       <button type="button" className="h-100 btn border-0 border-right">
-        <span><i className="fas fa-chevron-circle-down mr-2"></i>{language.name} {language.version}</span>
+        <span className='nowrap'><i className="fas fa-chevron-circle-down mr-2"></i>{language.name} {language.version}</span>
       </button>
 
       <ul className="dropdown-menu shadow">
