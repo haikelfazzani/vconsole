@@ -17,10 +17,6 @@ const theme = 'vs-dark'; // or 'vs-light'
 // -> https://vconsole.vercel.app?language=language&code=code&theme=theme&minimap=minimap
 ```
 
-### Todo
-- [ ] PWA
-- [ ] Samples
-
 ### Captures
 ![vconsole](https://i.ibb.co/YtHdRWq/vconsole.png)
 
