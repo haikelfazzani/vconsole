@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { GlobalStore } from './store/GlobalStore';
+import { GlobalProvider } from './store/GlobalStore';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './styles/index.css';
@@ -16,7 +16,9 @@ import './styles/queries.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStore><App /></GlobalStore>
+    <GlobalProvider>
+      <App />
+    </GlobalProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

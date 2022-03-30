@@ -11,13 +11,16 @@
   box-shadow: var(--box-shad);
 }
 
-.blur {
-  backdrop-filter: blur(3px);
+hr {
+  border: .1em solid var(--gray);
+}
+/****************************************/
+.dropdown {
+  background-color: transparent;
 }
 
-.br7 {border-radius: 7px;}
-/****************************************/
 .dropdown-menu {
+  background-color: var(--dark);
   position: absolute;
   top: 100%;
   left: 0;
@@ -27,7 +30,7 @@
   margin: .1rem 0 0;
   list-style: none;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, .15);
+  border: 1px solid var(--gray);
   border-radius: 7px;
 }
 

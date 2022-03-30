@@ -3,11 +3,18 @@
 .bg-dark { background-color: var(--dark); color: var(--white);}
 .bg-light { background-color: var(--light); color: var(--white);}
 
+.bg-green { background-color: var(--green); }
+.bg-blue { background-color: var(--blue); }
+.bg-danger { background-color: var(--danger); }
+
 .bg-warning { background-color: var(--warning); color: var(--black);}
 .bg-transparent {background-color: transparent;}
 
 .warning { color: var(--warning);}
 .green { color: var(--green);}
 .blue { color: var(--blue);}
+.danger { color: var(--danger);}
+.white { color: var(--white);}
 
-.border-0 {border: 0 !important;}
+.border-0 {border: 0;}
+.border-right {border-right: 1px solid var(--gray);}

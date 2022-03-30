@@ -21,10 +21,12 @@ function createIframe() {
 
 function createScript(iframe, jsScript) {
   const doc = iframe.contentDocument;
-  const script = doc.createElement('script');
-  const blob = new Blob([jsScript], { type: 'application/javascript' });
-  script.src = URL.createObjectURL(blob);
-  doc.body.append(script);
+  if(doc) {
+    const script = doc.createElement('script');
+    const blob = new Blob([jsScript], { type: 'application/javascript' });
+    script.src = URL.createObjectURL(blob);
+    doc.body.append(script);
+  }
 }
 
 function addLibs(iframe) {
@@ -48,9 +50,8 @@ function formatOutput(logMessages) {
 
 function concatArgs(logMessages) {
   let splitArgs = false;
-  return logMessages.map(msg => {
+  return logMessages.map(msg => {        
     if (msg) {
-
       if (typeof msg === 'string') {
         msg = '<span class="warning">"' + msg + '"</span> ';
       }
@@ -93,7 +94,7 @@ export default async function RunCode(jsScript) {
 
   // handle errors
   iframe.contentWindow.onerror = (message, file, line, col, error) => {
-    window.parent.postMessage(`(${line}:${col}) -> ${error}`);
+    window.parent.postMessage(`<span class="danger">(${line}:${col}) -> ${error}</span>`);
   };
 
   // get console outputs as string

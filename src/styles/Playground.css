@@ -4,12 +4,27 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  background-color: var(--black);  
+  padding: 10px;
 }
 
-header {height: 45px !important; }
+.playground { 
+  border-radius: 7px; 
+  border: 1px solid var(--gray);
+  overflow: hidden;
+}
+
+.editor {overflow: hidden;}
+
+header {height: 45px !important; border-bottom: 1px solid var(--gray); }
+
+.circle {
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin: 0 8px;
+}
 
 select,
 .nav-playground button,
@@ -18,27 +33,20 @@ select,
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
 }
 
-.playground { height: calc(100% - 55px);}
-
 .playground .btn {border-left: 1px solid var(--light);}
 
+.monaco-editor, .monaco-editor-background, .monaco-editor .inputarea.ime-input,.monaco-editor .margin {
+  background-color: var(--dark) !important;
+}
+
 pre {
-  background-color: var(--dark); 
-  margin: 0; height: calc(100% - 45px) !important; overflow: auto; 
+  margin: 0; height: calc(100% - 45px) !important; 
+  overflow: auto; 
   line-height: 1.7;
   padding: 15px;
-  white-space: pre-wrap;
   word-break: keep-all
 }
 
-.gutter {
-  background-color: var(--gray);
-}
-
-.gutter:hover {
-  cursor: col-resize;
-}
-
-.gutter-vertical:hover {
-  cursor: row-resize !important;
-}
+.gutter { background-color: var(--gray); }
+.gutter:hover { cursor: col-resize; }
+.gutter-vertical:hover { cursor: row-resize !important; }

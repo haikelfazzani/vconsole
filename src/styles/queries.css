@@ -2,10 +2,6 @@
 
   body, button, p {font-size: 0.8rem;}
 
-  main { padding: 0; }
-
-  .playground { height: 100%;}
-
   .d-sm-none {  display: none !important;}
 
   .vertical-align {display: flex; flex-direction: column;}

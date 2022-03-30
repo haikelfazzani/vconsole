@@ -34,7 +34,7 @@
 .pr-2 {padding-right: .5rem;}
 .pl-2 {padding-left: .5rem!important;}
 
-.pl-3,.pl-md-3 {padding-left: 1rem;}
+.pl-3 {padding-left: 1rem;}
 .pr-3 {padding-right: 1rem;}
 .pb-3 {padding-bottom: 1rem;}
 
@@ -43,8 +43,8 @@
 .pl-4 {padding-left: 1.5rem!important;}
 .pr-4 {padding-right: 1.5rem!important;}
 
-.pl-5,.pl-md-5 {padding-left: 3rem;}
-.pr-5,.pr-md-5 {padding-right: 3rem;}
+.pl-5 {padding-left: 3rem;}
+.pr-5 {padding-right: 3rem;}
 
 .py-5 {padding-top:3rem; padding-bottom: 3rem;}
 
