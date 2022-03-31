@@ -16,18 +16,18 @@ hr {
 }
 
 .dropdown-menu {
-  background-color: var(--dark);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
   display: none;
-  padding: .5rem 0;
-  margin: .1rem 0 0;
-  list-style: none;
-  background-clip: padding-box;
   border: 1px solid var(--gray);
+  position: absolute;
+  top: calc(100%);
+  background: var(--dark);  
   border-radius: 7px;
+  box-shadow: 0px 4px 8px rgb(0 0 0 / 30%);
+  padding: 8px 0px;
+  transition: transform .25s ease;    
+  transform: translate3d(0, 32px, 0) rotateX(-14deg) rotateY(12deg);
+  backface-visibility: hidden;
+  pointer-events: none;
 }
 
 .dropdown-item {
@@ -41,6 +41,8 @@ hr {
 .dropdown:hover .dropdown-menu {
   display: flex;
   flex-direction: column;
+  transform: translate3d(0, 0, 0);
+  pointer-events: all;
 }
 
 .dropdown-item:hover {

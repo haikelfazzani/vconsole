@@ -34,6 +34,7 @@ export default function toJS(jsValue, jsPreprocessor) {
         break;
 
       case 'babel':
+        console.log(window.Babel);
         let options = { envName: 'production', presets: ['es2017'], babelrc: false };
         res = window.Babel.transform(jsValue, options).code;
         resolve(res)

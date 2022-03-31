@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../store/GlobalStore';
-
+import Tabs from '../utils/Tabs';
 import Languages from '../utils/Languages';
 import download from '../utils/download';
 import { toSvg } from 'html-to-image';
@@ -9,7 +9,7 @@ export default function OutputHeader() {
   const { gstate, dispatch } = useContext(GlobalContext);
   const { language, fontSize, fontSizes } = gstate;
 
-  const onConfig = React.useCallback((actionType, value) => {
+  const onConfig = React.useCallback((actionType) => {
     if (actionType === 'to-svg') {
       document.querySelector('[data-name="vs/editor/editor.main"]').crossOrigin = 'anonymous';
       document.querySelector('.output').style.display = 'none';
@@ -32,8 +32,7 @@ export default function OutputHeader() {
     }
 
     if (actionType === 'download') {
-      const code = localStorage.getItem('editorValue') || '';
-      download(code, 'App.' + gstate.language.extension);
+      download(Tabs.getContent(), 'App.' + gstate.language.extension);
     }
   }, [])
 
@@ -60,7 +59,7 @@ export default function OutputHeader() {
       <button className="h-100 btn" title="Copy output" onClick={() => { dispatch({ type: 'copy-output' }) }}><i className="fa fa-copy"></i></button>
 
       <div className="dropdown position-relative">
-        <button type="button" className="h-100 btn nowrap"><i className="fa fa-font"></i> {fontSize}</button>
+        <button type="button" className="h-100 btn nowrap"><i className="fa fa-font mr-2"></i>{fontSize}</button>
         <ul className="btn dropdown-menu shadow">
           {fontSizes.map(f => <li
             className="dropdown-item cp"
@@ -86,7 +85,7 @@ export default function OutputHeader() {
             <i className="fa fa-plus mr-3"></i>add library
           </li>
 
-          <li><hr /></li>
+          <li className='w-100'><hr /></li>
 
           <li className="dropdown-item cp" title="Download Code" onClick={() => { onConfig('download'); }}>
             <i className="fa fa-download mr-3"></i>download code
@@ -99,7 +98,7 @@ export default function OutputHeader() {
             <i className="fa fa-camera-retro mr-3"></i>take snapshot
           </li>
 
-          <li><hr /></li>
+          <li className='w-100'><hr /></li>
 
           <li className="dropdown-item cp" title="Info" onClick={() => { dispatch({ type: 'show-info-modal' }); }}>
             <i className="fa fa-info-circle mr-3"></i>info

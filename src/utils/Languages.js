@@ -28,8 +28,8 @@ const Languages = [
     name: 'livescript',
     extension: 'ls',
     syntax: 'ruby',
-    version: '1.6.0',
-    cdn: 'http://livescript.net/livescript-1.6.0-min.js'
+    version: '1.6.1',
+    cdn: 'https://cdnjs.cloudflare.com/ajax/libs/livescript/1.6.1/livescript-min.min.js'
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ const Languages = [
     extension: 'js',
     syntax: 'javascript',
     version: '7.17.0',
-    cdn: 'https://unpkg.com/@babel/standalone@7.17.0/babel.min.js'
+    cdn: 'https://unpkg.com/@babel/standalone@7.13.14/babel.min.js'
   }
 ]
 

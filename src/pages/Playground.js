@@ -14,27 +14,28 @@ import OutputHeader from '../containers/OutputHeader';
 import RunCode from '../utils/RunCode';
 import '../styles/Playground.css';
 import Snackbar from '../components/Snackbar';
+import Tabs from '../utils/Tabs';
 
 function Playground() {
   const isMobile = window.innerWidth < 700,
     params = new URLSearchParams(window.location.search);
 
   const { gstate, dispatch } = useContext(GlobalContext);
+  const { tabIndex } = gstate;
 
   let lang = params.get('language'),
     code = params.get('code'),
     theme = params.get('theme') || gstate.theme,
     fontSize = params.get('fontSize') || gstate.fontSize,
     minimap = params.get('minimap') || gstate.minimap;
-
-  const [editorValue, setEditorValue] = useState(localStorage.getItem('editorValue') || '');
+  
   const [message, setMessage] = useState('');
 
   const onEditorDidMount = (editor, monaco) => {
     let language = gstate.language;
     if (lang) {
-      language = Languages.find(l => l.name === lang);            
-    }    
+      language = Languages.find(l => l.name === lang);
+    }
 
     const runner = async () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
@@ -47,7 +48,7 @@ function Playground() {
     monaco.editor.setModelLanguage(editor.getModel(), language.syntax);
   }
 
-  const onMessageFromWorker = (e) => {    
+  const onMessageFromWorker = (e) => {
     if (e.data && /webpack/gi.test(e.data.type || e.data)) return;
 
     if (e && e.data && !e.data.vscodeSetImmediateId) {
@@ -59,13 +60,16 @@ function Playground() {
   }
 
   const onEditorValueChange = value => {
-    setEditorValue(value);
-    localStorage.setItem('editorValue', value)
+    Tabs.updateOne(tabIndex, value);
   }
 
   useEffect(() => {
-    if (code) {
-      setEditorValue(decodeURIComponent(atob(code)));
+    try {
+      if (code) {
+        Tabs.updateOne(0, decodeURIComponent(atob(code)));
+      }
+    } catch (error) {
+      console.log(error.message);
     }
 
     window.addEventListener("message", onMessageFromWorker, false);
@@ -83,7 +87,7 @@ function Playground() {
         <Editor
           height="calc(100% - 45px)"
           language={gstate.language.syntax}
-          value={editorValue}
+          value={Tabs.getOne(tabIndex).content}
           theme={theme}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}

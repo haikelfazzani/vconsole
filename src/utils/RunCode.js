@@ -12,12 +12,13 @@ function createIframe() {
   iframe.id = 'js-console-iframe';
   iframe.style.display = 'none';
 
-  //document.body.appendChild(iframe);
-  const referenceNode = document.querySelector('.monaco-aria-container')
-  if (referenceNode) {
-    referenceNode.parentNode.prepend(iframe);
-    return iframe;
-  }
+  document.body.appendChild(iframe);
+  // const referenceNode = document.querySelector('.monaco-aria-container')
+  // if (referenceNode) {
+  //   referenceNode.parentNode.prepend(iframe);
+  //   return iframe;
+  // }
+  return iframe
 }
 
 function createScript(iframe, jsScript) {

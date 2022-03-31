@@ -22,7 +22,7 @@ registerRoute(({ url }) => /.*\.(?:png|jpg|jpeg|svg|gif)/gi.test(url.hostname),
 );
 
 registerRoute(
-  ({ url }) => /fontawesome|googleapis|monaco-editor/gi.test(url.hostname)
+  ({ url }) => /cloudflare|googleapis|unpkg|monaco-editor/gi.test(url.hostname)
     && /css/g.test(url.pathname),
   new StaleWhileRevalidate({
     cacheName: 'styles',
@@ -33,7 +33,7 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => /fontawesome|googleapis|fonts.gstatic|monaco-editor/gi.test(url.hostname)
+  ({ url }) => /cloudflare|googleapis|fonts.gstatic|monaco-editor/gi.test(url.hostname)
     && /woff2/g.test(url.pathname),
   new StaleWhileRevalidate({ cacheName: 'fonts' })
 );

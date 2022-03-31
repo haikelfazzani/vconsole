@@ -5,7 +5,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--black);  
-  padding: 10px;
+  padding: 7px;
 }
 
 .playground { 
@@ -18,12 +18,14 @@ main {
 
 header {height: 45px !important; border-bottom: 1px solid var(--gray); }
 
+header, li > * {font-size: 0.9rem;}
+
 .circle {
   border-radius: 50%;
   width: 14px;
   height: 14px;
   display: inline-block;
-  margin: 0 8px;
+  margin: 0 7px;
 }
 
 select,
@@ -53,3 +55,5 @@ iframe { padding: 0; }
 .gutter { background-color: var(--gray); }
 .gutter:hover { cursor: col-resize; }
 .gutter-vertical:hover { cursor: row-resize !important; }
+
+.active-tab {background-color: var(--dark-transparent) !important;}
