@@ -10,7 +10,7 @@ export default function addCDNToDOM(language) {
   script.src = language.cdn;
   script.id = language.name;
 
-  const referenceNode = document.querySelector('.monaco-aria-container')
-
+  
+  const referenceNode = document.getElementById('root')
   if (referenceNode) referenceNode.parentNode.prepend(script);
 }

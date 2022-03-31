@@ -1,7 +1,6 @@
 export default class Tabs {
   static addOne() {
-    let tabs = this.getAll();
-    tabs = [...tabs, { title: 'tab ' + tabs.length, content: '' }];
+    let tabs = [...this.getAll(), { title: 'tab ' + tabs.length, content: '' }];
     localStorage.setItem('tabs', JSON.stringify(tabs))
   }
 
@@ -27,14 +26,19 @@ export default class Tabs {
   }
 
   static getContent() {
-    return this.getAll().map(t => t.content).reverse().join('\n');    
+    return this.getAll().map(t => t.content).reverse().join('\n');
   }
 
   static getAll() {
+    const local = localStorage.getItem('tabs');
+    const tabs = [{ title: 'Main', content: 'console.log("Welcome To VConsole")' }];
     try {
-      return JSON.parse(localStorage.getItem('tabs'));
+      return local
+        ? JSON.parse(localStorage.getItem('tabs'))
+        : tabs;
     } catch (error) {
-      return [{ title: 'Main', content: 'console.log("Welcome To VConsole")' }]
+      localStorage.removeItem('tabs');
+      return tabs
     }
   }
 }

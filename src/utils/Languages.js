@@ -45,7 +45,7 @@ const Languages = [
     extension: 'js',
     syntax: 'javascript',
     version: '7.17.0',
-    cdn: 'https://unpkg.com/@babel/standalone@7.13.14/babel.min.js'
+    cdn: 'https://unpkg.com/@babel/standalone@7.17.0/babel.min.js'
   }
 ]
 
