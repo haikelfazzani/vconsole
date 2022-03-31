@@ -16,7 +16,7 @@ const minimap = true;
 const language = 'livescript'; 
 const theme = 'vs-dark'; // or 'vs-light'
 
-// -> https://vconsole.vercel.app?language=language&code=code&theme=theme&minimap=minimap
+// -> https://vconsole.ml?language=language&code=code&theme=theme&minimap=minimap
 ```
 
 ### Captures

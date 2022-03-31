@@ -28,7 +28,7 @@ function Playground() {
     theme = params.get('theme') || gstate.theme,
     fontSize = params.get('fontSize') || gstate.fontSize,
     minimap = params.get('minimap') || gstate.minimap;
-  
+
   const [message, setMessage] = useState('');
 
   const onEditorDidMount = (editor, monaco) => {
@@ -39,8 +39,7 @@ function Playground() {
 
     const runner = async () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
-      const code = localStorage.getItem('editorValue')
-      await RunCode(code, gstate.language.name);
+      await RunCode(Tabs.getContent(), gstate.language.name);
     }
 
     dispatch({ type: 'language', payload: { language } })
@@ -88,6 +87,7 @@ function Playground() {
           height="calc(100% - 45px)"
           language={gstate.language.syntax}
           value={Tabs.getOne(tabIndex).content}
+          path={'app-' + tabIndex + '.js'}
           theme={theme}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}
@@ -112,7 +112,7 @@ function Playground() {
 const language = 'livescript';
 const theme = 'vs-dark'; // or 'vs-light'
 
-https://vconsole.vercel.app?language=language&code=code&theme=theme`}
+https://vconsole.ml?language=language&code=code&theme=theme`}
         <hr />
         <h3 className='blue'>Shortcuts</h3>
         CtrlCmd + Enter: Run code

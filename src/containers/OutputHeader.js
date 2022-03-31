@@ -34,7 +34,7 @@ export default function OutputHeader() {
     if (actionType === 'download') {
       download(Tabs.getContent(), 'App.' + gstate.language.extension);
     }
-  }, [])
+  }, []);
 
   return <header className="w-100 d-flex justify-between">
     <div className="h-100 dropdown position-relative mr-3">
@@ -78,7 +78,7 @@ export default function OutputHeader() {
           </li>
 
           <li className="dropdown-item cp" title="Enable minimap" onClick={() => { dispatch({ type: 'minimap' }); }}>
-            <i className="fa fa-window mr-3"></i>Enable minimap
+            <i className="fa fa-grip-vertical mr-3"></i>Enable minimap
           </li>
 
           <li className="dropdown-item cp" title="Add Library" onClick={() => { dispatch({ type: 'show-add-lib-modal' }); }}>

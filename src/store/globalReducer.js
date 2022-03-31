@@ -1,4 +1,4 @@
-import addCDNToDOM from '../utils/addCDNToDOM';
+import loadCDN from '../utils/loadCDN';
 import copy from '../utils/copy';
 import Tabs from '../utils/Tabs';
 
@@ -35,8 +35,8 @@ export default function globalReducer(state, action) {
 
     case 'language': {
       const language = action.payload.language;
-      addCDNToDOM(language);
       const newState = { ...state, language };
+      loadCDN(language);
       localStorage.setItem('config', JSON.stringify(newState));
       return newState
     }

@@ -42,7 +42,7 @@ export default function ConsoleHeader() {
 
       {Tabs.getAll().map((tab, i) => <li key={i} className={'h-100 btn nowrap' + (tabIndex === i ? ' active-tab' : '')}>
         <span onClick={() => { onTab(i); }} contentEditable={i !== 0}
-          onInput={onUpdate}>{tab.title}</span>
+          onInput={onUpdate} suppressContentEditableWarning="true">{tab.title}</span>
         {i !== 0 && <span onClick={() => { onRemoveTab(i, tab.title); }}><i className='fa fa-times ml-2'></i></span>}
       </li>)}
       <li onClick={onAddTab} className='h-100 btn'><i className='fa fa-plus'></i></li>
