@@ -1,33 +1,39 @@
-import Sleep from "./Sleep";
-import toJS from "./toJS";
+function toJS(jsValue, preprocessor) {
+  let res = null;
+  switch (preprocessor) {
+    case 'typescript':
+      res = window.ts.transpileModule(jsValue, {
+        compilerOptions: {
+          allowJs: true,
+          declaration: true,
+          emitDeclarationOnly: true,
+          noEmitOnError: true,
+          noImplicitAny: true,
+          target: window.ts.ScriptTarget.ES5,
+          module: window.ts.ModuleKind.CommonJS
+        }
+      }).outputText;
+      return res;
 
-function removeElement(id) {
-  let elem = document.getElementById(id);
-  return elem ? elem.parentNode.removeChild(elem) : null;
-}
+    // case 'coffeescript':
+    //   res = window.CoffeeScript.compile(jsValue)
+    //   return res;
 
-function createIframe() {
-  removeElement('js-console-iframe');
-  const iframe = document.createElement('iframe');
-  iframe.id = 'js-console-iframe';
-  iframe.style.display = 'none';
+    case 'livescript':
+      let req = window.require
+      if (req) {
+        const LiveScript = req("livescript");
+        res = LiveScript.compile(jsValue)
+      }
+      return res;
 
-  document.body.appendChild(iframe);
-  // const referenceNode = document.querySelector('.monaco-aria-container')
-  // if (referenceNode) {
-  //   referenceNode.parentNode.prepend(iframe);
-  //   return iframe;
-  // }
-  return iframe
-}
+    // case 'babel':
+    //   let options = { envName: 'production', presets: ['es2017'], babelrc: false };
+    //   res = window.Babel.transform(jsValue, options).code;
+    //   return res;
 
-function createScript(iframe, jsScript) {
-  const doc = iframe.contentDocument;
-  if (doc) {
-    const script = doc.createElement('script');
-    const blob = new Blob([jsScript], { type: 'application/javascript' });
-    script.src = URL.createObjectURL(blob);
-    doc.body.append(script);
+    default:
+      return jsValue
   }
 }
 
@@ -88,26 +94,56 @@ function concatArgs(logMessages) {
 }
 
 export default async function RunCode(code, language) {
-  if (language === 'html') window.parent.postMessage(code)
-  else {
-    const jsScript = await toJS(code, language);
+  try {
+    const iframe = document.querySelector('.sandbox');
+    const iframeDoc = iframe.contentDocument;
+    const iframeWin = iframe.contentWindow;
+    iframeDoc.open();
 
-    const iframe = createIframe();
     addLibs(iframe);
 
-    await Sleep(200);
-    createScript(iframe, jsScript);
+    const cdnScripts = language === 'coffeescript'
+      ? `<script src="https://cdn.jsdelivr.net/npm/coffeescript@2.5.1/lib/coffeescript-browser-compiler-legacy/coffeescript.min.js"></script>`
+      : '';
 
-    // handle errors
-    iframe.contentWindow.onerror = (message, file, line, col, error) => {
-      window.parent.postMessage(`<span class="danger">(${line}:${col}) -> ${error}</span>`);
+    iframeDoc.write(`<html><head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Sandbox</title>
+      </head><body>${cdnScripts}</body></html>`);
+
+    let jsValue = toJS(code, language);
+    iframeWin.onload = () => {
+      // jsValue = iframeWin.CoffeeScript.compile(jsValue);
+      // console.log(jsValue);
+      const script = document.createElement('script');
+      script.type = language === 'coffeescript' ? "text/javascript" : "module";
+      script.text = jsValue;
+      script.defer = true;
+
+      iframeDoc.body.appendChild(script);
+      //window.parent.postMessage(' ')
+
+      // get console outputs as string
+      let messages = [];
+      iframeWin.console.log = async (...args) => {
+        messages.push.apply(messages, [args]);
+        console.log(messages);
+        window.parent.postMessage(formatOutput(messages));
+      };
+    }
+
+    iframeWin.onerror = function (message, _, lineno, colno) {
+      const errors = jsValue.split('\n').map((line, i) => {
+        return `${lineno - 1 === i ? '> ' : '  '} ${i + 1} | ${line.trim()}`
+      });
+
+      window.parent.postMessage(`${message} (${lineno}:${colno})\n\n${errors.join('\n')}`)
     };
 
-    // get console outputs as string
-    let messages = [];
-    iframe.contentWindow.console.log = async (...args) => {
-      messages.push.apply(messages, [args]);
-      window.parent.postMessage(formatOutput(messages));
-    };
+    iframeDoc.close();
+  } catch (error) {
+    window.parent.postMessage(error.message);
   }
 }
+

@@ -1,4 +1,3 @@
-import loadCDN from '../utils/loadCDN';
 import copy from '../utils/copy';
 import Tabs from '../utils/Tabs';
 
@@ -36,7 +35,7 @@ export default function globalReducer(state, action) {
     case 'language': {
       const language = action.payload.language;
       const newState = { ...state, language };
-      loadCDN(language);
+      //loadCDN(language);
       localStorage.setItem('config', JSON.stringify(newState));
       return newState
     }

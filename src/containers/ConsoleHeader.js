@@ -1,16 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { GlobalContext } from '../store/GlobalStore';
-import RunCode from '../utils/RunCode';
+
+import RunJs from '../utils/RunJs';
 import Tabs from '../utils/Tabs';
 
 export default function ConsoleHeader() {
   const { gstate, dispatch } = useContext(GlobalContext);
   const { isRunning, tabIndex } = gstate;
 
-  const onRun = async () => {
+  const onRun = useCallback(() => {
     dispatch({ type: 'isRunning', payload: { isRunning: true } });
-    await RunCode(Tabs.getContent(), gstate.language.name);
-  }
+    //RunCode(Tabs.getContent(), gstate.language.name);
+    RunJs.run(Tabs.getContent(), gstate.language.name)
+  }, [gstate.language.name]);
+
 
   const onTab = (index) => {
     dispatch({ type: 'update-tab-index', payload: { tabIndex: index } })
@@ -41,8 +44,8 @@ export default function ConsoleHeader() {
       </li>
 
       {Tabs.getAll().map((tab, i) => <li key={i} className={'h-100 btn nowrap' + (tabIndex === i ? ' active-tab' : '')}>
-        <span onClick={() => { onTab(i); }} contentEditable={i !== 0}
-          onInput={onUpdate} suppressContentEditableWarning="true">{tab.title}</span>
+        <span className='text-none' onClick={() => { onTab(i); }} contentEditable={i !== 0}
+          onInput={onUpdate} suppressContentEditableWarning="true">{tab.title + '.' + gstate.language.extension}</span>
         {i !== 0 && <span onClick={() => { onRemoveTab(i, tab.title); }}><i className='fa fa-times ml-2'></i></span>}
       </li>)}
       <li onClick={onAddTab} className='h-100 btn'><i className='fa fa-plus'></i></li>

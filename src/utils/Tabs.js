@@ -1,7 +1,7 @@
 export default class Tabs {
   static addOne() {
     let tabs = this.getAll();
-    tabs = [...tabs, { title: 'tab ' + tabs.length, content: '' }];
+    tabs = [...tabs, { title: 'tab-' + tabs.length, content: '' }];
     localStorage.setItem('tabs', JSON.stringify(tabs))
   }
 

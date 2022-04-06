@@ -17,13 +17,24 @@ registerRoute(({ request, url }) => {
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
-registerRoute(({ url }) => /.*\.(?:png|jpg|jpeg|svg|gif)/gi.test(url.hostname),
+registerRoute(({ url }) => /^.*\.(jpg|gif|jpeg|png|svg)$/gi.test(url.hostname),
   new StaleWhileRevalidate({ cacheName: 'images' })
 );
 
 registerRoute(
-  ({ url }) => /cloudflare|googleapis|unpkg|monaco-editor/gi.test(url.hostname)
-    && /css/g.test(url.pathname),
+  ({ url }) => /typescript|babel|livescript|coffeescript|monaco-editor/gi.test(url.pathname)
+    && /^.*\.js$/g.test(url.pathname),
+  new StaleWhileRevalidate({
+    cacheName: 'jscdns',
+    plugins: [
+      new ExpirationPlugin({ maxAgeSeconds: 30 * 24 * 60 * 60 }),
+    ]
+  })
+);
+
+registerRoute(
+  ({ url }) => /cloudflare|jsdelivr|googleapis|unpkg/gi.test(url.hostname)
+    && /^.*\.css$/g.test(url.pathname),
   new StaleWhileRevalidate({
     cacheName: 'styles',
     plugins: [
@@ -33,7 +44,7 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => /cloudflare|googleapis|fonts.gstatic|monaco-editor/gi.test(url.hostname)
+  ({ url }) => /googleapis|fonts.gstatic/gi.test(url.hostname)
     && /woff2/g.test(url.pathname),
   new StaleWhileRevalidate({ cacheName: 'fonts' })
 );

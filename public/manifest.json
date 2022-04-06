@@ -1,6 +1,6 @@
 {
   "short_name": "VConsole",
-  "name": "Online Javascript playground",
+  "name": "Js Playground",
   "icons": [
     {
       "src": "favicon.ico",

@@ -51,8 +51,9 @@ function Playground() {
     if (e.data && /webpack/gi.test(e.data.type || e.data)) return;
 
     if (e && e.data && !e.data.vscodeSetImmediateId) {
+      console.log(e.data);
       let m = typeof e.data === 'string' ? e.data : '';
-      setMessage(m);
+      setMessage(e.data);
       localStorage.setItem('output', m);
     }
     dispatch({ type: 'isRunning', payload: { isRunning: false } });
@@ -87,7 +88,7 @@ function Playground() {
           height="calc(100% - 45px)"
           language={gstate.language.syntax}
           value={Tabs.getOne(tabIndex).content}
-          path={'app-' + tabIndex + '.js'}
+          path={'app-' + tabIndex + '.' + gstate.language.extension}
           theme={theme}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}
@@ -98,7 +99,7 @@ function Playground() {
       <div className="w-100 h-100 output">
         <OutputHeader />
         {gstate.language.name === 'html'
-          ? <iframe className='w-100 h-100' title='box' srcDoc={message}></iframe>
+          ? <iframe className='w-100 h-100' title='sandbox' srcDoc={message}></iframe>
           : <pre className='w-100' style={{ fontSize: fontSize + 'px' }} dangerouslySetInnerHTML={{ __html: message }}></pre>}
       </div>
     </Split>
