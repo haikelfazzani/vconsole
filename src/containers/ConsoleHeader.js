@@ -1,6 +1,5 @@
 import React, { useContext, useCallback } from 'react'
 import { GlobalContext } from '../store/GlobalStore';
-
 import RunJs from '../utils/RunJs';
 import Tabs from '../utils/Tabs';
 
@@ -9,9 +8,8 @@ export default function ConsoleHeader() {
   const { isRunning, tabIndex } = gstate;
 
   const onRun = useCallback(() => {
-    dispatch({ type: 'isRunning', payload: { isRunning: true } });
-    //RunCode(Tabs.getContent(), gstate.language.name);
-    RunJs.run(Tabs.getContent(), gstate.language.name)
+    dispatch({ type: 'isRunning', payload: { isRunning: true } });    
+    RunJs.run(Tabs.getContent(), gstate.language.name);
   }, [gstate.language.name]);
 
 

@@ -8218,6 +8218,13 @@ react-scripts@5.0.0:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-split-views@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-split-views/-/react-split-views-1.0.5.tgz#25c402bb6ab145476f431c977c46f6be469ece6d"
+  integrity sha512-QP3aIhnAZfig3suELCrKBYz5Ex9mR4ZkjSbXjKSmZxfHLFyooDFT+3x8yOaPyzvQn3GtbSRdRTkUC6AvN0CM4g==
+  dependencies:
+    split-views "^2.1.3"
+
 react-split@^2.0.14:
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/react-split/-/react-split-2.0.14.tgz#ef198259bf43264d605f792fb3384f15f5b34432"
@@ -8840,6 +8847,11 @@ spdy@^4.0.2:
     http-deceiver "^1.2.7"
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
+
+split-views@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/split-views/-/split-views-2.1.3.tgz#bc66b48d0b55d0dbf34813607c2ce95a8185a1d0"
+  integrity sha512-mn5qYyzviBojUcnDW9BgRv/3OPn8e03BOC626w1y9Nj+0w4UJtwnrCwvIH7i+s7vWmCQEZmj+u2xlvzZ2wmp5Q==
 
 split.js@^1.6.0:
   version "1.6.4"

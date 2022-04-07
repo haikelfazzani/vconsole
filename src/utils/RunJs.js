@@ -4,6 +4,43 @@ let iframeDoc = iframe.contentDocument;
 let iframeWin = iframe.contentWindow;
 
 export default class RunJs {
+  static formatOutput(logMessages) {
+    let splitArgs = false;
+    return logMessages.map(msg => {
+      if (msg) {
+        if (typeof msg === 'string') {
+          msg = '<span class="warning">"' + msg + '"</span> ';
+        }
+
+        if (typeof msg === 'number') {
+          msg = '<span class="blue">' + msg + '</span> ';
+        }
+
+        if (Array.isArray(msg)) {
+          msg = `<span class="green">Array (${msg.length})</span> ` + JSON.stringify(msg, null, 2);
+          splitArgs = true;
+        }
+
+        if (typeof msg.toString === 'function') {
+          if (msg.toString() === '[object Map]' || msg.toString() === '[object Set]') {
+            let arr = [...msg];
+            msg = msg.toString() + ` <span class="green">(${arr.length})</span> ` + JSON.stringify(arr, null, 2);
+            splitArgs = true;
+          }
+          if (msg.toString() === '[object Object]') {
+            msg = '<span class="green">' + msg.toString() + '</span> ' + JSON.stringify(msg, null, 2);
+          }
+        }
+        else {
+          msg = JSON.stringify(msg, null, 2);
+        }
+      }
+
+      return (msg === undefined) ? 'undefined' : msg;
+    })
+      .join(splitArgs ? '\n' : ' ');
+  }
+
   static compile(code, languageName) {
     let res = null;
     switch (languageName) {
@@ -55,6 +92,21 @@ export default class RunJs {
     script.async = false;
   }
 
+  static loadExternalLibs() {
+    let libs = localStorage.getItem('libraries');
+    if (libs) {
+      libs = JSON.parse(libs);
+      for (let i = 0; i < libs.length; i++) {
+        const url = libs[i];
+        const doc = iframeDoc;
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = url;
+        doc.body.append(script);
+      }
+    }
+  }
+
   static run(code, languageName) {
     iframeDoc.open();
     iframeDoc.write(`<html><head><meta charset="UTF-8">
@@ -63,6 +115,7 @@ export default class RunJs {
       <script id="cdn-js" data-name="javascript"></script></body></html>`);
 
     this.loadCDN(languageName);
+    this.loadExternalLibs();
 
     try {
       let jsValue = this.compile(code, languageName);
@@ -78,7 +131,7 @@ export default class RunJs {
         let messages = [];
         iframeWin.console.log = async (...args) => {
           messages.push.apply(messages, [args]);
-          window.parent.postMessage(messages.join('\n'));
+          window.parent.postMessage(messages.map(msg => this.formatOutput(msg)).join('\n\n'));
         };
       }
 
@@ -92,8 +145,12 @@ export default class RunJs {
 
         window.parent.postMessage(`${message} (${lineno}:${colno})\n\n${errors.join('\n')}`)
       };
-    } catch (error) {
-      iframe.contentWindow.parent.postMessage(error)
+
+    } catch (e) {
+      if (/transpileModule|transform/gi.test(e.message)) {
+        iframeWin.parent.postMessage(`<span class="danger">Partial loading "${languageName}", please click on button "Run" again.'</span>`)
+      }
+      else iframeWin.parent.postMessage(e)
     }
 
     iframeDoc.close();

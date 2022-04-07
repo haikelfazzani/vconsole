@@ -48,10 +48,10 @@ function Playground() {
   }
 
   const onMessageFromWorker = (e) => {
+    console.log(e.data);
     if (e.data && /webpack/gi.test(e.data.type || e.data)) return;
 
     if (e && e.data && !e.data.vscodeSetImmediateId) {
-      console.log(e.data);
       let m = typeof e.data === 'string' ? e.data : '';
       setMessage(e.data);
       localStorage.setItem('output', m);
