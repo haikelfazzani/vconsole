@@ -11,10 +11,10 @@ import Languages from '../utils/Languages';
 import ConsoleHeader from '../containers/ConsoleHeader';
 import OutputHeader from '../containers/OutputHeader';
 
-import RunCode from '../utils/RunCode';
-import '../styles/Playground.css';
+import RunJs from '../utils/RunJs';
 import Snackbar from '../components/Snackbar';
 import Tabs from '../utils/Tabs';
+import '../styles/Playground.css';
 
 function Playground() {
   const isMobile = window.innerWidth < 700,
@@ -37,9 +37,9 @@ function Playground() {
       language = Languages.find(l => l.name === lang);
     }
 
-    const runner = async () => {
+    const runner = () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
-      await RunCode(Tabs.getContent(), gstate.language.name);
+      RunJs.run(Tabs.getContent(), gstate.language.name);
     }
 
     dispatch({ type: 'language', payload: { language } })
@@ -47,16 +47,19 @@ function Playground() {
     monaco.editor.setModelLanguage(editor.getModel(), language.syntax);
   }
 
-  const onMessageFromWorker = (e) => {
-    console.log(e.data);
-    if (e.data && /webpack/gi.test(e.data.type || e.data)) return;
+  const onMessageFromWorker = (e) => {    
+    const data = e.data;
+    
+    if (data && (/webpack/gi.test(data.type || data) || data.vscodeSetImmediateId)) return;
 
-    if (e && e.data && !e.data.vscodeSetImmediateId) {
-      let m = typeof e.data === 'string' ? e.data : '';
-      setMessage(e.data);
-      localStorage.setItem('output', m);
+    if (data.type && data.type === 'transpiler-error') {
+      RunJs.run(Tabs.getContent(), gstate.language.name);
+      return;
     }
+
+    setMessage(data);
     dispatch({ type: 'isRunning', payload: { isRunning: false } });
+    localStorage.setItem('output', data);
   }
 
   const onEditorValueChange = value => {
@@ -92,7 +95,7 @@ function Playground() {
           theme={theme}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}
-          options={{ fontSize: fontSize, minimap: { enabled: minimap } }}
+          options={{ fontSize, minimap: { enabled: minimap } }}
         />
       </div>
 

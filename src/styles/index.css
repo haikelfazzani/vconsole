@@ -6,10 +6,9 @@
 
 :root {
   --danger: #b90c0c;
-  --warning: #ffbd2e;
-  --green: #27c93f;
+  --warning: #bd8e00;
+  --green: #108658;
   --blue: #570fff;
-  --dark-transparent:#00000040;
   --shadow: 0px 5px 18px rgb(0 0 0 / 20%);
   --light-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
@@ -20,6 +19,7 @@
   --gray: #3f3f3f;
   --light: #3f3f3f;
   --white: #fff;
+  --transparent:#00000040;
 }
 
 [data-theme="vs-light"] {
@@ -28,6 +28,7 @@
   --gray: #dfdfdf;
   --light: #ececec;
   --white: #000;
+  --transparent:#c7c7c740;
 }
 
 html { height: 100%; }
@@ -46,7 +47,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: var(--dark-transparent);
+  background-color: var(--transparent);
   padding: 70px;
   overflow: hidden;
   z-index: 99999;
@@ -120,7 +121,7 @@ label {
 .btn[disabled],
 button:disabled,
 button[disabled]{
-  background-color: var(--dark-transparent);
+  background-color: var(--transparent);
 }
 
 a {

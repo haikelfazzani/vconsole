@@ -55,18 +55,13 @@ export default function globalReducer(state, action) {
     }
 
     case 'share-url': {
-      let code = localStorage.getItem('editorValue') || '';
+      let code = Tabs.getContent(';') || '';
       code = encodeURIComponent(btoa(code));
       const url = `${window.location.href}?language=${state.language.name}&code=${code}`;
       window.location.href.replace(url)
       copy(url);
 
       return { ...state, message: url, showSnackbar: true }
-    }
-
-    case 'copy-output': {
-      copy(localStorage.getItem('output') || '');
-      return { ...state, message: 'Copied', showSnackbar: true }
     }
 
     case 'copy-code': {

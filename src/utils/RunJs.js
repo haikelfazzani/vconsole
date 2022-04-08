@@ -5,30 +5,22 @@ let iframeWin = iframe.contentWindow;
 
 export default class RunJs {
   static formatOutput(logMessages) {
-    let splitArgs = false;
     return logMessages.map(msg => {
       if (msg) {
-        if (typeof msg === 'string') {
-          msg = '<span class="warning">"' + msg + '"</span> ';
-        }
-
-        if (typeof msg === 'number') {
-          msg = '<span class="blue">' + msg + '</span> ';
-        }
+        if (typeof msg === 'string') msg = `"${msg}"`;
+        if (typeof msg === 'number') msg = `<span class="blue">${msg}</span>`;
 
         if (Array.isArray(msg)) {
-          msg = `<span class="green">Array (${msg.length})</span> ` + JSON.stringify(msg, null, 2);
-          splitArgs = true;
+          msg = `<span class="green">Array (${msg.length})</span> ${JSON.stringify(msg, null, 2)}`;
         }
 
         if (typeof msg.toString === 'function') {
           if (msg.toString() === '[object Map]' || msg.toString() === '[object Set]') {
             let arr = [...msg];
-            msg = msg.toString() + ` <span class="green">(${arr.length})</span> ` + JSON.stringify(arr, null, 2);
-            splitArgs = true;
+            msg = `${msg.toString()} <span class="green">(${arr.length})</span> ${JSON.stringify(arr, null, 2)}`;
           }
           if (msg.toString() === '[object Object]') {
-            msg = '<span class="green">' + msg.toString() + '</span> ' + JSON.stringify(msg, null, 2);
+            msg = `<span class="green">${msg.toString()}</span> ${JSON.stringify(msg, null, 2)}`;
           }
         }
         else {
@@ -38,7 +30,7 @@ export default class RunJs {
 
       return (msg === undefined) ? 'undefined' : msg;
     })
-      .join(splitArgs ? '\n' : ' ');
+      .join('\n');
   }
 
   static compile(code, languageName) {
@@ -147,10 +139,13 @@ export default class RunJs {
       };
 
     } catch (e) {
-      if (/transpileModule|transform/gi.test(e.message)) {
-        iframeWin.parent.postMessage(`<span class="danger">Partial loading "${languageName}", please click on button "Run" again.'</span>`)
+      if (/transpileModule|transform|compile/gi.test(e.message)) {
+        iframeWin.parent.postMessage({ type: 'transpiler-error' })
+        //iframeWin.parent.postMessage(`<span class="danger">Partial loading "${languageName}", please click on button "Run" again.'</span>`)
       }
-      else iframeWin.parent.postMessage(e)
+      else {        
+        iframeWin.parent.postMessage(e)
+      }
     }
 
     iframeDoc.close();

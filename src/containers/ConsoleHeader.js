@@ -8,7 +8,7 @@ export default function ConsoleHeader() {
   const { isRunning, tabIndex } = gstate;
 
   const onRun = useCallback(() => {
-    dispatch({ type: 'isRunning', payload: { isRunning: true } });    
+    dispatch({ type: 'isRunning', payload: { isRunning: true } });
     RunJs.run(Tabs.getContent(), gstate.language.name);
   }, [gstate.language.name]);
 
@@ -50,8 +50,8 @@ export default function ConsoleHeader() {
     </ul>
 
     <ul className="h-100 d-flex">
-      <li className="btn" title="Run Code" onClick={onRun} disabled={isRunning}>
-        <i className="fa fa-play mr-3"></i><span>run</span>
+      <li className="btn" title="Run Code" onClick={onRun}>
+        <i className={"mr-3 fa fa-" + (isRunning ? 'stop' : 'play')}></i><span>run</span>
       </li>
 
     </ul>

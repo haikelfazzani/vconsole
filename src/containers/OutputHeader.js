@@ -56,7 +56,7 @@ export default function OutputHeader() {
         <i className="fa fa-adjust"></i>
       </button>
 
-      <button className="h-100 btn" title="Copy output" onClick={() => { dispatch({ type: 'copy-output' }) }}><i className="fa fa-copy"></i></button>
+      <button className="h-100 btn" title="Copy Code" onClick={() => { dispatch({ type: 'copy-code' }) }}><i className="fa fa-copy"></i></button>
 
       <div className="dropdown position-relative">
         <button type="button" className="h-100 btn nowrap"><i className="fa fa-font mr-2"></i>{fontSize}</button>
@@ -89,9 +89,6 @@ export default function OutputHeader() {
 
           <li className="dropdown-item cp" title="Download Code" onClick={() => { onConfig('download'); }}>
             <i className="fa fa-download mr-3"></i>download code
-          </li>
-          <li className="dropdown-item cp" title="Copy Code" onClick={() => { dispatch({ type: 'copy-code' }) }}>
-            <i className="fa fa-copy mr-3"></i>copy code
           </li>
 
           <li className="dropdown-item cp" title="To SVG" onClick={() => { onConfig('to-svg') }}>

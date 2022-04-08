@@ -26,8 +26,8 @@ export default class Tabs {
     return this.getAll()[index];
   }
 
-  static getContent() {
-    return this.getAll().map(t => t.content).reverse().join('\n');
+  static getContent(delimiter = '\n') {
+    return this.getAll().map(t => t.content).reverse().join(delimiter);
   }
 
   static getAll() {

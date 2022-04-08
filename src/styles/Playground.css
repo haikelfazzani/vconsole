@@ -56,4 +56,4 @@ iframe { padding: 0; }
 .gutter:hover { cursor: col-resize; }
 .gutter-vertical:hover { cursor: row-resize !important; }
 
-.active-tab {background-color: var(--dark-transparent) !important;}
+.active-tab {background-color: var(--transparent) !important;}
