@@ -53,7 +53,6 @@ export default function ConsoleHeader() {
       <li className="btn" title="Run Code" onClick={onRun}>
         <i className={"mr-3 fa fa-" + (isRunning ? 'stop' : 'play')}></i><span>run</span>
       </li>
-
     </ul>
   </header>
 }

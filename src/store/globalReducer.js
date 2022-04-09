@@ -5,7 +5,7 @@ export default function globalReducer(state, action) {
   switch (action.type) {
     case 'update-tab-index': {
       const newState = { ...state, tabIndex: action.payload.tabIndex }
-      localStorage.setItem('config', JSON.stringify(newState))
+      localStorage.setItem('config-2', JSON.stringify(newState))
       return newState;
     }
 
@@ -26,9 +26,12 @@ export default function globalReducer(state, action) {
       return newState
     }
 
-    case 'minimap': {
-      const newState = { ...state, minimap: !state.minimap };
-      localStorage.setItem('config', JSON.stringify(newState))
+    case 'editor-options': {
+      if (action.payload.theme && action.payload.theme !== state.editorOptions.theme) {
+        document.documentElement.setAttribute('data-theme', action.payload.theme);
+      }
+      const newState = { ...state, editorOptions: { ...state.editorOptions, ...action.payload } };
+      localStorage.setItem('config-2', JSON.stringify(newState))
       return newState
     }
 
@@ -36,21 +39,7 @@ export default function globalReducer(state, action) {
       const language = action.payload.language;
       const newState = { ...state, language };
       //loadCDN(language);
-      localStorage.setItem('config', JSON.stringify(newState));
-      return newState
-    }
-
-    case 'fontSize': {
-      const newState = { ...state, fontSize: action.payload.fontSize };
-      localStorage.setItem('config', JSON.stringify(newState))
-      return newState
-    }
-
-    case 'theme': {
-      const theme = state.theme === 'vs-dark' ? 'vs-light' : 'vs-dark';
-      document.documentElement.setAttribute('data-theme', theme);
-      const newState = { ...state, theme };
-      localStorage.setItem('config', JSON.stringify(newState))
+      localStorage.setItem('config-2', JSON.stringify(newState));
       return newState
     }
 

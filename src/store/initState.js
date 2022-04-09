@@ -1,21 +1,21 @@
-const initState = localStorage.getItem('config')
-  ? JSON.parse(localStorage.getItem('config'))
+const initState = localStorage.getItem('config-2')
+  ? JSON.parse(localStorage.getItem('config-2'))
   : {
     tabIndex: 0,
     message: '',
     showSnackbar: false,
-    fontSizes: [10, 12, 14, 16, 18, 20, 22, 24, 26],
     showAddLibModal: false,
     showInfoModal: false,
-    isRunning: false,
-    minimap: false,
-    theme: 'vs-dark',
-    fontSize: 14,
-    language: { id: 1, name: 'javascript', extension: 'js', syntax: 'typescript', version: '' }
+    isRunning: false,    
+    language: { id: 1, name: 'javascript', extension: 'js', syntax: 'typescript', version: '' },
+    editorOptions: {
+      fontSize: 14,
+      tabSize: 2,
+      theme: 'vs-dark',
+      minimap: { enabled: false }
+    }
   };
 
-document.documentElement.setAttribute('data-theme', initState.theme);
-
-if (!initState.tabIndex || !initState.language) localStorage.removeItem('config');
+document.documentElement.setAttribute('data-theme', initState.editorOptions.theme);
 
 export default initState

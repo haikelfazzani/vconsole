@@ -8,10 +8,11 @@
 
 ### Embed
 ```js
-// Params: theme - code - language - fontSize - minimap
+// Params: theme - code - language - fontSize - minimap - tabSize
 const code = encodeURIComponent(btoa("console.log('hello')"));
 
 const fontSize = 16;
+const tabSize = 3;
 const minimap = true;
 const language = 'livescript'; 
 const theme = 'vs-dark'; // or 'vs-light'

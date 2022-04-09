@@ -21,13 +21,14 @@ function Playground() {
     params = new URLSearchParams(window.location.search);
 
   const { gstate, dispatch } = useContext(GlobalContext);
-  const { tabIndex } = gstate;
+  const { tabIndex, editorOptions } = gstate;
 
   let lang = params.get('language'),
     code = params.get('code'),
-    theme = params.get('theme') || gstate.theme,
-    fontSize = params.get('fontSize') || gstate.fontSize,
-    minimap = params.get('minimap') || gstate.minimap;
+    theme = params.get('theme') || editorOptions.theme,
+    fontSize = params.get('fontSize') || editorOptions.fontSize,
+    minimap = params.get('minimap') || editorOptions.minimap.enabled,
+    tabSize = params.get('tabSize') || editorOptions.tabSize;
 
   const [message, setMessage] = useState('');
 
@@ -42,14 +43,15 @@ function Playground() {
       RunJs.run(Tabs.getContent(), gstate.language.name);
     }
 
-    dispatch({ type: 'language', payload: { language } })
+    dispatch({ type: 'language', payload: { language } });
+    editor.getModel().updateOptions({ fontSize, tabSize, minimap: { enabled: minimap } });
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runner);
     monaco.editor.setModelLanguage(editor.getModel(), language.syntax);
   }
 
-  const onMessageFromWorker = (e) => {    
+  const onMessageFromWorker = (e) => {
     const data = e.data;
-    
+
     if (data && (/webpack/gi.test(data.type || data) || data.vscodeSetImmediateId)) return;
 
     if (data.type && data.type === 'transpiler-error') {
@@ -92,10 +94,10 @@ function Playground() {
           language={gstate.language.syntax}
           value={Tabs.getOne(tabIndex).content}
           path={'app-' + tabIndex + '.' + gstate.language.extension}
-          theme={theme}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}
-          options={{ fontSize, minimap: { enabled: minimap } }}
+          theme={theme}
+          options={editorOptions}
         />
       </div>
 

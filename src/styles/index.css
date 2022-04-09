@@ -53,8 +53,7 @@ body {
   z-index: 99999;
 }
 
-.modal-content {
-  min-width: 75%;
+.modal-content {  
   display: flex;
   flex-direction: column;
   padding: 15px 20px;
@@ -80,6 +79,7 @@ label {
 
 input,
 select {
+  width: 100%;
   display: block;
   font-size: 16px;
   font-weight: 400;
@@ -87,6 +87,7 @@ select {
   border: 0;
   padding: .7rem 1rem;
   background-color: var(--white);
+  color: var(--black);
 }
 
 p,
@@ -109,8 +110,7 @@ label {
   text-align: center;
   vertical-align: middle;
   user-select: none;
-  padding: .6rem 1.3rem;
-  line-height: 1.5;
+  padding: .6rem 1.3rem;  
   border: 0;
   cursor: pointer;
   outline: none;
@@ -159,7 +159,7 @@ ul {
   list-style: none;
 }
 
-.blur { backdrop-filter: blur(2px); }
+.blur { backdrop-filter: blur(1.5px); }
 
 .br7 {border-radius: 7px;}
 
