@@ -17,8 +17,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=dev react-scripts start",
-    "start:lambda": "NODE_ENV=dev netlify-lambda serve src/lambda",
-    "build": "NODE_ENV=production run-p build:**",
+    "start:lambda": "NODE_ENV=dev netlify-lambda serve src/lambda",    
     "build:app": "NODE_ENV=production react-scripts build",
     "build:lambda": "NODE_ENV=production netlify-lambda build src/lambda",
     "test": "react-scripts test",
