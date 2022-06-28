@@ -8,7 +8,7 @@ export default function App () {
     <Switch>
       <Route exact path="/" component={Playground} />
       <Route exact path="/snippets" component={Snippets} />
-      <Redirect path="*" to="/" />
+      {/* <Redirect path="*" to="/" /> */}
     </Switch>
   </BrowserRouter>;
 }

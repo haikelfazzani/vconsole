@@ -8,8 +8,8 @@
 
 ### Embed
 ```js
-// Params: theme - code - language - fontSize - minimap - tabSize
-const code = encodeURIComponent(btoa("console.log('hello')"));
+// Params: theme - evalue - language - fontSize - minimap - tabSize
+const evalue = encodeURIComponent(btoa("console.log('hello')"));
 
 const fontSize = 16;
 const tabSize = 3;
@@ -17,7 +17,7 @@ const minimap = true;
 const language = 'livescript'; 
 const theme = 'vs-dark'; // or 'vs-light'
 
-// -> https://vconsole.ml?language=language&code=code&theme=theme&minimap=minimap
+// -> https://vconsole.ml?language=language&evalue=evalue&theme=theme&minimap=minimap
 ```
 
 ### Captures

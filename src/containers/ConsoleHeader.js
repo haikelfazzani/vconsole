@@ -1,4 +1,5 @@
 import React, { useContext, useCallback } from 'react'
+import StorageService from '../services/StorageService';
 import { GlobalContext } from '../store/GlobalStore';
 import RunJs from '../utils/RunJs';
 import Tabs from '../utils/Tabs';
@@ -7,9 +8,13 @@ export default function ConsoleHeader() {
   const { gstate, dispatch } = useContext(GlobalContext);
   const { isRunning, tabIndex } = gstate;
 
-  const onRun = useCallback(() => {
+  const onRun = useCallback(async () => {
     dispatch({ type: 'isRunning', payload: { isRunning: true } });
     RunJs.run(Tabs.getContent(), gstate.language.name);
+
+    const resp = await StorageService.save();
+    console.log(resp);
+
   }, [gstate.language.name]);
 
 
