@@ -34,6 +34,7 @@ function Playground() {
 
   const onEditorDidMount = (editor, monaco) => {
     let language = gstate.language;
+
     if (lang) {
       language = Languages.find(l => l.name === lang);
     }
@@ -46,7 +47,7 @@ function Playground() {
     dispatch({ type: 'language', payload: { language } });
     editor.getModel().updateOptions({ fontSize, tabSize, minimap: { enabled: minimap } });
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runner);
-    monaco.editor.setModelLanguage(editor.getModel(), language.syntax);
+    monaco.editor.setModelLanguage(editor.getModel(), language?.syntax);
   }
 
   const onMessageFromWorker = (e) => {
@@ -55,7 +56,7 @@ function Playground() {
     if (data && (/webpack/gi.test(data.type || data) || data.vscodeSetImmediateId)) return;
 
     if (data.type && data.type === 'transpiler-error') {
-      RunJs.run(Tabs.getContent(), gstate.language.name);
+      RunJs.run(Tabs.getContent(), gstate.language?.name);
       return;
     }
 
@@ -91,9 +92,9 @@ function Playground() {
 
         <Editor
           height="calc(100% - 45px)"
-          language={gstate.language.syntax}
+          language={gstate.language?.syntax}
           value={Tabs.getOne(tabIndex).content}
-          path={'app-' + tabIndex + '.' + gstate.language.extension}
+          path={'app-' + tabIndex + '.' + gstate.language?.extension}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}
           theme={theme}
@@ -103,7 +104,7 @@ function Playground() {
 
       <div className="w-100 h-100 output">
         <OutputHeader />
-        {gstate.language.name === 'html'
+        {gstate.language?.name === 'html'
           ? <iframe className='w-100 h-100' title='sandbox' srcDoc={message}></iframe>
           : <pre className='w-100' style={{ fontSize: fontSize + 'px' }} dangerouslySetInnerHTML={{ __html: message }}></pre>}
       </div>

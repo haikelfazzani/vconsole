@@ -1,5 +1,5 @@
 import React, { useContext, useCallback } from 'react'
-import StorageService from '../services/StorageService';
+
 import { GlobalContext } from '../store/GlobalStore';
 import RunJs from '../utils/RunJs';
 import Tabs from '../utils/Tabs';
@@ -8,14 +8,14 @@ export default function ConsoleHeader() {
   const { gstate, dispatch } = useContext(GlobalContext);
   const { isRunning, tabIndex } = gstate;
 
-  const onRun = useCallback(async () => {
+  const onRun = useCallback(() => {
     dispatch({ type: 'isRunning', payload: { isRunning: true } });
-    RunJs.run(Tabs.getContent(), gstate.language.name);
+    RunJs.run(Tabs.getContent(), gstate.language?.name);
 
-    const resp = await StorageService.save();
-    console.log(resp);
-
-  }, [gstate.language.name]);
+    setTimeout(() => {
+      dispatch({ type: 'isRunning', payload: { isRunning: false } });
+    }, 5000);
+  }, [gstate.language?.name]);
 
 
   const onTab = (index) => {
@@ -48,7 +48,7 @@ export default function ConsoleHeader() {
 
       {Tabs.getAll().map((tab, i) => <li key={i} className={'h-100 btn nowrap' + (tabIndex === i ? ' active-tab' : '')}>
         <span className='text-none' onClick={() => { onTab(i); }} contentEditable={i !== 0}
-          onInput={onUpdate} suppressContentEditableWarning="true">{tab.title + '.' + gstate.language.extension}</span>
+          onInput={onUpdate} suppressContentEditableWarning="true">{tab.title + '.' + gstate.language?.extension}</span>
         {i !== 0 && <span onClick={() => { onRemoveTab(i, tab.title); }}><i className='fa fa-times ml-2'></i></span>}
       </li>)}
       <li onClick={onAddTab} className='h-100 btn'><i className='fa fa-plus'></i></li>

@@ -14,6 +14,8 @@ export default function AddLib() {
       setLibraries(libs);
       localStorage.setItem('libraries', JSON.stringify(libs));
     }
+
+    e.target.reset();
   }
 
   const onRmLib = url => {
@@ -23,16 +25,16 @@ export default function AddLib() {
     localStorage.setItem('libraries', JSON.stringify(nlibs));
   }
 
-  return (<div>
-    <form className="w-100 vertical-align mb-3" onSubmit={onAdd}>
+  return (<div className='w-100'>
+    <form className="w-100 vertical-align" onSubmit={onAdd}>
       <input className="w-100 bg-light lg br7 mr-3" type="url" name="url"
         placeholder="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
         required />
 
-      <button type="submit" className="h-100 btn bg-light br7"><i className="fa fa-plus"></i></button>
+      <button type="submit" className="h-100 btn bg-green br7"><i className="fa fa-plus"></i></button>
     </form>
 
-    <table className='bg-light br7'>
+    {libraries.length > 0 && <table className='bg-light br7 mt-3'>
       <thead><tr><th>library Name</th><th>Action</th></tr></thead>
 
       <tbody>
@@ -45,6 +47,8 @@ export default function AddLib() {
           </td>
         </tr>)}
       </tbody>
-    </table>
+    </table>}
+
+
   </div>);
 }

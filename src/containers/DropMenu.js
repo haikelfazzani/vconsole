@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { GlobalContext } from '../store/GlobalStore';
 import Tabs from '../utils/Tabs';
 import download from '../utils/download';
@@ -7,7 +7,7 @@ import { toSvg } from 'html-to-image';
 export default function DropMenu() {
   const { gstate, dispatch } = useContext(GlobalContext);
 
-  const onConfig = React.useCallback((actionType) => {
+  const onConfig = useCallback((actionType) => {
     if (actionType === 'to-svg') {
       document.querySelector('[data-name="vs/editor/editor.main"]').crossOrigin = 'anonymous';
       document.querySelector('.output').style.display = 'none';

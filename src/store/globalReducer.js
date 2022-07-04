@@ -55,7 +55,7 @@ export default function globalReducer(state, action) {
 
     case 'copy-code': {
       copy(Tabs.getContent());
-      return { ...state, message: 'Copied', showSnackbar: true }
+      return state
     }
 
     default: {
