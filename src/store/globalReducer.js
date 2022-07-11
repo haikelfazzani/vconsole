@@ -43,14 +43,14 @@ export default function globalReducer(state, action) {
       return newState
     }
 
-    case 'share-url': {
-      let code = Tabs.getContent(';') || '';
-      code = encodeURIComponent(btoa(code));
-      const url = `${window.location.href}?language=${state.language.name}&code=${code}`;
-      window.location.href.replace(url)
-      copy(url);
+    case 'save-code': {
+      // let code = Tabs.getContent(';') || '';
+      // code = encodeURIComponent(btoa(code));
+      // const url = `${window.location.href}?language=${state.language.name}&code=${code}`;
+      // window.location.href.replace(url)
+      // copy(url);
 
-      return { ...state, message: url, showSnackbar: true }
+      // return { ...state, message: url, showSnackbar: true }
     }
 
     case 'copy-code': {

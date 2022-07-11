@@ -3,6 +3,7 @@ import { GlobalContext } from '../store/GlobalStore';
 import Tabs from '../utils/Tabs';
 import download from '../utils/download';
 import { toSvg } from 'html-to-image';
+import { Link } from 'react-router-dom';
 
 export default function DropMenu() {
   const { gstate, dispatch } = useContext(GlobalContext);
@@ -39,8 +40,14 @@ export default function DropMenu() {
 
     <ul className="btn dropdown-menu shadow" style={{ right: 0, left: 'auto', textAlign: 'left' }}>
 
-      <li className="dropdown-item cp" title="Share url" onClick={() => { dispatch({ type: 'share-url' }) }}>
-        <i className="fa fa-share mr-3"></i>share url
+      <li className="dropdown-item cp" title="Account">
+        <Link to="/account"><i className="fa fa-user mr-3"></i>Account</Link>
+      </li>
+
+      <li className='w-100'><hr /></li>
+
+      <li className="dropdown-item cp" title="Save Code" onClick={() => { dispatch({ type: 'save-code' }) }}>
+        <i className="fa fa-save mr-3"></i>save
       </li>
 
       <li className="dropdown-item cp" title="Add Library" onClick={() => { dispatch({ type: 'show-add-lib-modal' }); }}>
@@ -68,6 +75,14 @@ export default function DropMenu() {
           <i className="fab fa-github mr-3"></i>repository
         </a>
       </li>
+
+      <li className='w-100'><hr /></li>
+
+      <li className="dropdown-item cp" title="Login">
+        <Link to="/login"><i className="fa fa-sign-in-alt mr-3"></i>Login</Link>
+        {/* <button><i className="fa fa-sign-out-alt mr-3"></i>logout</button> */}
+      </li>
+
     </ul>
   </div>
 }

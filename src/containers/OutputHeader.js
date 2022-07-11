@@ -18,7 +18,7 @@ export default function OutputHeader() {
     setTimeout(() => {
       setIsCopied(false)
     }, 2000);
-  }, [])
+  }, []);
 
   return <header className="w-100 d-flex justify-between">
     <div className="h-100 dropdown position-relative mr-3">

@@ -52,9 +52,9 @@ function Playground() {
 
   const onMessageFromWorker = (e) => {
     const data = e.data;
-
-    if (data && (/webpack/gi.test(data.type || data) || data.vscodeSetImmediateId)) return;
-
+    
+    if (data && (/webpack/gi.test(data.type || data) || data.vscodeSetImmediateId || data.vscodeScheduleAsyncWork)) return;
+    
     if (data.type && data.type === 'transpiler-error') {
       RunJs.run(Tabs.getContent(), gstate.language?.name);
       return;
@@ -85,8 +85,11 @@ function Playground() {
   }, []);
 
   return <main>
-    <Split direction={isMobile ? "vertical" : "horizontal"}
-      minSize={0} gutterSize={7} className={"h-100 bg-dark playground d-flex" + (isMobile ? " flex-column" : "")}>
+    <Split
+      direction={isMobile ? "vertical" : "horizontal"}
+      minSize={0}
+      gutterSize={7}
+      className={"h-100 bg-dark playground d-flex" + (isMobile ? " flex-column" : "")}>
       <div className="h-100 bg-dark editor br7">
         <ConsoleHeader />
 

@@ -1,0 +1,30 @@
+.spinner-container {
+  background-color: var(--dark);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(1.5px);
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  vertical-align: text-bottom;
+  border: .25em solid var(--white);
+  border-right-color: var(--bleu);
+  border-radius: 50%;
+  animation: spinner-border .75s linear infinite;
+}
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
