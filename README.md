@@ -6,19 +6,11 @@
 - [x] Babel
 - [x] HTML
 
-### Embed
-```js
-// Params: theme - evalue - language - fontSize - minimap - tabSize
-const evalue = encodeURIComponent(btoa("console.log('hello')"));
+### Built with
 
-const fontSize = 16;
-const tabSize = 3;
-const minimap = true;
-const language = 'livescript'; 
-const theme = 'vs-dark'; // or 'vs-light'
-
-// -> https://vconsole.ml?language=language&evalue=evalue&theme=theme&minimap=minimap
-```
+- bitbucket OAUTH 2.0
+- Monaco Editor
+- React
 
 ### Captures
 ![vconsole](https://i.ibb.co/YtHdRWq/vconsole.png)

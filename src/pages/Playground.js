@@ -7,7 +7,6 @@ import AddLib from '../containers/AddLib';
 import Modal from '../components/Modal';
 
 import Editor from "@monaco-editor/react";
-import Languages from '../utils/Languages';
 import ConsoleHeader from '../containers/ConsoleHeader';
 import OutputHeader from '../containers/OutputHeader';
 
@@ -17,27 +16,20 @@ import Tabs from '../utils/Tabs';
 import '../styles/Playground.css';
 
 function Playground() {
-  const isMobile = window.innerWidth < 700,
-    params = new URLSearchParams(window.location.search);
+  const isMobile = window.innerWidth < 700;
 
   const { gstate, dispatch } = useContext(GlobalContext);
   const { tabIndex, editorOptions } = gstate;
 
-  let lang = params.get('language'),
-    code = params.get('code'),
-    theme = params.get('theme') || editorOptions.theme,
-    fontSize = params.get('fontSize') || editorOptions.fontSize,
-    minimap = params.get('minimap') || editorOptions.minimap.enabled,
-    tabSize = params.get('tabSize') || editorOptions.tabSize;
+  let theme = editorOptions.theme,
+    fontSize = editorOptions.fontSize,
+    minimap = editorOptions.minimap.enabled,
+    tabSize = editorOptions.tabSize;
 
   const [message, setMessage] = useState('');
 
   const onEditorDidMount = (editor, monaco) => {
     let language = gstate.language;
-
-    if (lang) {
-      language = Languages.find(l => l.name === lang);
-    }
 
     const runner = () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
@@ -52,9 +44,9 @@ function Playground() {
 
   const onMessageFromWorker = (e) => {
     const data = e.data;
-    
+
     if (data && (/webpack/gi.test(data.type || data) || data.vscodeSetImmediateId || data.vscodeScheduleAsyncWork)) return;
-    
+
     if (data.type && data.type === 'transpiler-error') {
       RunJs.run(Tabs.getContent(), gstate.language?.name);
       return;
@@ -70,14 +62,6 @@ function Playground() {
   }
 
   useEffect(() => {
-    try {
-      if (code) {
-        Tabs.updateOne(0, decodeURIComponent(atob(code)));
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-
     window.addEventListener("message", onMessageFromWorker, false);
     return () => {
       window.removeEventListener("message", onMessageFromWorker, false);
@@ -114,20 +98,6 @@ function Playground() {
     </Split>
 
     <Modal showModal={gstate.showAddLibModal} setShowModal={() => { dispatch({ type: 'show-add-lib-modal' }) }}><AddLib /></Modal>
-
-    <Modal showModal={gstate.showInfoModal} setShowModal={() => { dispatch({ type: 'show-info-modal' }) }}>
-      <pre className='p-0'>
-        <h3 className='blue'>How to embed Vconsole into your website</h3>
-        {`const code = encodeURIComponent(btoa("console.log('hello')"));
-const language = 'livescript';
-const theme = 'vs-dark'; // or 'vs-light'
-
-https://vconsole.ml?language=language&code=code&theme=theme`}
-        <hr />
-        <h3 className='blue'>Shortcuts</h3>
-        CtrlCmd + Enter: Run code
-      </pre>
-    </Modal>
 
     <Snackbar />
   </main>;

@@ -1,5 +1,6 @@
 import copy from '../utils/copy';
 import Tabs from '../utils/Tabs';
+import unquer from 'unquer'
 
 export default function globalReducer(state, action) {
   switch (action.type) {
@@ -44,6 +45,8 @@ export default function globalReducer(state, action) {
     }
 
     case 'save-code': {
+      const params = unquer.parse(window.location.href);
+      console.log(params);
       // let code = Tabs.getContent(';') || '';
       // code = encodeURIComponent(btoa(code));
       // const url = `${window.location.href}?language=${state.language.name}&code=${code}`;

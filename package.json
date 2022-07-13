@@ -5,6 +5,7 @@
   "homepage": "https://vconsole.vercel.app",
   "dependencies": {
     "@monaco-editor/react": "^4.4.5",
+    "@netlify/functions": "^1.0.0",
     "axios": "^0.27.2",
     "html-to-image": "^1.9.0",
     "postcss-normalize": "^10.0.1",
@@ -13,16 +14,17 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.1",
     "react-split": "^2.0.14",
-    "web-vitals": "^2.1.4",
-    "@netlify/functions": "^1.0.0"
+    "unquer": "^1.0.3",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:lambda": "NODE_ENV=dev netlify dev",    
+    "start:lambda": "NODE_ENV=dev netlify dev",
     "build:lambda": "NODE_ENV=production netlify build",
     "start": "NODE_ENV=dev react-scripts start",
     "build": "NODE_ENV=production react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "NODE_ENV=production netlify deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
