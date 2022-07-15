@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { GlobalContext } from '../store/GlobalStore';
 import Split from 'react-split';
+import unquer from 'unquer'
 
 import AddLib from '../containers/AddLib';
 import Modal from '../components/Modal';
@@ -14,12 +15,15 @@ import RunJs from '../utils/RunJs';
 import Snackbar from '../components/Snackbar';
 import Tabs from '../utils/Tabs';
 import '../styles/Playground.css';
+import BitbucketSnippetService from '../services/BitbucketSnippetService';
 
 function Playground() {
+  const params = unquer.parse(window.location.href);
   const isMobile = window.innerWidth < 700;
 
   const { gstate, dispatch } = useContext(GlobalContext);
   const { tabIndex, editorOptions } = gstate;
+
 
   let theme = editorOptions.theme,
     fontSize = editorOptions.fontSize,
@@ -62,6 +66,14 @@ function Playground() {
   }
 
   useEffect(() => {
+    if (params && params.s && params.s !== 0) {
+      BitbucketSnippetService.getContent(params.s)
+        .then(snippet => {
+          console.log(snippet);
+          Tabs.updateOne(0, snippet.code);
+        })
+    }
+
     window.addEventListener("message", onMessageFromWorker, false);
     return () => {
       window.removeEventListener("message", onMessageFromWorker, false);

@@ -80,9 +80,14 @@ export default class BitbucketSnippetService {
     return resp.data.values;
   }
 
+  /**
+   * 
+   * @param {String} id 
+   * @returns {code, filename, title}
+   */
   static async getContent(id) {
     try {
-      let snippetInfo = await this.getSnippet(id);
+      let snippetInfo = await this.getOne(id);
       let url = traverseObject(snippetInfo.files)[0];
 
       if (url) {
