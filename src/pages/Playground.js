@@ -23,17 +23,20 @@ function Playground() {
 
   const { gstate, dispatch } = useContext(GlobalContext);
   const { tabIndex, editorOptions } = gstate;
-
-
-  let theme = editorOptions.theme,
-    fontSize = editorOptions.fontSize,
-    minimap = editorOptions.minimap.enabled,
-    tabSize = editorOptions.tabSize;
+  let { fontSize, minimap, tabSize } = editorOptions;
 
   const [message, setMessage] = useState('');
 
-  const onEditorDidMount = (editor, monaco) => {
+  const onEditorDidMount = async (editor, monaco) => {
     let language = gstate.language;
+
+    if (params && params.s && params.s !== 0) {
+      try {
+        const snippet = await BitbucketSnippetService.getContent(params.s);
+        Tabs.updateOne(0, snippet.code);
+        localStorage.setItem('snippet', JSON.stringify(snippet));
+      } catch (error) { }
+    }
 
     const runner = () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
@@ -66,14 +69,6 @@ function Playground() {
   }
 
   useEffect(() => {
-    if (params && params.s && params.s !== 0) {
-      BitbucketSnippetService.getContent(params.s)
-        .then(snippet => {
-          console.log(snippet);
-          Tabs.updateOne(0, snippet.code);
-        })
-    }
-
     window.addEventListener("message", onMessageFromWorker, false);
     return () => {
       window.removeEventListener("message", onMessageFromWorker, false);
@@ -96,7 +91,7 @@ function Playground() {
           path={'app-' + tabIndex + '.' + gstate.language?.extension}
           onChange={onEditorValueChange}
           onMount={onEditorDidMount}
-          theme={theme}
+          theme={editorOptions.theme}
           options={editorOptions}
         />
       </div>

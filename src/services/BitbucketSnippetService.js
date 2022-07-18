@@ -5,6 +5,11 @@ const BASE_URL = 'https://api.bitbucket.org/2.0/snippets';
 
 export default class BitbucketSnippetService {
 
+  /**
+   * 
+   * @param {FormData} formData
+   * @returns {String} url
+   */
   static async create(formData) {
     let resp = await axios({
       url: BASE_URL,
@@ -19,6 +24,12 @@ export default class BitbucketSnippetService {
     return resp.data.links.html.href;
   }
 
+  /**
+   * 
+   * @param {FormData} formData 
+   * @param {String} snippetId 
+   * @returns {String} url
+   */
   static async update(formData, snippetId) {
     let username = localStorage.getItem('picode-username');
     if (username) {
@@ -83,7 +94,7 @@ export default class BitbucketSnippetService {
   /**
    * 
    * @param {String} id 
-   * @returns {code, filename, title}
+   * @returns {Object} code, filename, title
    */
   static async getContent(id) {
     try {

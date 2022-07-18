@@ -4,6 +4,8 @@ import Tabs from '../utils/Tabs';
 import download from '../utils/download';
 import { toSvg } from 'html-to-image';
 import { Link } from 'react-router-dom';
+import unquer from 'unquer'
+import BitbucketSnippetService from '../services/BitbucketSnippetService';
 
 export default function DropMenu() {
   const { gstate, dispatch } = useContext(GlobalContext);
@@ -35,6 +37,30 @@ export default function DropMenu() {
     }
   }, []);
 
+  const saveOrUpdate = async () => {
+    const params = unquer.parse(window.location.href);
+    let formData = new FormData();
+
+    if (params && params.s === 0) {
+      formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), 'fileName');
+      formData.append('title', 'snipTitle');
+      formData.append('is_private', false);
+
+      const snippetURL = await BitbucketSnippetService.create(formData);
+      dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
+    }
+    else {
+      const snippet = JSON.parse(localStorage.getItem('snippet'));
+
+      formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), snippet.fileName);
+      formData.append('title', snippet.title);
+      formData.append('is_private', false);
+
+      const snippetURL = await BitbucketSnippetService.update(formData, params.s);
+      dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
+    }
+  }
+
   return <div className="dropdown position-relative">
     <button type="button" className="h-100 btn"><i className="fa fa-ellipsis-v"></i></button>
 
@@ -46,7 +72,7 @@ export default function DropMenu() {
 
       <li className='w-100'><hr /></li>
 
-      <li className="dropdown-item cp" title="Save Code" onClick={() => { dispatch({ type: 'save-code' }) }}>
+      <li className="dropdown-item cp" title="Save Code" onClick={saveOrUpdate}>
         <i className="fa fa-save mr-3"></i>save
       </li>
 

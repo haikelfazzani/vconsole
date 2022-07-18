@@ -5,7 +5,7 @@ export default function Snackbar() {
   const { gstate, dispatch } = useContext(GlobalContext);
 
   const onClose = () => {
-    dispatch({ type: 'show-snackbar', showSnackbar: false })
+    dispatch({ type: 'show-snackbar', payload: { showSnackbar: false, message: '' } })
   }
 
   return (

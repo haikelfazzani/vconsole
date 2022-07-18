@@ -1,6 +1,5 @@
 import copy from '../utils/copy';
 import Tabs from '../utils/Tabs';
-import unquer from 'unquer'
 
 export default function globalReducer(state, action) {
   switch (action.type) {
@@ -11,7 +10,9 @@ export default function globalReducer(state, action) {
     }
 
     case 'show-snackbar':
-      return { ...state, showSnackbar: false, message: '' };
+      const showSnackbar = action.payload.showSnackbar;
+      const message = action.payload.message;
+      return { ...state, showSnackbar, message };
 
     case 'isRunning': {
       return { ...state, isRunning: action.payload.isRunning }
@@ -42,18 +43,6 @@ export default function globalReducer(state, action) {
       //loadCDN(language);
       localStorage.setItem('config-2', JSON.stringify(newState));
       return newState
-    }
-
-    case 'save-code': {
-      const params = unquer.parse(window.location.href);
-      console.log(params);
-      // let code = Tabs.getContent(';') || '';
-      // code = encodeURIComponent(btoa(code));
-      // const url = `${window.location.href}?language=${state.language.name}&code=${code}`;
-      // window.location.href.replace(url)
-      // copy(url);
-
-      // return { ...state, message: url, showSnackbar: true }
     }
 
     case 'copy-code': {
