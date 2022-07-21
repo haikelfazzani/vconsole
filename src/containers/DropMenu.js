@@ -6,6 +6,7 @@ import { toSvg } from 'html-to-image';
 import { Link } from 'react-router-dom';
 import unquer from 'unquer'
 import BitbucketSnippetService from '../services/BitbucketSnippetService';
+import debounce from '../utils/debounce';
 
 export default function DropMenu() {
   const { gstate, dispatch } = useContext(GlobalContext);
@@ -37,7 +38,7 @@ export default function DropMenu() {
     }
   }, []);
 
-  const saveOrUpdate = async () => {
+  const saveOrUpdate = debounce(async () => {
     const params = unquer.parse(window.location.href);
     let formData = new FormData();
 
@@ -59,7 +60,7 @@ export default function DropMenu() {
       const snippetURL = await BitbucketSnippetService.update(formData, params.s);
       dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
     }
-  }
+  }, 2000);
 
   return <div className="dropdown position-relative">
     <button type="button" className="h-100 btn"><i className="fa fa-ellipsis-v"></i></button>

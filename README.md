@@ -1,4 +1,4 @@
-# Vconsole: advanced console
+# Vconsole: advanced Javascript console
 
 - [x] Typescript
 - [x] Coffeescript
@@ -8,9 +8,11 @@
 
 ### Built with
 
-- bitbucket OAUTH 2.0
+- Bitbucket OAUTH 2.0
+- Bitbucket Snippet API
 - Monaco Editor
-- React
+- React, React Router DOm
+- Context API
 
 ### Captures
 ![vconsole](https://i.ibb.co/YtHdRWq/vconsole.png)
