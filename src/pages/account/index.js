@@ -15,12 +15,11 @@ function Profile(props) {
   useEffect(() => {
     BitbucketSnippetService.getAll()
       .then(snippets => {
-        console.log(snippets);
         setState({ userInfos: snippets[0].owner, snippets });
       })
       .catch(e => {
         BitbucketAuthService.clearToken();
-        props.history.push('/');
+        props.history.push('/login');
       });
   }, []);
 

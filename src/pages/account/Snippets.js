@@ -35,7 +35,7 @@ export default function Snippets ({ snippets }) {
               <i className="fas fa-edit mr-1"></i>Update
             </Link>
 
-            <button onClick={() => { onDelete(snip); }} className="bg-danger">
+            <button onClick={() => { onDelete(snip); }} className="btn bg-danger">
               <i className="fas fa-trash mr-1"></i>delete
             </button>
           </td>

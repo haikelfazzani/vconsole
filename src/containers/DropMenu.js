@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 import unquer from 'unquer'
 import BitbucketSnippetService from '../services/BitbucketSnippetService';
 import debounce from '../utils/debounce';
+import { withRouter } from 'react-router-dom';
+import BitbucketAuthService from '../services/BitbucketAuthService';
 
-export default function DropMenu() {
+function DropMenu(props) {
   const { gstate, dispatch } = useContext(GlobalContext);
 
   const onConfig = useCallback((actionType) => {
@@ -39,26 +41,32 @@ export default function DropMenu() {
   }, []);
 
   const saveOrUpdate = debounce(async () => {
-    const params = unquer.parse(window.location.href);
-    let formData = new FormData();
+    try {
+      const params = unquer.parse(window.location.href);
+      let formData = new FormData();
 
-    if (params && params.s === 0) {
-      formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), 'fileName');
-      formData.append('title', 'snipTitle');
-      formData.append('is_private', false);
+      if (params && params.s === 0 && window.confirm('Are you sure you want to save this snippet ?')) {
+        formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), 'fileName');
+        formData.append('title', 'snipTitle');
+        formData.append('is_private', false);
 
-      const snippetURL = await BitbucketSnippetService.create(formData);
-      dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
-    }
-    else {
-      const snippet = JSON.parse(localStorage.getItem('snippet'));
+        const snippetURL = await BitbucketSnippetService.create(formData);
+        dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
+      }
 
-      formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), snippet.fileName);
-      formData.append('title', snippet.title);
-      formData.append('is_private', false);
+      if (params && params.s !== 0 && window.confirm('Are you sure you want to update this snippet ?')) {
+        const snippet = JSON.parse(localStorage.getItem('snippet'));
 
-      const snippetURL = await BitbucketSnippetService.update(formData, params.s);
-      dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
+        formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), snippet.fileName);
+        formData.append('title', snippet.title);
+        formData.append('is_private', false);
+
+        const snippetURL = await BitbucketSnippetService.update(formData, params.s);
+        dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
+      }
+    } catch (error) {
+      BitbucketAuthService.clearToken();
+      props.history.push('/login');
     }
   }, 2000);
 
@@ -113,3 +121,5 @@ export default function DropMenu() {
     </ul>
   </div>
 }
+
+export default withRouter(DropMenu)

@@ -10,7 +10,7 @@ export default function Login() {
   return <section style={{ height: '100vh', width: '100vw' }}
     className="d-flex flex-column justify-center align-center">
     <img
-      className="rounded mb-3"
+      className="rounded mb-5"
       width="150"
       src="https://i.ibb.co/fvcRJvD/logo512.png"
       alt="online web editor"
@@ -21,7 +21,7 @@ export default function Login() {
     <p className="m-0">you need an Bitbucket account</p>
     <p className="m-0">please register before.</p>
 
-    <button className="btn border mt-3 p-3" onClick={onConnect}>
+    <button className="btn border mt-5 p-3" onClick={onConnect}>
       <i className="fab fa-bitbucket mr-1"></i>Login to Bitbucket
     </button>
   </section>
