@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../store/GlobalStore';
 
+import './Snackbar.css'
+
 export default function Snackbar() {
   const { gstate, dispatch } = useContext(GlobalContext);
 

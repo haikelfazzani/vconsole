@@ -1,0 +1,8 @@
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  text-transform: uppercase;
+  z-index: 999999;
+  overflow: auto;
+}

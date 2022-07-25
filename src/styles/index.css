@@ -138,6 +138,10 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border: .1em solid var(--gray);
+}
+
 .form-control {
   width: 100%;
   padding: .55rem .75rem;

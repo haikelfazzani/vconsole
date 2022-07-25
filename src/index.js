@@ -5,7 +5,7 @@ import { GlobalProvider } from './store/GlobalStore';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './styles/index.css';
-import './styles/custom.css';
+import './styles/dropdown.css'
 
 import './styles/colors.css';
 import './styles/text.css';
