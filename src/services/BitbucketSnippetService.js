@@ -2,11 +2,11 @@ import axios from 'axios';
 import traverseObject from "../utils/traverseObject";
 
 const BASE_URL = 'https://api.bitbucket.org/2.0/snippets';
+const REDIRECT_URL = '/login';
 
 export default class BitbucketSnippetService {
 
-  /**
-   * 
+  /** 
    * @param {FormData} formData
    * @returns {String} url
    */
@@ -25,7 +25,6 @@ export default class BitbucketSnippetService {
   }
 
   /**
-   * 
    * @param {FormData} formData 
    * @param {String} snippetId 
    * @returns {String} url
@@ -80,19 +79,23 @@ export default class BitbucketSnippetService {
   }
 
   static async getAll() {
-    let resp = await axios.get(BASE_URL + '?role=owner', {
-      headers: {
-        'Authorization': 'Bearer ' + this.getToken()
-      }
-    });
+    try {
+      let resp = await axios.get(BASE_URL + '?role=owner', {
+        headers: {
+          'Authorization': 'Bearer ' + this.getToken()
+        }
+      });
 
-    let username = resp.data.values[0].links.self.href.split('snippets/')[1].split('/')[0];
-    localStorage.setItem('picode-username', username);
-    return resp.data.values;
+      console.log(resp.data);
+      let username = resp.data.values[0].links.self.href.split('snippets/')[1].split('/')[0];
+      localStorage.setItem('picode-username', username);
+      return resp.data.values;
+    } catch (error) {
+      // window.location.href = REDIRECT_URL;
+    }
   }
 
   /**
-   * 
    * @param {String} id 
    * @returns {Object} code, filename, title
    */

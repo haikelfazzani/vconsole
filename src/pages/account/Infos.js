@@ -1,29 +1,26 @@
 import React from 'react';
-import Spinner from '../../components/Spinner';
+import { Link } from 'react-router-dom';
 
-export default function Infos({ userInfos }) {
+function Infos({ userInfos }) {
 
-  if (userInfos) {
-    return (<div>
-      <div className="text-center mb-2 bg-black text-white light-shadow py-2 br7">
-        <img src={userInfos.links.avatar.href} alt={userInfos.display_name} className="rounded mb-2" />
+  return (<div className='w-100'>
+    <div className="text-center mb-3 bg-black light-shadow py-2 br7 border">
+      <img src={userInfos.links.avatar.href} alt={userInfos.display_name} className="rounded mb-2" />
 
-        <div className="text-center">
-          <h2 className="m-0">{userInfos.display_name}</h2>
-          <p>({userInfos.display_name})</p>
-        </div>
+      <div className="text-center">
+        <h2 className="m-0">{userInfos.display_name}</h2>
+        <p>({userInfos.display_name})</p>
       </div>
+    </div>
 
-      <ul className="list light-shadow br7">              
-        <li className='py-1 pr-2 pl-2'>
-          <a href={userInfos.links.html.href}>
-            <i className="fab fa-bitbucket mr-1"></i>bitbucket profile
-          </a>
-        </li>
-      </ul>
-    </div>);
-  }
-  else {
-    return <Spinner />
-  }
+    <Link to="/playground" className="btn bg-black mb-2 p-3">
+      <i className="fas fa-plus mr-1"></i>Create New Snippet
+    </Link>
+
+    <a className="btn bg-black mb-2 p-3" href={userInfos.links.html.href}>
+      <i className="fab fa-bitbucket mr-1"></i>bitbucket profile
+    </a>
+  </div>);
 }
+
+export default React.memo(Infos);

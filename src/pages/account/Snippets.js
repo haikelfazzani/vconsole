@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Spinner from '../../components/Spinner';
 import BitbucketSnippetService from '../../services/BitbucketSnippetService';
 
-export default function Snippets ({ snippets }) {
+function Snippets ({ snippets }) {
 
   const onDelete = async (snippet) => {
     let c = window.confirm("Are you sure to delete? " + snippet.title);
@@ -44,6 +43,8 @@ export default function Snippets ({ snippets }) {
     </table>);
   }
   else {
-    return <Spinner />
+    return <p className='p-3'><i className='fa fa-info-circle mr-1'></i>No snippets are found..</p>
   }
 }
+
+export default React.memo(Snippets)
