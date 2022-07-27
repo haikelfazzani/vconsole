@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 import BitbucketSnippetService from '../../services/BitbucketSnippetService';
 
@@ -17,13 +18,17 @@ function Profile() {
   }, []);
 
   if (state && state.userInfos) {
-    return <div className="grid-1-2 container py-5">
+    return <div className="w-100 vh-100 grid-1-2 overflow">
       <Infos userInfos={userInfos} />
       <Snippets snippets={snippets} />
     </div>
   }
   else {
-    return <Spinner />
+    return <Spinner text='There is no snippets in your account, please create one.'>
+      <Link to="/playground" className="btn bg-black mt-3 p-3">
+        <i className="fas fa-plus mr-1"></i>Create New Snippet
+      </Link>
+    </Spinner>
   }
 }
 

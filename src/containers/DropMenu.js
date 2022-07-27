@@ -45,16 +45,7 @@ function DropMenu(props) {
       const params = unquer.parse(window.location.href);
       let formData = new FormData();
 
-      if (params && params.s === 0 && window.confirm('Are you sure you want to save this snippet ?')) {
-        formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), 'fileName');
-        formData.append('title', 'snipTitle');
-        formData.append('is_private', false);
-
-        const snippetURL = await BitbucketSnippetService.create(formData);
-        dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
-      }
-
-      if (params && params.s !== 0 && window.confirm('Are you sure you want to update this snippet ?')) {
+      if (params && params.s && window.confirm('Are you sure you want to update this snippet ?')) {
         const snippet = JSON.parse(localStorage.getItem('snippet'));
 
         formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), snippet.fileName);
@@ -64,6 +55,15 @@ function DropMenu(props) {
         const snippetURL = await BitbucketSnippetService.update(formData, params.s);
         dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
       }
+
+      if (params && !params.s && window.confirm('Are you sure you want to save this snippet ?')) {
+        formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), 'fileName');
+        formData.append('title', 'snipTitle');
+        formData.append('is_private', false);
+
+        const snippetURL = await BitbucketSnippetService.create(formData);
+        dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
+      }      
     } catch (error) {
       BitbucketAuthService.clearToken();
       props.history.push('/login');

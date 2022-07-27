@@ -86,12 +86,13 @@ export default class BitbucketSnippetService {
         }
       });
 
-      console.log(resp.data);
+      if(resp.data.values.length < 1) throw new Error('Empty list snippets');
+
       let username = resp.data.values[0].links.self.href.split('snippets/')[1].split('/')[0];
       localStorage.setItem('picode-username', username);
       return resp.data.values;
     } catch (error) {
-      // window.location.href = REDIRECT_URL;
+      return null
     }
   }
 
