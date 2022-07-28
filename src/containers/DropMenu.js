@@ -4,11 +4,7 @@ import Tabs from '../utils/Tabs';
 import download from '../utils/download';
 import { toSvg } from 'html-to-image';
 import { Link } from 'react-router-dom';
-import unquer from 'unquer'
-import BitbucketSnippetService from '../services/BitbucketSnippetService';
-import debounce from '../utils/debounce';
 import { withRouter } from 'react-router-dom';
-import BitbucketAuthService from '../services/BitbucketAuthService';
 
 function DropMenu(props) {
   const { gstate, dispatch } = useContext(GlobalContext);
@@ -40,36 +36,6 @@ function DropMenu(props) {
     }
   }, []);
 
-  const saveOrUpdate = debounce(async () => {
-    try {
-      const params = unquer.parse(window.location.href);
-      let formData = new FormData();
-
-      if (params && params.s && window.confirm('Are you sure you want to update this snippet ?')) {
-        const snippet = JSON.parse(localStorage.getItem('snippet'));
-
-        formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), snippet.fileName);
-        formData.append('title', snippet.title);
-        formData.append('is_private', false);
-
-        const snippetURL = await BitbucketSnippetService.update(formData, params.s);
-        dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
-      }
-
-      if (params && !params.s && window.confirm('Are you sure you want to save this snippet ?')) {
-        formData.append('file', new Blob([Tabs.getContent()], { type: 'text/plain' }), 'fileName');
-        formData.append('title', 'snipTitle');
-        formData.append('is_private', false);
-
-        const snippetURL = await BitbucketSnippetService.create(formData);
-        dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: snippetURL } })
-      }      
-    } catch (error) {
-      BitbucketAuthService.clearToken();
-      props.history.push('/login');
-    }
-  }, 2000);
-
   return <div className="dropdown position-relative">
     <button type="button" className="h-100 btn"><i className="fa fa-ellipsis-v"></i></button>
 
@@ -81,8 +47,8 @@ function DropMenu(props) {
 
       <li className='w-100'><hr /></li>
 
-      <li className="dropdown-item cp" title="Save Code" onClick={saveOrUpdate}>
-        <i className="fa fa-save mr-3"></i>save
+      <li className="dropdown-item cp" title="Save Code" onClick={() => { dispatch({ type: 'show-create-or-update-modal' }); }}>
+        <i className="fa fa-save mr-3"></i>save code
       </li>
 
       <li className="dropdown-item cp" title="Add Library" onClick={() => { dispatch({ type: 'show-add-lib-modal' }); }}>

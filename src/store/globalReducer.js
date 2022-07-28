@@ -23,6 +23,11 @@ export default function globalReducer(state, action) {
       return newState
     }
 
+    case 'show-create-or-update-modal': {
+      const newState = { ...state, showCreateOrUpdateModal: !state.showCreateOrUpdateModal };
+      return newState
+    }
+
     case 'show-info-modal': {
       const newState = { ...state, showInfoModal: !state.showInfoModal };
       return newState

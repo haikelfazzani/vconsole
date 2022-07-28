@@ -53,7 +53,7 @@ export default function EditorSettings() {
             <input className='bg-light' type="number" name='tabSize' min="2" defaultValue={editorOptions.tabSize} />
           </div>
 
-          <button type='submit' className='w-100 btn bg-green py-2'><i className='fa fa-save mr-1'></i>Save changes</button>
+          <button type='submit' className='w-100 btn bg-green p-3'><i className='fa fa-save mr-1'></i>Save changes</button>
         </form>
       </Modal>
     </>

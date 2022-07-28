@@ -14,8 +14,10 @@ import OutputHeader from '../containers/OutputHeader';
 import RunJs from '../utils/RunJs';
 import Snackbar from '../components/Snackbar';
 import Tabs from '../utils/Tabs';
-import '../styles/Playground.css';
 import BitbucketSnippetService from '../services/BitbucketSnippetService';
+import FormCreateOrUpdate from '../containers/FormCreateOrUpdate';
+
+import '../styles/Playground.css';
 
 function Playground() {
   const params = unquer.parse(window.location.href);
@@ -34,7 +36,8 @@ function Playground() {
       try {
         const snippet = await BitbucketSnippetService.getContent(params.s);
         Tabs.updateOne(0, snippet.code);
-        localStorage.setItem('snippet', JSON.stringify(snippet));
+        localStorage.setItem('snippet-filename', snippet.filename);
+        localStorage.setItem('snippet-title', snippet.title);
       } catch (error) { }
     }
 
@@ -104,7 +107,13 @@ function Playground() {
       </div>
     </Split>
 
-    <Modal showModal={gstate.showAddLibModal} setShowModal={() => { dispatch({ type: 'show-add-lib-modal' }) }}><AddLib /></Modal>
+    <Modal showModal={gstate.showCreateOrUpdateModal} setShowModal={() => { dispatch({ type: 'show-create-or-update-modal' }) }}>
+      <FormCreateOrUpdate />
+    </Modal>
+
+    <Modal showModal={gstate.showAddLibModal} setShowModal={() => { dispatch({ type: 'show-add-lib-modal' }) }}>
+      <AddLib />
+    </Modal>
 
     <Snackbar />
   </main>;

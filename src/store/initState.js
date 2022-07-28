@@ -6,10 +6,13 @@ const initState = (() => {
     const settings = {
       tabIndex: 0,
       message: '',
+
+      showCreateOrUpdateModal:false,
       showSnackbar: false,
       showAddLibModal: false,
       showInfoModal: false,
       isRunning: false,
+
       language: { id: 1, name: 'javascript', extension: 'js', syntax: 'typescript', version: '' },
       editorOptions: {
         fontSize: 14,
