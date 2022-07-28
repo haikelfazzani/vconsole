@@ -12,6 +12,7 @@ import './styles/text.css';
 import './styles/spacing.css';
 import './styles/display.css';
 
+import './styles/animation.css'
 import './styles/queries.css';
 
 ReactDOM.render(

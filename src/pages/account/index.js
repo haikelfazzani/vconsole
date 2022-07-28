@@ -18,7 +18,7 @@ function Profile() {
   }, []);
 
   if (state && state.userInfos) {
-    return <div className="w-100 vh-100 grid-1-2 overflow">
+    return <div className="w-100 vh-100 grid-1-2">
       <Infos userInfos={userInfos} />
       <Snippets snippets={snippets} />
     </div>
