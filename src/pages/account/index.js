@@ -8,7 +8,6 @@ import Snippets from './Snippets';
 
 function Profile() {
   const [state, setState] = useState({ userInfos: null, snippets: null });
-  const { userInfos, snippets } = state;
 
   useEffect(() => {
     BitbucketSnippetService.getAll()
@@ -19,8 +18,8 @@ function Profile() {
 
   if (state && state.userInfos) {
     return <div className="w-100 vh-100 grid-1-2">
-      <Infos userInfos={userInfos} />
-      <Snippets snippets={snippets} />
+      <Infos userInfos={state.userInfos} />
+      <Snippets snippets={state.snippets} />
     </div>
   }
   else {

@@ -1,4 +1,4 @@
-const clientId = 'PVBYrZR3F4c3Uafsr4';
+const clientId = process.env.REACT_APP_BITBUCKET_CLIENT_ID;
 const bitbucket_auth = `https://bitbucket.org/site/oauth2/authorize?client_id=${clientId}&response_type=token`;
 
 export default class BitbucketAuthService {

@@ -5,7 +5,6 @@
   "homepage": "https://vconsole.vercel.app",
   "dependencies": {
     "@monaco-editor/react": "^4.4.5",
-    "@netlify/functions": "^1.0.0",
     "axios": "^0.27.2",
     "html-to-image": "^1.9.0",
     "postcss-normalize": "^10.0.1",
@@ -16,6 +15,9 @@
     "react-split": "^2.0.14",
     "unquer": "^1.0.3",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^1.0.0"
   },
   "scripts": {
     "start:lambda": "NODE_ENV=dev netlify dev",

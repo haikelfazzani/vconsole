@@ -14,7 +14,7 @@ function Snippets({ snippets }) {
   if (snippets && snippets.length > 0) {
     return (
       <ul className='grid-3 p-3 overflow'>
-        {snippets.map((snip, i) => <li className='border shadow fit-content p-3' key={snip.id}>
+        {snippets.reverse().map((snip, i) => <li className='border shadow fit-content p-3' key={snip.id}>
           <div>
             <h2 className='text-center mt-0'><i className="fa fa-file-code mr-1"></i>{snip.title}</h2>
             <small>created on: {new Date(snip.created_on).toDateString()}</small>

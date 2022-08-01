@@ -9,7 +9,7 @@ function Auth (props) {
       BitbucketAuthService.authorization();
       props.history.push('/account');
     } catch (error) {
-      props.history.push('/');
+      props.history.push('/login');
     }
   }, []);
 

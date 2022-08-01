@@ -2,13 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Infos({ userInfos }) {
-
   return (<div className='h-100 w-100 bg-black mb-3 p-3 border-right'>
     <div className="text-center mb-5">
       <img src={userInfos.links.avatar.href} alt={userInfos.display_name} className="rounded mb-3" />
 
       <div className="text-center">
-        <h3 className="m-0">{userInfos.display_name}</h3>
+        <h2 className="m-0">{userInfos.display_name}</h2>
         <p>({userInfos.display_name})</p>
       </div>
     </div>

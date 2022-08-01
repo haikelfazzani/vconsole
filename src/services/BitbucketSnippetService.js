@@ -2,7 +2,7 @@ import axios from 'axios';
 import traverseObject from "../utils/traverseObject";
 
 const BASE_URL = 'https://api.bitbucket.org/2.0/snippets';
-const REDIRECT_URL = '/login';
+// const REDIRECT_URL = '/login';
 
 export default class BitbucketSnippetService {
 

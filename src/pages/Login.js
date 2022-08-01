@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import BitbucketAuthService from '../services/BitbucketAuthService';
 
 export default function Login() {
 
-  const onConnect = () => {
+  const onConnect = useCallback(() => {
     BitbucketAuthService.connect();
-  }
+  }, []);
 
   return <section style={{ height: '100vh', width: '100vw' }}
     className="d-flex flex-column justify-center align-center">
@@ -19,7 +19,7 @@ export default function Login() {
 
     <p className="m-0">Before clicking on login button</p>
     <p className="m-0">you need an Bitbucket account</p>
-    <p className="m-0">please register before.</p>
+    <p className="m-0">Please ensure that your are connected to your Bitbucket account.</p>
 
     <button className="btn border mt-5 p-3" onClick={onConnect}>
       <i className="fab fa-bitbucket mr-1"></i>Login to Bitbucket
