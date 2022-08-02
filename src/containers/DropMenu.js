@@ -4,9 +4,8 @@ import Tabs from '../utils/Tabs';
 import download from '../utils/download';
 import { toSvg } from 'html-to-image';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
-function DropMenu(props) {
+function DropMenu() {
   const { gstate, dispatch } = useContext(GlobalContext);
 
   const onConfig = useCallback((actionType) => {
@@ -67,8 +66,8 @@ function DropMenu(props) {
 
       <li className='w-100'><hr /></li>
 
-      <li className="dropdown-item cp" title="Info" onClick={() => { dispatch({ type: 'show-info-modal' }); }}>
-        <i className="fa fa-info-circle mr-3"></i>info
+      <li className="dropdown-item cp" title="Info">
+        <Link to="/about"><i className="fa fa-info-circle mr-3"></i>About</Link>
       </li>
 
       <li className="dropdown-item cp">
@@ -88,4 +87,4 @@ function DropMenu(props) {
   </div>
 }
 
-export default withRouter(DropMenu)
+export default DropMenu

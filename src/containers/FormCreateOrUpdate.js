@@ -68,10 +68,12 @@ export default function FormCreateOrUpdate() {
         </select>
       </div>
 
-      {!disbaleBtnSubmit && <button className="w-100 btn bg-green border br7 p-3" type="submit" disabled={disbaleBtnSubmit}>
+      {!disbaleBtnSubmit && <button className="w-100 btn bg-green border br7 p-3 mb-2" type="submit" disabled={disbaleBtnSubmit}>
         <i className='fa fa-pen mr-1'></i>{isUpdating ? 'update' : 'create'}
       </button>}
     </form>
+
+    <small className='danger'>* Require bitbucket authentification</small>
 
     {snippetUrl && <div className="w-100 mt-3">
       <hr />

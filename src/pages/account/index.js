@@ -8,12 +8,17 @@ import Snippets from './Snippets';
 
 function Profile() {
   const [state, setState] = useState({ userInfos: null, snippets: null });
+  const [msgError, setMsgError] = useState('')
 
   useEffect(() => {
     BitbucketSnippetService.getAll()
       .then(snippets => {
+        console.log(snippets);
         setState({ userInfos: snippets[0].owner, snippets });
-      });
+      })
+      .catch(e => {
+        setMsgError(e.message);
+      })
   }, []);
 
   if (state && state.userInfos) {
@@ -22,9 +27,16 @@ function Profile() {
       <Snippets snippets={state.snippets} />
     </div>
   }
+  if (msgError === "ERR_BAD_REQUEST" || msgError === "Invalid Token") {
+    return <Spinner text='Please connect to your bitbucket account.'>
+      <Link to="/login" className="btn bg-black mt-5 p-3">
+        <i className="fas fa-sign-in-alt mr-1"></i>login
+      </Link>
+    </Spinner>
+  }
   else {
     return <Spinner text='There is no snippets in your account, please create one.'>
-      <Link to="/playground" className="btn bg-black mt-3 p-3">
+      <Link to="/playground" className="btn bg-black mt-5 p-3">
         <i className="fas fa-plus mr-1"></i>Create New Snippet
       </Link>
     </Spinner>

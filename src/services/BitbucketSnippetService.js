@@ -79,21 +79,17 @@ export default class BitbucketSnippetService {
   }
 
   static async getAll() {
-    try {
-      let resp = await axios.get(BASE_URL + '?role=owner', {
-        headers: {
-          'Authorization': 'Bearer ' + this.getToken()
-        }
-      });
+    if (!this.getToken()) throw new Error('Invalid Token');
 
-      if(resp.data.values.length < 1) throw new Error('Empty list snippets');
+    let resp = await axios.get(BASE_URL + '?role=owner', {
+      headers: { 'Authorization': 'Bearer ' + this.getToken() }
+    });
 
-      let username = resp.data.values[0].links.self.href.split('snippets/')[1].split('/')[0];
-      localStorage.setItem('picode-username', username);
-      return resp.data.values;
-    } catch (error) {
-      return null
-    }
+    if (resp.data.values.length < 1) throw new Error('Empty list snippets');
+
+    let username = resp.data.values[0].links.self.href.split('snippets/')[1].split('/')[0];
+    localStorage.setItem('picode-username', username);
+    return resp.data.values;
   }
 
   /**

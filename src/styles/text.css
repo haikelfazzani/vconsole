@@ -10,6 +10,8 @@
   text-overflow: ellipsis;
 }
 
+.lead { font-size: 1.2rem; }
+
 .text-none {text-transform: none;}
 
 .nowrap { white-space: nowrap;}
