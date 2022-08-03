@@ -12,8 +12,9 @@ function Snippets({ snippets }) {
   }
 
   if (snippets && snippets.length > 0) {
-    return (
-      <ul className='grid-3 p-3 overflow'>
+    return (<div className='w-100'>
+      <h2 className='border-bottom pb-3'>Your Snippets: {snippets.length}</h2>
+      <ul className='h-100 grid-3 p-3 overflow'>
         {snippets.reverse().map((snip, i) => <li className='border shadow fit-content p-3' key={snip.id}>
           <div>
             <h2 className='text-center mt-0'><i className="fa fa-file-code mr-1"></i>{snip.title}</h2>
@@ -32,7 +33,8 @@ function Snippets({ snippets }) {
             </button>
           </div>
         </li>)}
-      </ul>);
+      </ul>
+    </div>);
   }
   else {
     return <p className='p-3'><i className='fa fa-info-circle mr-1'></i>No snippets are found..</p>

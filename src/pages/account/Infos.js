@@ -12,11 +12,11 @@ function Infos({ userInfos }) {
       </div>
     </div>
 
-    <Link to="/playground" className="btn border mb-2 p-3">
+    <Link to="/playground" className="btn border mb-2">
       <i className="fas fa-plus mr-1"></i>Create New Snippet
     </Link>
 
-    <a className="btn border p-3" href={userInfos.links.html.href}>
+    <a className="btn border" href={userInfos.links.html.href}>
       <i className="fab fa-bitbucket mr-1"></i>bitbucket profile
     </a>
   </div>);
