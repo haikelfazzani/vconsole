@@ -13,8 +13,8 @@ function Snippets({ snippets }) {
 
   if (snippets && snippets.length > 0) {
     return (<div className='w-100'>
-      <h2 className='border-bottom pb-3'>Your Snippets: {snippets.length}</h2>
-      <ul className='h-100 grid-3 p-3 overflow'>
+      <h2 className='border-bottom pb-3'>Your Snippets ({snippets.length})</h2>
+      <ul className='h-100 grid-3 overflow'>
         {snippets.reverse().map((snip, i) => <li className='border shadow fit-content p-3' key={snip.id}>
           <div>
             <h2 className='text-center mt-0'><i className="fa fa-file-code mr-1"></i>{snip.title}</h2>

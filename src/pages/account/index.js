@@ -13,7 +13,6 @@ function Profile() {
   useEffect(() => {
     BitbucketSnippetService.getAll()
       .then(snippets => {
-        console.log(snippets);
         setState({ userInfos: snippets[0].owner, snippets });
       })
       .catch(e => {

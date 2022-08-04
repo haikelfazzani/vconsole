@@ -11,7 +11,7 @@
 - Bitbucket OAUTH 2.0
 - Bitbucket Snippet API
 - Monaco Editor
-- React, React Router DOm
+- React, React Router DOM
 - Context API
 
 ### Captures

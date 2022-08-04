@@ -16,6 +16,7 @@
 .blue { color: var(--blue);}
 .danger { color: var(--danger);}
 .white { color: var(--white);}
+.gray { color: var(--gray);}
 
 .border-0 {border: 0;}
 .border-right {border-right: 1px solid var(--gray);}
