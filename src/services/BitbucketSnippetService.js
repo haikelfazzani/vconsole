@@ -30,7 +30,7 @@ export default class BitbucketSnippetService {
    * @returns {String} url
    */
   static async update(formData, snippetId) {
-    let username = localStorage.getItem('picode-username');
+    let username = localStorage.getItem('vconsole-username');
     if (username) {
       let resp = await axios({
         url: `${BASE_URL}/${username}/${snippetId}`,
@@ -47,7 +47,7 @@ export default class BitbucketSnippetService {
   }
 
   static async getOne(snippetId) {
-    let username = localStorage.getItem('picode-username');
+    let username = localStorage.getItem('vconsole-username');
     if (username) {
       try {
         let resp = await axios.get(BASE_URL + '/' + username + '/' + snippetId + '?raw', {
@@ -65,7 +65,7 @@ export default class BitbucketSnippetService {
 
   static async delete(snippet) {
     try {
-      let username = localStorage.getItem('picode-username');
+      let username = localStorage.getItem('vconsole-username');
       await axios({
         url: `${BASE_URL}/${username}/${snippet.id}`,
         method: 'delete',
@@ -88,7 +88,7 @@ export default class BitbucketSnippetService {
     if (resp.data.values.length < 1) throw new Error('Empty list snippets');
 
     let username = resp.data.values[0].links.self.href.split('snippets/')[1].split('/')[0];
-    localStorage.setItem('picode-username', username);
+    localStorage.setItem('vconsole-username', username);
     return resp.data.values;
   }
 
@@ -114,6 +114,18 @@ export default class BitbucketSnippetService {
     } catch (error) {
       return error;
     }
+  }
+
+  static async getListComments(snippetId) {
+    let username = localStorage.getItem('vconsole-username');
+    const response = await axios.get(`${BASE_URL}/${username}/${snippetId}/comments`, {
+      headers: {
+        'Authorization': `Bearer ${this.getToken()}`,
+        'Accept': 'application/json'
+      }
+    });
+
+    return response.data.values
   }
 
   static getToken() {

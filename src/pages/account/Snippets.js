@@ -11,6 +11,10 @@ function Snippets({ snippets }) {
     }
   }
 
+  const onGetComments = async (snippet) => {
+    let resp = await BitbucketSnippetService.getListComments(snippet.id);
+  }
+
   if (snippets && snippets.length > 0) {
     return (<div className='w-100'>
       <h2 className='border-bottom pb-3'>Your Snippets ({snippets.length})</h2>
@@ -31,6 +35,10 @@ function Snippets({ snippets }) {
             <button onClick={() => { onDelete(snip); }} className="btn bg-danger">
               <i className="fas fa-trash mr-1"></i>delete
             </button>
+
+            {/* <button onClick={() => { onGetComments(snip); }} className="btn bg-danger">
+              <i className="fas fa-trash mr-1"></i>get
+            </button> */}
           </div>
         </li>)}
       </ul>

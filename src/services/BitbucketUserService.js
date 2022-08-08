@@ -11,7 +11,7 @@ export default class BitbucketUserService {
       }
     });
 
-    localStorage.setItem('picode-username', resp.data.username);
+    localStorage.setItem('vconsole-username', resp.data.username);
     return resp.data;
   }
 

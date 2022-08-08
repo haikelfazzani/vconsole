@@ -6,6 +6,8 @@ import BitbucketSnippetService from '../../services/BitbucketSnippetService';
 import Infos from './Infos';
 import Snippets from './Snippets';
 
+const msgErrors = ['ERR_BAD_REQUEST', 'Invalid Token', 'Request failed with status code 401'];
+
 function Profile() {
   const [state, setState] = useState({ userInfos: null, snippets: null });
   const [msgError, setMsgError] = useState('')
@@ -26,10 +28,10 @@ function Profile() {
       <Snippets snippets={state.snippets} />
     </div>
   }
-  if (msgError === "ERR_BAD_REQUEST" || msgError === "Invalid Token") {
+  if (msgErrors.includes(msgError)) {
     return <Spinner text='Please connect to your bitbucket account.'>
       <Link to="/login" className="btn bg-black mt-5 p-3">
-        <i className="fas fa-sign-in-alt mr-1"></i>login
+        <i className="fas fa-sign-in-alt mr-1"></i>login to bitbucket
       </Link>
     </Spinner>
   }
