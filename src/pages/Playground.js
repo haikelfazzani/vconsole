@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 import { GlobalContext } from '../store/GlobalStore';
 import Split from 'react-split';
@@ -11,12 +11,14 @@ import Editor from "@monaco-editor/react";
 import ConsoleHeader from '../containers/ConsoleHeader';
 import OutputHeader from '../containers/OutputHeader';
 
-import RunJs from '../utils/RunJs';
+import IframeView from '../utils/IframeView';
 import Snackbar from '../components/Snackbar';
 import Tabs from '../utils/Tabs';
 import BitbucketSnippetService from '../services/BitbucketSnippetService';
 import FormCreateOrUpdate from '../containers/FormCreateOrUpdate';
 
+import ReactMarkdown from 'react-markdown';
+import broadcastChannel from '../utils/broadcastChannel';
 import '../styles/Playground.css';
 
 function Playground() {
@@ -29,7 +31,7 @@ function Playground() {
 
   const [message, setMessage] = useState('');
 
-  const onEditorDidMount = async (editor, monaco) => {
+  const onEditorDidMount = useCallback(async (editor, monaco) => {
     let language = gstate.language;
 
     if (params && params.s && params.s !== 0) {
@@ -43,38 +45,46 @@ function Playground() {
 
     const runner = () => {
       dispatch({ type: 'isRunning', payload: { isRunning: true } });
-      RunJs.run(Tabs.getContent(), gstate.language.name);
+      IframeView.display(Tabs.getContent(), gstate.language.name);
     }
 
     dispatch({ type: 'language', payload: { language } });
     editor.getModel().updateOptions({ fontSize, tabSize, minimap: { enabled: minimap } });
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runner);
     monaco.editor.setModelLanguage(editor.getModel(), language?.syntax);
-  }
-
-  const onMessageFromWorker = (e) => {
-    const data = e.data;
-
-    if (data && (/webpack/gi.test(data.type || data) || data.vscodeSetImmediateId || data.vscodeScheduleAsyncWork)) return;
-
-    if (data.type && data.type === 'transpiler-error') {
-      RunJs.run(Tabs.getContent(), gstate.language?.name);
-      return;
-    }
-
-    setMessage(data);
-    dispatch({ type: 'isRunning', payload: { isRunning: false } });
-    localStorage.setItem('output', data);
-  }
+  }, []);
 
   const onEditorValueChange = value => {
     Tabs.updateOne(tabIndex, value);
+    if (gstate.language.name === 'markdown') {
+      IframeView.display(value, gstate.language?.name);
+    }
+  }
+
+  const onWorker = event => {
+
+    const { source, result, error } = event.data;
+
+    if (source === 'service-worker') {
+      IframeView.display(result);
+    }
+
+    if (error) {
+      setMessage(error);
+    }
+
+    if (source === 'iframe' && !error) {
+      setMessage(result);
+      localStorage.setItem('output', result);
+    }
+
+    dispatch({ type: 'isRunning', payload: { isRunning: false } });
   }
 
   useEffect(() => {
-    window.addEventListener("message", onMessageFromWorker, false);
+    broadcastChannel.addEventListener('message', onWorker)
     return () => {
-      window.removeEventListener("message", onMessageFromWorker, false);
+      broadcastChannel.removeEventListener('message', onWorker);
     }
   }, []);
 
@@ -101,9 +111,13 @@ function Playground() {
 
       <div className="w-100 h-100 output">
         <OutputHeader />
+
         {gstate.language?.name === 'html'
           ? <iframe className='w-100 h-100' title='sandbox' srcDoc={message}></iframe>
-          : <pre className='w-100' style={{ fontSize: fontSize + 'px' }} dangerouslySetInnerHTML={{ __html: message }}></pre>}
+          : gstate.language?.name === 'markdown'
+            ? <ReactMarkdown>{Tabs.getOne(tabIndex).content}</ReactMarkdown>
+            : <pre className='w-100' style={{ fontSize: fontSize + 'px' }}
+              dangerouslySetInnerHTML={{ __html: message }}></pre>}
       </div>
     </Split>
 

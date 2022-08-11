@@ -1,7 +1,7 @@
 import React, { useContext, useCallback } from 'react'
 
 import { GlobalContext } from '../store/GlobalStore';
-import RunJs from '../utils/RunJs';
+import broadcastChannel from '../utils/broadcastChannel';
 import Tabs from '../utils/Tabs';
 
 export default function ConsoleHeader() {
@@ -10,13 +10,8 @@ export default function ConsoleHeader() {
 
   const onRun = useCallback(() => {
     dispatch({ type: 'isRunning', payload: { isRunning: true } });
-    RunJs.run(Tabs.getContent(), gstate.language?.name);
-
-    setTimeout(() => {
-      dispatch({ type: 'isRunning', payload: { isRunning: false } });
-    }, 5000);
+    broadcastChannel.postMessage({ source: 'client', languageName: gstate.language.name, data: Tabs.getContent() });
   }, [gstate.language?.name]);
-
 
   const onTab = (index) => {
     dispatch({ type: 'update-tab-index', payload: { tabIndex: index } })

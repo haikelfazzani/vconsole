@@ -8,6 +8,14 @@ const Languages = [
     cdn: null
   },
   {
+    id: 112,
+    name: 'markdown',
+    extension: 'md',
+    syntax: 'md',
+    version: '',
+    cdn: null
+  },
+  {
     id: 1,
     name: 'javascript',
     extension: 'js',
@@ -20,8 +28,8 @@ const Languages = [
     name: 'typescript',
     extension: 'ts',
     syntax: 'typescript',
-    version: '4.6.2',
-    cdn: 'https://cdnjs.cloudflare.com/ajax/libs/typescript/4.6.2/typescript.min.js'
+    version: '4.7.2',
+    cdn: 'https://cdnjs.cloudflare.com/ajax/libs/typescript/4.7.2/typescript.min.js'
   },
   {
     id: 3,
@@ -36,8 +44,8 @@ const Languages = [
     name: 'coffeescript',
     extension: 'coffee',
     syntax: 'python',
-    version: '2.6.1',
-    cdn: 'https://cdn.jsdelivr.net/npm/coffeescript@2.6.1/lib/coffeescript-browser-compiler-legacy/coffeescript.min.js'
+    version: '2.7.0',
+    cdn: 'https://cdn.jsdelivr.net/npm/coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.min.js'
   },
   {
     id: 5,

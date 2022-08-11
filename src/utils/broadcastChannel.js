@@ -1,0 +1,1 @@
+export default new BroadcastChannel('sw-messages');

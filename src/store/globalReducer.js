@@ -45,7 +45,7 @@ export default function globalReducer(state, action) {
     case 'language': {
       const language = action.payload.language;
       const newState = { ...state, language };
-      //loadCDN(language);
+
       localStorage.setItem('config-2', JSON.stringify(newState));
       return newState
     }
