@@ -59,7 +59,7 @@
     const registerServiceWorker = async () => {
       if ('serviceWorker' in navigator) {
         try {
-          const registration = await navigator.serviceWorker.register('./compiler-service-worker.js');
+          const registration = await navigator.serviceWorker.register('compiler-service-worker.js');
           if (registration.installing) {
             console.log('Service worker installing');
           } else if (registration.waiting) {
@@ -73,10 +73,7 @@
       }
     };
 
-    // …
-
     registerServiceWorker();
-
   </script>
 
   <script defer src="https://www.googletagmanager.com/gtag/js?id=G-FBLWJTBXQG"></script>
