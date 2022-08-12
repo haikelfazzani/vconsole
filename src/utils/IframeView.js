@@ -2,7 +2,7 @@ let iframe = document.getElementById('sandbox');
 let iframeDoc = iframe.contentDocument;
 let iframeWin = iframe.contentWindow;
 
-const broadcastChannel = new BroadcastChannel('sw-messages');
+const broadcastChannel = new BroadcastChannel('compiler-service-worker');
 
 export default class IframeView {
   static formatOutput(logMessages) {

@@ -9,7 +9,7 @@
 .bg-danger { background-color: var(--danger); }
 
 .bg-warning { background-color: var(--warning); }
-.bg-transparent {background-color: transparent;}
+.bg-transparent {background-color: transparent; border: 0;}
 
 .warning { color: var(--warning);}
 .green { color: var(--green);}
@@ -17,6 +17,7 @@
 .danger { color: var(--danger);}
 .white { color: var(--white);}
 .gray { color: var(--gray);}
+.dark { color: var(--dark);}
 
 .border-0 {border: 0;}
 .border-right {border-right: 1px solid var(--gray);}

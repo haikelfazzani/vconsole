@@ -23,7 +23,7 @@ function Profile() {
   }, []);
 
   if (state && state.userInfos) {
-    return <div className="w-100 vh-100 grid-1-2">
+    return <div className="w-100 vh-100 grid-1-2 gap-0">
       <Infos userInfos={state.userInfos} />
       <Snippets snippets={state.snippets} />
     </div>

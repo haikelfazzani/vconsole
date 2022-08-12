@@ -1,1 +1,1 @@
-export default new BroadcastChannel('sw-messages');
+export default new BroadcastChannel('compiler-service-worker');

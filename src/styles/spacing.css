@@ -12,9 +12,6 @@
 .m-0 {margin: 0 !important;}
 .mt-0 {margin-top: 0;}
 
-.p-0 {padding: 0 !important;}
-.pr-0 {padding-right: 0;}
-
 .mt-1 {margin-top: .45rem;}
 .mr-1 {margin-right: .45rem;}
 
@@ -34,7 +31,12 @@
 .mb-5 {margin-bottom: 3rem;}
 .mt-5 { margin-top: 3rem!important;}
 
+.p-0 {padding: 0 !important;}
+.pr-0 {padding-right: 0;}
+.pl-0 {padding-left: 0;}
+
 .p-3 {padding: 1rem;}
+.p-4 {padding: 2rem;}
 
 .pr-2 {padding-right: .5rem;}
 .pl-2 {padding-left: .5rem!important;}

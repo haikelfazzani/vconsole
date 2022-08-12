@@ -3,37 +3,34 @@ importScripts('https://unpkg.com/@babel/standalone@7.17.0/babel.min.js');
 importScripts('https://cdn.jsdelivr.net/npm/coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.min.js');
 importScripts('https://cdnjs.cloudflare.com/ajax/libs/livescript/1.6.1/livescript-min.min.js');
 
+let broadcastChannel = null;
 
 self.addEventListener('install', event => {
   event.waitUntil(self.skipWaiting())
-  console.log('o--');
+  console.log('compiler service worker is installed');
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim())
-  console.log('o--');
-
-  const bc = new BroadcastChannel('sw-messages');
-  
-  bc.addEventListener('message', async event => {
-  
-    const { source, languageName, data } = event.data;
-  console.log(source);
-    if (source === 'client') {
-      try {      
-
-        const result = await compile(data, languageName);
-        if (result) bc.postMessage({ source: 'service-worker', result });
-      } catch (error) {
-        bc.postMessage({ source: 'service-worker', error: error.message });
-      }
-    }
-  });
+  console.log('compiler service worker is activated');
+  broadcastChannel = new BroadcastChannel('compiler-service-worker');
+  broadcastChannel.addEventListener('message', onMessageFromClient);
 });
 
+async function onMessageFromClient(event) {
+  const { source, languageName, data } = event.data;
 
+  if (source === 'client') {
+    try {
+      const result = await transpile(data, languageName);
+      if (result) broadcastChannel.postMessage({ source: 'service-worker', result });
+    } catch (error) {
+      broadcastChannel.postMessage({ source: 'service-worker', error: error.message });
+    }
+  }
+}
 
-async function compile(code, languageName) {
+async function transpile(code, languageName) {
   return new Promise((resolve, reject) => {
     if (languageName === 'typescript') {
       const result = ts.transpileModule(code, {
