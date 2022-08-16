@@ -48,6 +48,20 @@ body {
   padding-right: 90px;
 }
 
+.markdown {
+  height: calc(100% - 45px);
+  padding: 0 20px;  
+  overflow: auto;
+}
+
+.markdown * {
+  text-transform: initial;
+}
+
+.markdown p {
+  text-align: justify;
+}
+
 /*****************************************/
 .modal {
   width: 100vw;
@@ -95,8 +109,8 @@ select {
   line-height: 1.5;
   border: 0;
   padding: .7rem 1rem;
-  background-color: var(--white);
-  color: var(--black);
+  background-color: var(--gray);
+  color: var(--white);
 }
 
 p,

@@ -11,7 +11,7 @@ const Languages = [
     id: 112,
     name: 'markdown',
     extension: 'md',
-    syntax: 'md',
+    syntax: 'markdown',
     version: '',
     cdn: null
   },

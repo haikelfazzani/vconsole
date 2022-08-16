@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Infos({ userInfos }) {
   return (<div className='h-100 w-100 bg-black border-right'>
-
-
     <header className='w-100 d-flex align-center p-4 mb-3'>
       <h2 className='m-0 dark'><i className='fa fa-terminal mr-1'></i>Vconsole</h2>
     </header>

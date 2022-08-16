@@ -9,6 +9,7 @@ export default function ConsoleHeader() {
   const { isRunning, tabIndex } = gstate;
 
   const onRun = useCallback(() => {
+    if(gstate.language?.name === 'markdown') return;
     dispatch({ type: 'isRunning', payload: { isRunning: true } });
     broadcastChannel.postMessage({ source: 'client', languageName: gstate.language.name, data: Tabs.getContent() });
   }, [gstate.language?.name]);

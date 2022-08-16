@@ -13,7 +13,7 @@ export default class BitbucketAuthService {
     window.location.href = '/'
   }
 
-  // returns access token
+  // save & returns access token
   static authorization() {
     try {
       let eq = window.location.hash.indexOf('=');

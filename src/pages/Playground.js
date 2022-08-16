@@ -12,7 +12,6 @@ import ConsoleHeader from '../containers/ConsoleHeader';
 import OutputHeader from '../containers/OutputHeader';
 
 import IframeView from '../utils/IframeView';
-import Snackbar from '../components/Snackbar';
 import Tabs from '../utils/Tabs';
 import BitbucketSnippetService from '../services/BitbucketSnippetService';
 import FormCreateOrUpdate from '../containers/FormCreateOrUpdate';
@@ -57,13 +56,12 @@ function Playground() {
   const onEditorValueChange = value => {
     Tabs.updateOne(tabIndex, value);
     if (gstate.language.name === 'markdown') {
-      IframeView.display(value, gstate.language?.name);
+      dispatch({ type: 'isRunning', payload: { isRunning: false } });
     }
   }
 
   const onWorker = event => {
-
-    const { source, result, error } = event.data;
+    const { source, result, error, msg } = event.data;
 
     if (source === 'service-worker') {
       IframeView.display(result);
@@ -76,9 +74,13 @@ function Playground() {
     if (source === 'iframe' && !error) {
       setMessage(result);
       localStorage.setItem('output', result);
+      dispatch({ type: 'isRunning', payload: { isRunning: false } });
     }
 
-    dispatch({ type: 'isRunning', payload: { isRunning: false } });
+    if(source === 'service-worker' && msg) {
+      dispatch({ type: 'isRunning', payload: { isRunning: false } });
+      dispatch({ type: 'show-snackbar', payload: { showSnackbar: true, message: msg } });
+    }
   }
 
   useEffect(() => {
@@ -115,7 +117,7 @@ function Playground() {
         {gstate.language?.name === 'html'
           ? <iframe className='w-100 h-100' title='sandbox' srcDoc={message}></iframe>
           : gstate.language?.name === 'markdown'
-            ? <ReactMarkdown>{Tabs.getOne(tabIndex).content}</ReactMarkdown>
+            ? <div className='markdown'><ReactMarkdown>{Tabs.getOne(tabIndex).content}</ReactMarkdown></div>
             : <pre className='w-100' style={{ fontSize: fontSize + 'px' }}
               dangerouslySetInnerHTML={{ __html: message }}></pre>}
       </div>
@@ -127,9 +129,7 @@ function Playground() {
 
     <Modal showModal={gstate.showAddLibModal} setShowModal={() => { dispatch({ type: 'show-add-lib-modal' }) }}>
       <AddLib />
-    </Modal>
-
-    <Snackbar />
+    </Modal>    
   </main>;
 }
 

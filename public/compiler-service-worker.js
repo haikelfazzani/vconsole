@@ -7,13 +7,13 @@ let broadcastChannel = null;
 
 self.addEventListener('install', event => {
   event.waitUntil(self.skipWaiting())
+  //self.skipWaiting()
   console.log('compiler service worker is installed');
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim())
-  console.log('compiler service worker is activated');
+self.addEventListener('activate', () => {
   broadcastChannel = new BroadcastChannel('compiler-service-worker');
+  broadcastChannel.postMessage({ source: 'service-worker', msg: 'Service worker: compiler is activated' });
   broadcastChannel.addEventListener('message', onMessageFromClient);
 });
 
