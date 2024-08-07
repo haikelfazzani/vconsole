@@ -1,4 +1,7 @@
-# Vconsole: advanced Javascript console v3
+# Vconsole: Web Editor
+
+[Vconsole v3](http://vconsole.abstractioncode.com)
+[Vconsole v2](https://vconsole.vercel.app)
 
 - [x] Typescript
 - [x] Javascript
@@ -13,6 +16,7 @@
 - Monaco Editor
 - React, React Router DOM
 - Redux, RTK
+- sucrase
 
 ### Captures
 ![vconsole](https://i.ibb.co/YtHdRWq/vconsole.png)
