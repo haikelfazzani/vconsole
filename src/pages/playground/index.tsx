@@ -22,8 +22,8 @@ export default function Playground() {
       <Provider store={store}>
         <Split
           className="w-100 d-flex"
-          sizes={[20, 55, 55]}
-          minSize={[0, 0, 0]}
+          sizes={[15, 45, 40]}
+          minSize={0}
           expandToMin={true}
           gutterSize={7}
         >

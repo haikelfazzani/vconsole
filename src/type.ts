@@ -1,4 +1,4 @@
-export type Tab = {
+export type File = {
   index: number
   name: string
   code: string

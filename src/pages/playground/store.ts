@@ -1,6 +1,6 @@
 import { combineSlices, configureStore, createSlice } from "@reduxjs/toolkit";
-import { getTabs, defaultLanguages } from "../../data";
-import { Tab } from "../../type";
+import { getFiles, defaultLanguages } from "../../data";
+import { File } from "../../type";
 import getFileExtension from "../../utils/getFileExtension";
 
 const randomNames = [
@@ -9,39 +9,39 @@ const randomNames = [
   'Panda', 'Monkey', 'Owl', 'Croco', 'Kanga'
 ];
 
-const TabsSlice = createSlice({
-  name: 'tabs',
-  initialState: { value: getTabs(), currentTabIndex: 0, currentTab: getTabs()[0] },
+const FilesSlice = createSlice({
+  name: 'files',
+  initialState: { value: getFiles(), currentFileIndex: 0, currentFile: getFiles()[0] },
   reducers: {
     create: (state) => {
       const randomIndex = Math.floor(Math.random() * randomNames.length);
       const name = randomNames[randomIndex];
 
-      const newTab = { index: Date.now(), name: `${name}.tsx`, code: '// new tab', language: 'typescript', icon: defaultLanguages[2].icon }
+      const newFile = { index: Date.now(), name: `${name}.tsx`, code: '// new file', language: 'javascript', icon: defaultLanguages[2].icon }
 
-      state.currentTabIndex = newTab.index;
-      state.currentTab = newTab;
-      state.value = [...state.value, newTab];
+      state.currentFileIndex = newFile.index;
+      state.currentFile = newFile;
+      state.value = [...state.value, newFile];
     },
-    remove: (state, action) => {
-      state.value = state.value.filter((t: Tab) => t.index !== action.payload)
+    deleteFile: (state, action) => {
+      state.value = state.value.filter((t: File) => t.index !== action.payload)
       localStorage.setItem('editor-file-explorer', JSON.stringify(state.value))
     },
-    updateCurrentTabValue: (state, action) => {
-      state.value = state.value.map((t: Tab) => {
-        if (t.index === state.currentTab.index) t.code = action.payload
+    updateFile: (state, action) => {
+      state.value = state.value.map((t: File) => {
+        if (t.index === state.currentFile.index) t.code = action.payload
         return t;
       });
       localStorage.setItem('editor-file-explorer', JSON.stringify(state.value))
     },
-    setCurrentTab: (state, action) => {
-      state.currentTab = action.payload
-      state.currentTabIndex = action.payload.index
+    setFile: (state, action) => {
+      state.currentFile = action.payload
+      state.currentFileIndex = action.payload.index
     },
-    updateTabName: (state, action) => {
-      state.value = state.value.map((t: Tab) => {
+    setFileName: (state, action) => {
+      state.value = state.value.map((t: File) => {
         const tabName = action.payload.trim();
-        if (t.index === state.currentTabIndex) {
+        if (t.index === state.currentFileIndex) {
           t.name = tabName;
           t.icon = defaultLanguages.find(v => v.extensions.includes(getFileExtension(tabName))).icon;
         }
@@ -71,7 +71,7 @@ const ConsoleSlice = createSlice({
 
 const EditorSlice = createSlice({
   name: 'editor',
-  initialState: { stdin: getTabs()[0].code },
+  initialState: { stdin: getFiles()[0].code },
   reducers: {
     clear: (state) => {
       state.stdin = ''
@@ -79,9 +79,9 @@ const EditorSlice = createSlice({
   }
 });
 
-export const { create, updateCurrentTabValue, remove, updateTabName, setCurrentTab } = TabsSlice.actions;
+export const { create, updateFile, deleteFile, setFileName, setFile } = FilesSlice.actions;
 export const { clear, set, toggle } = ConsoleSlice.actions;
 
-export const store = configureStore({ reducer: combineSlices(TabsSlice, ConsoleSlice, EditorSlice) });
+export const store = configureStore({ reducer: combineSlices(FilesSlice, ConsoleSlice, EditorSlice) });
 
 export type RootState = ReturnType<typeof store.getState>

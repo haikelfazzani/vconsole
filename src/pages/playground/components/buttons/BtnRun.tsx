@@ -6,15 +6,15 @@ import { RootState } from "../../store";
 
 export default function BtnRun() {
   const [isPending, startTransition] = useTransition()
-  const tabs = useSelector((state: RootState) => state.tabs.value)
+  const files = useSelector((state: RootState) => state.files.value)
 
   const onRun = useCallback(() => {
     startTransition(() => {
       console.log('running');
       
-      Sandbox.evaluate(tabs);
+      Sandbox.evaluate(files);
     })
-  }, [tabs])
+  }, [files])
 
   return <button title="Run" className="d-flex gap-1" onClick={onRun} disabled={isPending}>
     <Icon src="522226/play.svg" alt="play" />Run

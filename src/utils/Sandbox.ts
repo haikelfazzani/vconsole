@@ -67,7 +67,7 @@ export default class Sandbox {
       const compiledCode = transform(jsCode, { transforms: ["jsx", "typescript", "imports"] }).code;
       this.render({ htmlCode, jsCode: compiledCode, cssCode });
     } catch (error) {
-      broadcastChannel.postMessage({ source: 'transform', result: error.message });
+      broadcastChannel.postMessage({ source: 'transform', result: error.stack });
     }
   }
 

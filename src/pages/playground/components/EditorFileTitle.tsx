@@ -1,15 +1,15 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
-import { Tab } from '../../../type'
+import { File } from '../../../type'
 import Icon from '../../../components/Icon'
 
 export default function EditorFileTitle() {
-  const currentTab = useSelector((state: RootState) => state.tabs.currentTab) as Tab
+  const currentFile: File = useSelector((state: RootState) => state.files.currentFile)
 
   return (
     <div className='d-flex align-center gap-1' style={{ paddingLeft: '15px' }}>
-      <Icon className='icon' src={currentTab.icon} alt={currentTab.name} />
-      {currentTab.name}
+      <Icon className='icon' src={currentFile.icon} alt={currentFile.name} />
+      {currentFile.name}
     </div>
   )
 }

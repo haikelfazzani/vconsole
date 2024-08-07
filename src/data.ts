@@ -6,7 +6,7 @@ export const defaultLanguages = [
   { name: 'css', icon: '373535/css.svg', extensions: ['css'] }
 ];
 
-const defaultTab = [{
+const defaultFiles = [{
   index: 0,
   name: 'index.html',
   code: `<div id="root"></div>`,
@@ -59,12 +59,12 @@ console.log(age, isStudent, hobbies, person)`,
   icon: defaultLanguages[1].icon
 }];
 
-export function getTabs() {
+export function getFiles() {
   try {
     return localStorage.getItem('editor-file-explorer')
       ? JSON.parse(localStorage.getItem('editor-file-explorer'))
-      : defaultTab
+      : defaultFiles
   } catch (error) {
-    return defaultTab
+    return defaultFiles
   }
 }
