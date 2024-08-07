@@ -1,0 +1,82 @@
+.playground {
+  height: 100%;
+  border-radius: 8px;  
+  border: 1px solid var(--gray);
+
+}
+
+aside {font-family: 'Courier New', Courier, monospace;}
+
+.playground,.monaco-editor .margin,.monaco-editor-background,header {background-color: var(--dark) !important;}
+
+button {background-color: inherit; border: 0; text-transform: uppercase;}
+
+.preview,.editor {
+  position: relative;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 45px;
+  border-bottom: 1px solid var(--gray);
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.editor .content,.preview .content {height: calc(100% - 45px);}
+
+iframe {
+  border: 0;
+  overflow: auto;
+}
+
+.console {
+  height: 50%;
+  position: absolute;
+  bottom: 0;
+  overflow-x: auto; 
+  border-top: 1px solid var(--gray); 
+}
+
+.control { height: 25px; padding: .5rem 1rem; font-size: small;}
+.console pre {height: calc(100% - 25px);}
+
+.gutter {
+  background-color: var(--gray);
+  cursor: move;
+}
+
+.tab,.btn,button {  
+  margin: 0;
+  color: var(--light);
+  display: flex;
+  align-items: center;
+  padding: .5rem 1.2rem;
+  border-right: 1px solid var(--gray);
+  font-size: .9rem; 
+  cursor: pointer;
+  transition: color .25s;
+}
+
+.tab-action {display: none;}
+.tab:hover,.btn:hover,button:hover {color: var(--white);}
+.tab:hover .tab-action {display: flex;}
+
+img {filter: invert(100%) brightness(80%);}
+img:hover {filter: invert(100%) brightness(200%);}
+.icon {filter: none;}
+
+.circle {
+  border-radius: 50%;
+  display: inline-block;
+  height: 14px;
+  margin: 0 7px;
+  width: 14px;
+}
+
+.overflow {
+  overflow: auto;
+  scrollbar-width: none;
+}

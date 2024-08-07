@@ -1,10 +1,10 @@
-# Vconsole: advanced Javascript console
+# Vconsole: advanced Javascript console v3
 
 - [x] Typescript
-- [x] Coffeescript
-- [x] LiveScript
-- [x] Babel
+- [x] Javascript
+- [x] Css
 - [x] HTML
+- [x] React (Javascript, Typescript)
 
 ### Built with
 
@@ -12,7 +12,7 @@
 - Bitbucket Snippet API
 - Monaco Editor
 - React, React Router DOM
-- Context API
+- Redux, RTK
 
 ### Captures
 ![vconsole](https://i.ibb.co/YtHdRWq/vconsole.png)
