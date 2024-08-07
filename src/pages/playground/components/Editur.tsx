@@ -1,4 +1,4 @@
-import { Editor, Monaco } from '@monaco-editor/react';
+import { Editor } from '@monaco-editor/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, updateFile } from '../store';
 
@@ -6,28 +6,28 @@ export default function Editur() {
   const currentFile = useSelector((state: RootState) => state.files.currentFile)
   const dispatch = useDispatch();
 
-  const handleEditorWillMount = (monaco: Monaco) => {
-    console.log('handleEditorWillMount');
+  // const handleEditorWillMount = (monaco: Monaco) => {
+  //   console.log('handleEditorWillMount');
     
-    // monaco.languages.registerCompletionItemProvider(['javascript', 'typescript'], {
-    //   provideCompletionItems: () => {
-    //     return {
-    //       suggestions: [
-    //         {
-    //           label: 'Async Block',
-    //           kind: monaco.languages.CompletionItemKind.Snippet,
-    //           documentation: 'Add an async block',
-    //           insertText: [
-    //             '(async () => {',
-    //             '\t',
-    //             '})()'].join('\n'),
-    //           insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-    //         },
-    //       ]
-    //     };
-    //   }
-    // });
-  }
+  //   monaco.languages.registerCompletionItemProvider(['javascript', 'typescript'], {
+  //     provideCompletionItems: () => {
+  //       return {
+  //         suggestions: [
+  //           {
+  //             label: 'Async Block',
+  //             kind: monaco.languages.CompletionItemKind.Snippet,
+  //             documentation: 'Add an async block',
+  //             insertText: [
+  //               '(async () => {',
+  //               '\t',
+  //               '})()'].join('\n'),
+  //             insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+  //           },
+  //         ]
+  //       };
+  //     }
+  //   });
+  // }
 
   const handleEditorChange = (value: string) => {
     dispatch(updateFile(value))
@@ -41,7 +41,7 @@ export default function Editur() {
     value={currentFile.code}
     onChange={handleEditorChange}
 
-    beforeMount={handleEditorWillMount}
+    // beforeMount={handleEditorWillMount}
     options={{ minimap: { enabled: false }, tabSize: 2 }}
   />
 }

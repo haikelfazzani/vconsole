@@ -1,4 +1,4 @@
-import { Tab } from "../type";
+import { File } from "../type";
 import { transform } from "sucrase";
 
 function isTypedArray(arr) {
@@ -51,7 +51,7 @@ export default class Sandbox {
       .join('\n');
   }
 
-  static evaluate(tabs: Tab[]) {
+  static evaluate(tabs: File[]) {
 
     let htmlCode = '';
     let cssCode = '';
