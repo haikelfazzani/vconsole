@@ -40,17 +40,18 @@ body {
 
 ul {list-style: none; margin: 0; padding: 0;}
 
-
 pre {
   font-family: 'Droid Sans Mono', 'monospace', monospace;
   font-feature-settings: "liga" off, "calt" off;
-  overflow: auto; padding: 10px 15px; 
+  overflow: auto; 
+  padding: 10px 15px; 
   margin: 0; 
   background-color: var(--dark); 
   line-height: 1.7rem;
-  scrollbar-width: thin;}
+  scrollbar-width: thin;
+}
 
-  .small {font-size: small;}
+.small {font-size: small;}
 
 .d-flex {display: flex;}
 .justify-between {justify-content: space-between;}

@@ -28,7 +28,7 @@ export default function Console() {
   return (
     <div className='w-100 console bg-dark'>
       <div className="w-100 control d-flex justify-between">
-        <span>Console</span>
+        <span className="d-flex align-center gap-1"><Icon src="533344/terminal.svg" alt="trash" />Console</span>
         <div className="d-flex">
           <button onClick={() => { dispatch(clear()) }}><Icon src="533010/trash-alt.svg" alt="trash" /></button>
           <BtnToggleConsole />

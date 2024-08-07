@@ -3,9 +3,9 @@ import { RootState, remove, updateTabName, setCurrentTab } from "../store"
 import { useCallback, useState } from "react";
 import Icon from "../../../components/Icon";
 import { Tab } from "../../../type";
-import BtnCreateNewTab from "./buttons/BtnCreateNewTab";
+import BtnCreateNewFile from "./buttons/BtnCreateNewFile";
 
-export default function Tabs() {
+export default function FileExplorer() {
   const tabs = useSelector((state: RootState) => state.tabs.value) as Tab[];
   const currentTabIndex = useSelector((state: RootState) => state.tabs.currentTabIndex)
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export default function Tabs() {
     <div className="overflow small" spellCheck={false}>
       <div className="d-flex justify-between" style={{ padding: '10px' }}>
         <span>Files</span>
-        <BtnCreateNewTab />
+        <BtnCreateNewFile />
       </div>
 
       {tabs.map((t, i) => <div className="tab d-flex gap-1" key={i}>

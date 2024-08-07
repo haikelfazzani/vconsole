@@ -40,8 +40,8 @@ iframe {
   border-top: 1px solid var(--gray); 
 }
 
-.control { height: 25px; padding: .5rem 1rem; font-size: small;}
-.console pre {height: calc(100% - 25px);}
+.control { height: 2rem; padding: .5rem 1rem; font-size: small;}
+.console pre {height: calc(100% - 2rem);}
 
 .gutter {
   background-color: var(--gray);

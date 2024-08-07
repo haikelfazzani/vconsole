@@ -8,8 +8,8 @@ export const defaultLanguages = [
 
 const defaultTab = [{
   index: 0,
-  name: 'main.html',
-  code: '<div id="root"></div>',
+  name: 'index.html',
+  code: `<div id="root"></div>`,
   language: 'html',
   icon: defaultLanguages[3].icon
 },
@@ -17,18 +17,18 @@ const defaultTab = [{
   index: 1,
   name: 'App.tsx',
   code: `function App() {
-const [state, setState] = useState('hello')
-return (
-<div>
-<button onClick={() => { setState('World')}}>Click</button>
-{state}
-</div>
-);
+  const [state, setState] = useState('hello')
+  return (
+    <div>
+      <button onClick={() => { setState('World')}}>Click</button>
+      {state}
+    </div>
+  );
 }
 
 ReactDOM
-.createRoot(document.getElementById('root'))
-.render(<App />)`,
+  .createRoot(document.getElementById('root'))
+  .render(<App />)`,
   language: 'javascript',
   icon: defaultLanguages[2].icon
 },
@@ -67,10 +67,4 @@ export function getTabs() {
   } catch (error) {
     return defaultTab
   }
-}
-
-export const configFile = {
-  fontSize: 14,
-  tabSize: 2,
-  theme: 'vs-dark'
 }

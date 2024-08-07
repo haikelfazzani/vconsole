@@ -4,7 +4,7 @@ import Editur from './components/Editur';
 import { store } from './store';
 import Console from './components/Console';
 import Iframe from './components/Iframe';
-import Tabs from './components/Tabs';
+import FileExplorer from './components/FileExplorer';
 import BtnCopy from './components/buttons/BtnCopy';
 import BtnRun from './components/buttons/BtnRun';
 import BtnToggleConsole from './components/buttons/BtnToggleConsole';
@@ -36,7 +36,7 @@ export default function Playground() {
               </div>
         
             </header>
-            <Tabs />
+            <FileExplorer />
           </aside>
 
           <div className='editor'>

@@ -39,11 +39,11 @@ const TabsSlice = createSlice({
       state.currentTabIndex = action.payload.index
     },
     updateTabName: (state, action) => {
-      state.value = state.value.map((t: Tab) => {        
+      state.value = state.value.map((t: Tab) => {
         const tabName = action.payload.trim();
         if (t.index === state.currentTabIndex) {
           t.name = tabName;
-          t.icon = defaultLanguages.find(v => v.extensions.includes(getFileExtension(tabName))).icon;          
+          t.icon = defaultLanguages.find(v => v.extensions.includes(getFileExtension(tabName))).icon;
         }
         return t;
       });

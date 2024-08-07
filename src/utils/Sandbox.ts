@@ -79,9 +79,9 @@ export default class Sandbox {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Sandbox</title>
+      <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
     </head>
-    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
     
     <body>
       <style>${cssCode}</style>
@@ -94,7 +94,9 @@ export default class Sandbox {
       this.iframeWin.onload = () => {
         const script = document.createElement('script');
         script.type = "module";
-        script.text = `const { useInsertionEffect, useId, useReducer,useDeferredValue,useDebugValue,useActionState,useContext, useOptimistic, useLayoutEffect, useMemo, forwardRef, useImperativeHandle, useRef, useState, useEffect, useCallback, useTransition, useSyncExternalStore } = React; ${jsCode}`;
+        script.text = `const { useInsertionEffect, useId, useReducer,useDeferredValue,useDebugValue,
+          useActionState,useContext, useOptimistic, useLayoutEffect, useMemo, forwardRef, 
+          useImperativeHandle, useRef, useState, useEffect, useCallback, useTransition, useSyncExternalStore } = React; ${jsCode}`;
         script.defer = true;
 
         this.iframeDoc.body.appendChild(script);
