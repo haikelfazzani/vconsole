@@ -12,7 +12,8 @@
   --black: #14151b;
   --dark: #282a36;
   --gray:#393939;
-  --light:#e8e8e8;
+  --light:#c9c9c9;
+  --white:#fff;
 
   --darkgreen:#108658;
   --warning:#bd8e00;
@@ -69,6 +70,8 @@ pre {
 .yellow {color: var(--yellow);}
 .blue {color: var(--blue);}
 .red {color: var(--red);}
+.white {color: var(--white);}
+.yellow {color: var(--yellow);}
 
 .bg-danger {background-color: var(--danger);}
 .bg-darkgreen {background-color: var(--darkgreen);}

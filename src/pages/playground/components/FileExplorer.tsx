@@ -40,7 +40,7 @@ export default function FileExplorer() {
         <BtnCreateNewFile />
       </div>
 
-      {files.map((t, i) => <div className="tab d-flex gap-1" key={i}>
+      {files.map((t, i) => <div className={"tab d-flex gap-1" +(t.index === currentFileIndex?" yellow":"")} key={i}>
         <Icon className="icon" src={t.icon} alt={t.name} />
 
         <div title={t.name} onClick={() => { onFileClick(t) }} onInput={onChangeFileName} contentEditable suppressContentEditableWarning>

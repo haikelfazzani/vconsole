@@ -19,13 +19,13 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 45px;
+  height: 2.7rem;
   border-bottom: 1px solid var(--gray);
   overflow: auto;
   scrollbar-width: none;
 }
 
-.editor .content,.preview .content {height: calc(100% - 45px);}
+.editor .content,.preview .content {height: calc(100% - 2.7rem);}
 
 iframe {
   border: 0;
@@ -57,7 +57,7 @@ iframe {
   border-right: 1px solid var(--gray);
   font-size: .9rem; 
   cursor: pointer;
-  transition: color .25s;
+  transition: color .20s;
 }
 
 .tab-action {display: none;}
